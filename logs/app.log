@@ -349,3 +349,46 @@
 2025-11-21T03:53:28.928Z  INFO 45524 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-21T03:53:28.929Z  INFO 45524 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-11-21T03:53:28.933Z  INFO 45524 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-11-21T04:03:31.152Z  INFO 67952 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 23.0.1 with PID 67952 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-11-21T04:03:31.154Z  INFO 67952 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-11-21T04:03:31.906Z  INFO 67952 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-21T04:03:31.944Z  INFO 67952 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2025-11-21T04:03:32.300Z  INFO 67952 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-11-21T04:03:32.310Z  INFO 67952 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-21T04:03:32.310Z  INFO 67952 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-11-21T04:03:32.351Z  INFO 67952 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-21T04:03:32.351Z  INFO 67952 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1160 ms
+2025-11-21T04:03:32.516Z  INFO 67952 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21T04:03:32.552Z  INFO 67952 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-11-21T04:03:32.574Z  INFO 67952 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-21T04:03:32.758Z  INFO 67952 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-21T04:03:32.779Z  INFO 67952 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-21T04:03:32.880Z  INFO 67952 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3c17794e
+2025-11-21T04:03:32.881Z  INFO 67952 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-21T04:03:32.933Z  INFO 67952 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-21T04:03:33.580Z  INFO 67952 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21T04:03:33.641Z  INFO 67952 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T04:03:33.849Z  INFO 67952 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-21T04:03:34.259Z  INFO 67952 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-11-21T04:03:34.681Z  INFO 67952 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-11-21T04:03:34.699Z  INFO 67952 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-21T04:03:34.753Z DEBUG 67952 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-11-21T04:03:35.063Z  INFO 67952 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-11-21T04:03:35.072Z  INFO 67952 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.261 seconds (process running for 4.724)
+2025-11-21T04:03:35.545Z  INFO 67952 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-21T04:03:35.545Z  INFO 67952 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-21T04:03:35.545Z  INFO 67952 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-11-21T04:03:35.547Z  INFO 67952 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-11-21T04:03:35.593Z  INFO 67952 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#55bd9d1:0/SimpleConnection@453c5375 [delegate=amqp://guest@127.0.0.1:5672/, localPort=51225]
+2025-11-21T04:09:26.708Z  INFO 67952 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-21T04:09:26.712Z  INFO 67952 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-11-21T04:09:26.728Z  INFO 67952 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T04:09:26.729Z  INFO 67952 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-21T04:09:26.732Z  INFO 67952 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
