@@ -17,7 +17,7 @@ spring:
     open-in-view: true
   # rabbitmq
   rabbitmq:
-    host:  ${RABBITMQ_URL:localhost}   # Se estiver a correr o RabbitMQ localmente
+    host:  ${RABBITMQ_PRIVATE_URL:localhost}   # Se estiver a correr o RabbitMQ localmente
     port:  ${PORT:5672}        # Porta padrão do RabbitMQ
     username:  ${RABBITMQ_DEFAULT_USER:guest}   # Usuário padrão
     password: ${RABBITMQ_DEFAULT_PASS:guest}   # Password padrão
