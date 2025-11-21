@@ -6,9 +6,9 @@ spring:
     name: auth-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/horasdb
-    username: ${DB_USERNAME:horas_user}
-    password: ${DB_PASSWORD:horas_pass}
+    url:  ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/horasdb}
+    username: ${SPRING_DATASOURCE_USERNAME:horas_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:horas_pass}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

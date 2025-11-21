@@ -56,6 +56,11 @@
             <version>1.5.5.Final</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -123,5 +128,24 @@
 
 		</plugins>
 	</build>
+    <repositories>
+        <repository>
+            <id>sanoneto</id>
+            <name>config</name>
+            <url>https://github.com/sanoneto/config.git</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>github-packages</id>
+            <name>GitHub Packages sanoneto Releases</name>
+            <url>https://maven.pkg.github.com/sanoneto/auth-service</url>
+        </repository>
+        <snapshotRepository>
+            <id>github-packages-snapshots</id>
+            <name>GitHub Packages sanoneto Snapshots</name>
+            <url>https://maven.pkg.github.com/sanoneto/auth-service</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
