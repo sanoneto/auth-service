@@ -1,8 +1,9 @@
 package com.aneto.authService.queue;
 
 
-import common_messaging.config.RabbitMQConfig;
-import common_messaging.config.dto.request.EmailRequest;
+
+import com.aneto.authService.config.RabbitMQConfig;
+import com.aneto.authService.dto.request.EmailRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
