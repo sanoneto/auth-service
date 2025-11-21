@@ -1,0 +1,37 @@
+package com.aneto.authService.service.impl;
+
+
+import com.aneto.authService.models.Users;
+
+import com.aneto.authService.repository.UsersRepository;
+import com.aneto.authService.service.UsersService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class UsersServiceImpl implements UsersService {
+
+    private final UsersRepository usersRepository; // Repositório dos usuários.
+    private final PasswordEncoder passwordEncoder;     // Para a codificação da senha.
+
+    @Override
+    public Users registrarUsers(Users users) {
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        return usersRepository.save(users);
+    }
+
+    @Override
+    public Optional<Users> buscarPorUsername(String username) {
+        return usersRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean existeUsers(String username) {
+        return usersRepository.findByUsername(username).isPresent();
+    }
+
+}

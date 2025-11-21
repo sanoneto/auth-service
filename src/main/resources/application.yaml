@@ -1,0 +1,58 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: auth-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/horasdb
+    username: horas_user
+    password: ${DB_PASSWORD:horas_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: true
+  # rabbitmq
+  rabbitmq:
+    host: localhost   # Se estiver a correr o RabbitMQ localmente
+    port: 5672        # Porta padrão do RabbitMQ
+    username: guest   # Usuário padrão
+    password: guest   # Password padrão
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,env,beans
+  endpoint:
+    health:
+      show-details: never
+  health:
+    mail:
+      enabled: false
+jwt:
+  secret: ${JWT_SECRET:chave-principal-aneto-registo-horas-seguranca-2025-api-gateway}
+  expiration: ${JWT_EXPIRATION:86400000}  # 24h em ms
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
+    display-request-duration: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.registo.horas_estagio: DEBUG
+    org.flywaydb: DEBUG
+  file:
+    name: logs/app.log
