@@ -130,9 +130,9 @@
 	</build>
     <repositories>
         <repository>
-            <id>sanoneto</id>
-            <name>config</name>
-            <url>https://github.com/sanoneto/config.git</url>
+            <id>github-repo-aneto</id>
+            <name>GitHub Packages Sanoneto</name>
+            <url>https://maven.pkg.github.com/sanoneto</url>
         </repository>
     </repositories>
     <distributionManagement>
