@@ -7,7 +7,7 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/horasdb
-    username: horas_user
+    username: ${DB_USERNAME:horas_user}
     password: ${DB_PASSWORD:horas_pass}
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -17,10 +17,11 @@ spring:
     open-in-view: true
   # rabbitmq
   rabbitmq:
-    host: localhost   # Se estiver a correr o RabbitMQ localmente
-    port: 5672        # Porta padrão do RabbitMQ
-    username: guest   # Usuário padrão
-    password: guest   # Password padrão
+    host:  ${RABBITMQ_URL:localhost}   # Se estiver a correr o RabbitMQ localmente
+    port:  ${PORT:5672}        # Porta padrão do RabbitMQ
+    username:  ${RABBITMQ_DEFAULT_USER:guest}   # Usuário padrão
+    password: ${RABBITMQ_DEFAULT_PASS:guest}   # Password padrão
+
 
 management:
   endpoints:
