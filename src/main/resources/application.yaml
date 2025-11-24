@@ -4,7 +4,11 @@ server:
 spring:
   application:
     name: auth-service
-
+  # Certifique-se de que a execução do script está habilitada
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always
   datasource:
     url:  ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/horasdb}
     username: ${SPRING_DATASOURCE_USERNAME:horas_user}

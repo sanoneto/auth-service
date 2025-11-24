@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "jwt_token_users")
+@Table(name = "jwt_token_users", schema = "SECURITY")
 public class JwtToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

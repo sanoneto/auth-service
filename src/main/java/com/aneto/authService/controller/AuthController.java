@@ -12,6 +12,7 @@ import com.aneto.authService.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +47,7 @@ public class AuthController {
             @ApiResponse(responseCode = "401", description = "Credenciais inválidas")
     })
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
 
         // 1. Autenticação via Spring Security
         Authentication authentication = authenticationManager.authenticate(
@@ -83,7 +84,7 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Username já existe ou dados inválidos")
     })
     @PostMapping("/registar")
-    public ResponseEntity<?> registrarUsers(@RequestBody UserCredentialsRequest userCredentialsRequest) {
+    public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest userCredentialsRequest) {
         if (usersService.existeUsers(userCredentialsRequest.username())) {
             return ResponseEntity.badRequest().body("Username já existe!");
         }
