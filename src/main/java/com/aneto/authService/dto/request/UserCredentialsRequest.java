@@ -43,7 +43,16 @@ public record UserCredentialsRequest(
         @NotBlank(message = "O e-mail é obrigatório.")
         // (Ex: deve conter um '@' e um '.' no domínio)
         @Email(message = "O e-mail deve ter um formato válido.")
-        @NotEmpty String email) {
+        @NotEmpty String email,
+
+        @Schema(
+                description = "Horas necessárias para o usuário",
+                example = "400.0",
+                required = true
+        )
+        @NotNull(message = "Required hours cannot be null")
+        @Min(value = 1, message = "Required hours must be at least 1")
+        Double requiredHours) {
 
 
 }

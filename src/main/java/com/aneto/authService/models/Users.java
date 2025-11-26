@@ -39,6 +39,9 @@ public class Users {
     @NotBlank(message = "Role não pode ser vazia")
     private String role;
 
+    @Column(nullable = false)
+    private Double requiredHours;
+
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     // Não usamos @ToString.Exclude, a implementação nativa de toString() é mais segura
@@ -52,11 +55,12 @@ public class Users {
     }
 
     // Construtor para criação de um NOVO usuário (Substitui o @Builder/@AllArgsConstructor)
-    public Users(String username, String email, String password, String role) {
+    public Users(String username, String email, String password, String role,double requiredHours) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.requiredHours = requiredHours;
         this.publicId = UUID.randomUUID(); // Inicialização explícita
         this.jwtToken = new ArrayList<>();
     }
@@ -101,4 +105,12 @@ public class Users {
     public void setPassword(String password) { this.password = password; }
     public void setRole(String role) { this.role = role; }
     public void setJwtToken(List<JwtToken> jwtToken) { this.jwtToken = jwtToken; }
+
+    public double getRequiredHours() {
+        return requiredHours;
+    }
+
+    public void setRequiredHours(double requiredHours) {
+        this.requiredHours = requiredHours;
+    }
 }

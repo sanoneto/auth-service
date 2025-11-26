@@ -11,6 +11,7 @@ public interface RequestMapper {
     @Mapping(target = "username", source = "username")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "role", source = "role")
+    @Mapping(target = "requiredHours", source = "requiredHours")
     Users mapToLogin(UserCredentialsRequest userCredentialsRequest);
 
 
