@@ -1,27 +1,28 @@
 package com.aneto.authService.controller;
 
 import com.aneto.authService.dto.request.LoginRequest;
+import com.aneto.authService.dto.request.ProjectRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
+import com.aneto.authService.dto.response.ProjectResponse;
 import com.aneto.authService.mapper.RequestMapper; // Assumido
 import com.aneto.authService.models.Users; // Assumido
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.JwtTokenService; // Assumido
 import com.aneto.authService.service.UsersService;
+import com.aneto.authService.service.impl.ProjectorsServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
@@ -37,6 +38,9 @@ public class AuthController {
     private final JwtTokenService jwtTokenService;
     private final RequestMapper requestMapper; // Assumido
     private final EmailProducer emailProducer;
+
+
+    private static final String X_USER_ID = "X-User-Id";
 
     @Operation(
             summary = "Autentica um usuário e emite um token JWT",
