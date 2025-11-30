@@ -85,7 +85,7 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Usuário registrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Username já existe ou dados inválidos")
     })
-    @PostMapping("/registar")
+    @PostMapping("/register")
     public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest userCredentialsRequest) {
         if (usersService.existeUsers(userCredentialsRequest.username())) {
             return ResponseEntity.badRequest().body("Username já existe!");
