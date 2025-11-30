@@ -59,8 +59,7 @@ public class AuthController {
         );
 
         // 2. Busca o usuário para obter roles
-        Users usuario = usersService.buscarPorUsername(loginRequest.username())
-                .orElseThrow(() -> new IllegalStateException("Usuário autenticado, mas não encontrado no DB."));
+        Users usuario = usersService.findPorUsername(loginRequest.username());
 
         // 3. Normaliza a role para o token (remove 'ROLE_' e usa UPPERCASE)
         String role = usuario.getRole();

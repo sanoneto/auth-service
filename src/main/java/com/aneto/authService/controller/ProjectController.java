@@ -21,7 +21,7 @@ public class ProjectController {
 
 
     @Operation(summary = "Retorna o total de horas de um usuário")
-    @PostMapping("/add")
+    @PostMapping()
     @PreAuthorize("hasRole('ADMIN') or (hasRole('ESTAGIARIO') and #username == authentication.name)")
     public ResponseEntity<ProjectResponse> saveProjets(@RequestBody @Valid ProjectRequest projectRequest) {
         ProjectResponse response = projectorsService.saveProjets(projectRequest);
@@ -30,7 +30,7 @@ public class ProjectController {
     }
 
     // 3. Mapeamento GET com variável de caminho
-    @GetMapping("/list/{username}")
+    @GetMapping("{username}")
     public ResponseEntity<List<String>> getListprojectos(@PathVariable @Valid String username) {
 
         List<String> projectNames = projectorsService.findallbyName(username);

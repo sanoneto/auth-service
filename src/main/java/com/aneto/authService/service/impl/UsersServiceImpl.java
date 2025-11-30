@@ -6,6 +6,7 @@ import com.aneto.authService.models.Users;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Optional<Users> buscarPorUsername(String username) {
-        return usersRepository.findByUsername(username);
+    public Users findPorUsername(String username) throws UsernameNotFoundException {
+        return usersRepository.findByUsername(username)
+                // Se o utilizador não for encontrado na base de dados, esta exceção é lançada
+                .orElseThrow(() -> new UsernameNotFoundException("Utilizador não encontrado com o nome: " + username));
     }
 
     @Override

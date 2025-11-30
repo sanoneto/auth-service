@@ -13,7 +13,7 @@ public interface UsersService {
      * Busca um usuário pelo username.
      * Exemplo: Usado em autenticação/login.
      */
-    public Optional<Users> buscarPorUsername(String username) ;
+    public Users findPorUsername(String username) ;
 
     /**
      * Verifica se um usuário existe pelo nome de usuário.
