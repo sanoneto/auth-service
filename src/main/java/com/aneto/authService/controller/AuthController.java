@@ -39,7 +39,6 @@ public class AuthController {
     private final RequestMapper requestMapper; // Assumido
     private final EmailProducer emailProducer;
 
-
     private static final String X_USER_ID = "X-User-Id";
 
     @Operation(
