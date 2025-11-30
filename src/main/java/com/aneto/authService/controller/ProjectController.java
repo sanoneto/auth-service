@@ -30,7 +30,7 @@ public class ProjectController {
     }
 
     // 3. Mapeamento GET com variável de caminho
-    @GetMapping("{username}")
+    @GetMapping("/{username}")
     public ResponseEntity<List<String>> getListprojectos(@PathVariable @Valid String username) {
 
         List<String> projectNames = projectorsService.findallbyName(username);
