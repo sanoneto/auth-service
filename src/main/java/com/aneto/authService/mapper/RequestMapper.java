@@ -22,7 +22,7 @@ public interface RequestMapper {
     @Mapping(target = "requiredHours", source = "requiredHours")
      ProjectResponse mapTProject(Projects project);
 
-
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "publicId", source = "publicId")
     @Mapping(target = "username", source = "username")
     @Mapping(target = "role", source = "role")
