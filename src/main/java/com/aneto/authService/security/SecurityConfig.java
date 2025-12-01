@@ -74,7 +74,7 @@ public class SecurityConfig {
 
                         // ⚠️ Nota: A rota "api/v1/projects/**" também está aqui, se for um erro de cópia, remova-a,
                         // pois a rota de projetos não deveria estar neste serviço.
-                         .requestMatchers("api/v1/projects/**").permitAll()
+                         .requestMatchers("api/v1/projects/**","/api/v1/users/**").permitAll()
 
                         // Qualquer outra rota neste serviço DEVE ser protegida (e só pode ser acedida com um JWT válido,
                         // embora este serviço seja primariamente o criador de tokens).
