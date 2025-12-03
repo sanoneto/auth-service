@@ -1,6 +1,11 @@
 server:
   port: ${PORT:8081}
-
+app:
+  security:
+    cors:
+      allowed-origins: http://localhost:5173, https://treg-app.vercel.app, https://front-end-three-self.vercel.app
+      allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
+      allowed-headers: Authorization,Content-Type,X-User-Roles,X-User-Id
 spring:
   application:
     name: auth-service
@@ -10,7 +15,7 @@ spring:
       schema-locations: classpath:schema.sql
       mode: always
   datasource:
-    url:  ${SPRING_DATASOURCE_URL}
+    url: jdbc:postgresql://localhost:5432/horasdb
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -21,10 +26,10 @@ spring:
     open-in-view: true
   # rabbitmq
   rabbitmq:
-    host:  ${RABBITMQ_PRIVATE_URL}   # Se estiver a correr o RabbitMQ localmente
-    port:  ${RABBITMQ_PORT}     # Porta padrão do RabbitMQ
-    username:  ${RABBITMQ_DEFAULT_USER}   # Usuário padrão
-    password: ${RABBITMQ_DEFAULT_PASS}   # Password padrão
+    host:  ${RABBITMQ_PRIVATE_URL:localhost}   # Se estiver a correr o RabbitMQ localmente
+    port:  ${RABBITMQ_PORT:5672}     # Porta padrão do RabbitMQ
+    username:  ${RABBITMQ_DEFAULT_USER:guest}   # Usuário padrão
+    password: ${RABBITMQ_DEFAULT_PASS:guest}   # Password padrão
 
 
 management:
@@ -39,8 +44,8 @@ management:
     mail:
       enabled: false
 jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}  # 24h em ms
+  secret: ${JWT_SECRET:chave-principal-aneto-registo-horas-seguranca-2025-api-gateway}
+  expiration: ${JWT_EXPIRATION:86400000}  # 24h em ms
 
 springdoc:
   api-docs:
