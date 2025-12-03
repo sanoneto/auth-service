@@ -870,3 +870,8 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 2025-12-03T15:16:30.954Z  INFO 43368 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-12-03T15:16:30.955Z  INFO 43368 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2025-12-03T15:16:30.999Z  INFO 43368 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2fa7a4d3:0/SimpleConnection@51f36de5 [delegate=amqp://guest@127.0.0.1:5672/, localPort=65095]
+2025-12-03T15:55:05.131Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-03T15:55:05.137Z  INFO 43368 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-03T15:55:05.155Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-03T15:55:05.157Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-03T15:55:05.160Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

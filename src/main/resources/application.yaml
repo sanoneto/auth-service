@@ -10,7 +10,7 @@ spring:
       schema-locations: classpath:schema.sql
       mode: never
   datasource:
-    url:  ${SPRING_DATASOURCE_URL}
+    url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -22,9 +22,9 @@ spring:
     open-in-view: true
 
   rabbitmq:
-    host:  ${RABBITMQ_PRIVATE_URL}
-    port:  ${RABBITMQ_PORT}
-    username:  ${RABBITMQ_DEFAULT_USER}
+    host: ${RABBITMQ_PRIVATE_URL}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_DEFAULT_USER}
     password: ${RABBITMQ_DEFAULT_PASS}
 
 jwt:

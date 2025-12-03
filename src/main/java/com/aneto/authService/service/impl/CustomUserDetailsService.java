@@ -43,7 +43,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .authorities(authorities)
                 .build();
     }
-
     /**
      * Constrói a coleção de GrantedAuthority para o usuário.
      * Normaliza a role (adiciona prefixo ROLE_ se necessário) e valida sua presença.
