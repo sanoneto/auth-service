@@ -4,29 +4,33 @@ server:
 spring:
   application:
     name: auth-service
-  # Certifique-se de que a execução do script está habilitada
+
   sql:
     init:
       schema-locations: classpath:schema.sql
-      mode: always
+      mode: never
   datasource:
     url:  ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     open-in-view: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  # rabbitmq
-  rabbitmq:
-    host:  ${RABBITMQ_PRIVATE_URL}   # Se estiver a correr o RabbitMQ localmente
-    port:  ${RABBITMQ_PORT}     # Porta padrão do RabbitMQ
-    username:  ${RABBITMQ_DEFAULT_USER}   # Usuário padrão
-    password: ${RABBITMQ_DEFAULT_PASS}   # Password padrão
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # Corrigido
 
+  rabbitmq:
+    host:  ${RABBITMQ_PRIVATE_URL}
+    port:  ${RABBITMQ_PORT}
+    username:  ${RABBITMQ_DEFAULT_USER}
+    password: ${RABBITMQ_DEFAULT_PASS}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
 management:
   endpoints:
@@ -39,9 +43,6 @@ management:
   health:
     mail:
       enabled: false
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}  # 24h em ms
 
 springdoc:
   api-docs:
