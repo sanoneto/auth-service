@@ -16,7 +16,7 @@ public record EmailRequest(
         @Email
         @Size(max = 200)
         String email,
-
+        String subject,
         @NotBlank
         @Size(max = 2000)
         String message

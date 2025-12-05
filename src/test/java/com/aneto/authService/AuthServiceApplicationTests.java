@@ -2,7 +2,7 @@ package com.aneto.authService;
 
 // language: java
 
-import com.aneto.authService.service.UsersService;
+import com.aneto.authService.service.AuthService;
 
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +18,9 @@ public class AuthServiceApplicationTests {
     @TestConfiguration // Indica que esta classe fornece beans específicos para o teste
     static class TestConfig {
         @Bean // O bean injetado no contexto de teste será este Mock
-        public UsersService usersService() {
+        public AuthService usersService() {
             // Cria e retorna o mock do Mockito
-            return Mockito.mock(UsersService.class);
+            return Mockito.mock(AuthService.class);
         }
     }
 }

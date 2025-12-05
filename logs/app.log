@@ -1,104 +1,20 @@
-2025-12-03T11:49:48.668Z  INFO 14720 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 14720 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T11:49:48.675Z  INFO 14720 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T11:49:49.850Z  INFO 14720 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T11:49:49.904Z  INFO 14720 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
-2025-12-03T11:49:50.386Z  INFO 14720 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T11:49:50.397Z  INFO 14720 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T11:49:50.397Z  INFO 14720 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T11:49:50.450Z  INFO 14720 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T11:49:50.451Z  INFO 14720 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1736 ms
-2025-12-03T11:49:50.619Z  INFO 14720 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T11:49:51.666Z  WARN 14720 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-2025-12-03T11:49:51.669Z  INFO 14720 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-12-03T11:49:51.685Z  INFO 14720 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-12-03T11:49:51.696Z ERROR 14720 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
-	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:10) ~[classes/:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 10 common frames omitted
-Caused by: org.springframework.jdbc.datasource.init.UncategorizedScriptException: Failed to execute database script
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:67) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 17 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:52) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 25 common frames omitted
-Caused by: org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:373) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar:42.7.8]
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar:na]
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 26 common frames omitted
-Caused by: java.net.ConnectException: Connection refused: getsockopt
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682) ~[na:na]
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542) ~[na:na]
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[na:na]
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
-	at java.base/java.net.Socket.connect(Socket.java:751) ~[na:na]
-	at org.postgresql.core.PGStream.createSocket(PGStream.java:261) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.PGStream.<init>(PGStream.java:122) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:146) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar:42.7.8]
-	... 40 common frames omitted
-
-2025-12-03T11:50:17.755Z  INFO 17236 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 17236 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T11:50:17.757Z  INFO 17236 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T11:50:18.919Z  INFO 17236 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T11:50:18.967Z  INFO 17236 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2025-12-03T11:50:19.413Z  INFO 17236 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T11:50:19.422Z  INFO 17236 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T11:50:19.423Z  INFO 17236 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T11:50:19.474Z  INFO 17236 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T11:50:19.474Z  INFO 17236 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1677 ms
-2025-12-03T11:50:19.620Z  INFO 17236 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T11:50:19.747Z  INFO 17236 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e159116
-2025-12-03T11:50:19.749Z  INFO 17236 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T11:50:19.844Z  INFO 17236 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T11:50:19.912Z  INFO 17236 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T11:50:19.954Z  INFO 17236 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T11:50:20.231Z  INFO 17236 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T11:50:20.306Z  INFO 17236 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-12-05T05:18:00.874Z  INFO 50900 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 50900 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-05T05:18:00.879Z  INFO 50900 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-05T05:18:01.655Z  INFO 50900 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-05T05:18:01.714Z  INFO 50900 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2025-12-05T05:18:02.068Z  INFO 50900 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-05T05:18:02.078Z  INFO 50900 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-05T05:18:02.078Z  INFO 50900 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-05T05:18:02.119Z  INFO 50900 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-05T05:18:02.120Z  INFO 50900 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1213 ms
+2025-12-05T05:18:02.240Z  INFO 50900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-05T05:18:02.347Z  INFO 50900 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@137a4b54
+2025-12-05T05:18:02.348Z  INFO 50900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-05T05:18:02.401Z  INFO 50900 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-05T05:18:02.439Z  INFO 50900 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-05T05:18:02.462Z  INFO 50900 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-05T05:18:02.643Z  INFO 50900 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-05T05:18:02.721Z  INFO 50900 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 15.15
@@ -106,312 +22,21 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-12-03T11:50:21.076Z  INFO 17236 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T11:50:21.179Z  INFO 17236 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T11:50:21.391Z  INFO 17236 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T11:50:21.801Z  INFO 17236 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T11:50:22.324Z  INFO 17236 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T11:50:22.346Z  INFO 17236 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T11:50:22.394Z  WARN 17236 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T11:50:22.412Z DEBUG 17236 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T11:50:22.740Z  INFO 17236 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T11:50:22.755Z  INFO 17236 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.62 seconds (process running for 6.576)
-2025-12-03T11:50:23.004Z  INFO 17236 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T11:50:23.020Z  INFO 17236 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T11:50:23.020Z  INFO 17236 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T11:50:23.022Z  INFO 17236 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-12-03T11:50:23.063Z  INFO 17236 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#7d68886c:0/SimpleConnection@291194ca [delegate=amqp://guest@127.0.0.1:5672/, localPort=50581]
-2025-12-03T11:50:28.767Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2025-12-03T11:50:28.780Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T11:50:28.786Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2025-12-03T11:50:29.108Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
-2025-12-03T11:50:29.109Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
-2025-12-03T11:50:29.109Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
-2025-12-03T11:50:29.181Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2025-12-03T13:26:20.134Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2025-12-03T13:26:20.163Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:20.165Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2025-12-03T13:26:20.194Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-2] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
-2025-12-03T13:26:20.194Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-2] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
-2025-12-03T13:26:20.194Z  INFO 17236 --- [auth-service] [http-nio-8081-exec-2] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
-2025-12-03T13:26:20.261Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2025-12-03T13:26:21.661Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:21.662Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:21.663Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:21.730Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:21.730Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:21.731Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:23.507Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:23.508Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:23.509Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:23.523Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:23.523Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:23.524Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.133Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.133Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:25.134Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.148Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.154Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:25.157Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.172Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:25.173Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:25.174Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:27.115Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-03T13:26:27.116Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:27.116Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-03T13:26:27.141Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-03T13:26:27.141Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:27.142Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-03T13:26:29.159Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:29.160Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:29.160Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:29.171Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:29.172Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:29.172Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:29.184Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:29.184Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:29.185Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:30.934Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:30.934Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:30.935Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T13:26:30.948Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects/adminhoras
-2025-12-03T13:26:30.949Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-03T13:26:30.950Z DEBUG 17236 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects/adminhoras
-2025-12-03T14:32:54.519Z  INFO 17236 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:32:54.524Z  INFO 17236 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:32:54.546Z  INFO 17236 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:32:54.550Z  INFO 17236 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:32:54.552Z  INFO 17236 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:32:57.137Z  INFO 41232 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 41232 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:32:57.139Z  INFO 41232 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:32:57.888Z  INFO 41232 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:32:57.929Z  INFO 41232 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:32:58.278Z  INFO 41232 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:32:58.293Z  INFO 41232 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:32:58.293Z  INFO 41232 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:32:58.334Z  INFO 41232 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:32:58.334Z  INFO 41232 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1168 ms
-2025-12-03T14:32:58.455Z  INFO 41232 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:32:59.537Z  WARN 41232 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-2025-12-03T14:32:59.539Z  INFO 41232 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-12-03T14:32:59.550Z  INFO 41232 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+2025-12-05T05:18:03.377Z  INFO 50900 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-05T05:18:03.487Z  INFO 50900 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-05T05:18:03.691Z  INFO 50900 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-05T05:18:04.084Z  INFO 50900 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-05T05:18:04.266Z  WARN 50900 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'authServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\AuthServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'jwtTokenServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\JwtTokenServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtTokenRepository' defined in com.aneto.authService.repository.JwtTokenRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
+2025-12-05T05:18:04.269Z  INFO 50900 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-05T05:18:04.271Z  INFO 50900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-05T05:18:04.273Z  INFO 50900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-05T05:18:04.276Z  INFO 50900 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-12-05T05:18:04.288Z  INFO 50900 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-12-03T14:32:59.561Z ERROR 41232 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+2025-12-05T05:18:04.303Z ERROR 50900 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
 
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
-	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:10) ~[classes/:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 10 common frames omitted
-Caused by: org.springframework.jdbc.datasource.init.UncategorizedScriptException: Failed to execute database script
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:67) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 17 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:52) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 25 common frames omitted
-Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "horas_user"
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:778) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:234) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar:42.7.8]
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar:na]
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 26 common frames omitted
-
-2025-12-03T14:36:46.075Z  INFO 37692 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 37692 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:36:46.078Z  INFO 37692 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:36:46.827Z  INFO 37692 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:36:46.868Z  INFO 37692 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:36:47.224Z  INFO 37692 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:36:47.238Z  INFO 37692 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:36:47.238Z  INFO 37692 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:36:47.277Z  INFO 37692 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:36:47.278Z  INFO 37692 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1166 ms
-2025-12-03T14:36:47.400Z  INFO 37692 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:36:48.481Z  WARN 37692 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-2025-12-03T14:36:48.484Z  INFO 37692 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-12-03T14:36:48.497Z  INFO 37692 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-12-03T14:36:48.508Z ERROR 37692 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
-	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:10) ~[classes/:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute database script
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 10 common frames omitted
-Caused by: org.springframework.jdbc.datasource.init.UncategorizedScriptException: Failed to execute database script
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:67) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer.runScripts(DataSourceScriptDatabaseInitializer.java:87) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.runScripts(AbstractScriptDatabaseInitializer.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:108) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 17 common frames omitted
-Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.init.DatabasePopulatorUtils.execute(DatabasePopulatorUtils.java:52) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 25 common frames omitted
-Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "horas_user"
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:778) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:234) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar:42.7.8]
-	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar:42.7.8]
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar:na]
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar:na]
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.2.12.jar:6.2.12]
-	... 26 common frames omitted
-
-2025-12-03T14:37:33.048Z  INFO 47492 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 47492 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:37:33.050Z  INFO 47492 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:37:33.772Z  INFO 47492 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:37:33.810Z  INFO 47492 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:37:34.153Z  INFO 47492 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:37:34.167Z  INFO 47492 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:37:34.167Z  INFO 47492 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:37:34.206Z  INFO 47492 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:37:34.207Z  INFO 47492 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1125 ms
-2025-12-03T14:37:34.326Z  INFO 47492 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:37:34.430Z  INFO 47492 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@64c95480
-2025-12-03T14:37:34.431Z  INFO 47492 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:37:34.485Z  INFO 47492 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:37:34.519Z  INFO 47492 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:37:34.541Z  INFO 47492 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:37:34.723Z  INFO 47492 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:37:34.787Z  INFO 47492 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:37:35.423Z  INFO 47492 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:37:35.505Z  INFO 47492 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:37:35.694Z  INFO 47492 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:37:36.064Z  INFO 47492 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:37:36.544Z  INFO 47492 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:37:36.562Z  INFO 47492 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:37:36.603Z  WARN 47492 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:37:36.619Z DEBUG 47492 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:37:36.898Z  INFO 47492 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:37:36.908Z  INFO 47492 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.193 seconds (process running for 4.671)
-2025-12-03T14:37:37.446Z  INFO 47492 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:37:37.446Z  INFO 47492 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:37:37.447Z  INFO 47492 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:37:37.448Z  INFO 47492 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-03T14:37:37.491Z  INFO 47492 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#13d57fd0:0/SimpleConnection@677050cc [delegate=amqp://guest@127.0.0.1:5672/, localPort=64965]
-2025-12-03T14:40:27.835Z  INFO 47492 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:40:27.838Z  INFO 47492 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:40:27.852Z  INFO 47492 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:40:27.854Z  INFO 47492 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:40:27.857Z  INFO 47492 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:40:30.752Z  INFO 47520 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 47520 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:40:30.754Z  INFO 47520 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:40:31.561Z  INFO 47520 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:40:31.609Z  INFO 47520 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:40:32.089Z  INFO 47520 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:40:32.101Z  INFO 47520 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:40:32.101Z  INFO 47520 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:40:32.148Z  INFO 47520 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:40:32.148Z  INFO 47520 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1361 ms
-2025-12-03T14:40:32.392Z  INFO 47520 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:40:32.490Z  INFO 47520 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@17136390
-2025-12-03T14:40:32.491Z  INFO 47520 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:40:32.547Z  INFO 47520 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:40:32.584Z  INFO 47520 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:40:32.625Z  INFO 47520 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:40:32.861Z  INFO 47520 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:40:32.941Z  INFO 47520 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:40:33.635Z  INFO 47520 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:40:33.719Z  INFO 47520 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:40:33.917Z  INFO 47520 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:40:34.305Z  WARN 47520 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'jwtTokenUtil': Injection of autowired dependencies failed
-2025-12-03T14:40:34.305Z  INFO 47520 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:40:34.306Z  INFO 47520 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:40:34.309Z  INFO 47520 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:40:34.312Z  INFO 47520 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-12-03T14:40:34.323Z  INFO 47520 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-12-03T14:40:34.333Z ERROR 47520 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'jwtTokenUtil': Injection of autowired dependencies failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'authServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\AuthServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'jwtTokenServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\JwtTokenServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtTokenRepository' defined in com.aneto.authService.repository.JwtTokenRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
@@ -434,207 +59,7 @@ org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
 	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:10) ~[classes/:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtTokenUtil': Injection of autowired dependencies failed
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 21 common frames omitted
-Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'JWT_EXPIRATION' in value "${JWT_EXPIRATION}" <-- "${jwt.expiration}"
-	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:298) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:131) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:293) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:264) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:186) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:970) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1675) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 32 common frames omitted
-
-2025-12-03T14:42:15.422Z  INFO 47660 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 47660 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:42:15.423Z  INFO 47660 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:42:16.163Z  INFO 47660 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:42:16.206Z  INFO 47660 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:42:16.623Z  INFO 47660 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:42:16.633Z  INFO 47660 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:42:16.634Z  INFO 47660 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:42:16.676Z  INFO 47660 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:42:16.677Z  INFO 47660 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1224 ms
-2025-12-03T14:42:16.812Z  INFO 47660 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:42:16.915Z  INFO 47660 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15cee630
-2025-12-03T14:42:16.917Z  INFO 47660 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:42:16.969Z  INFO 47660 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:42:17.004Z  INFO 47660 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:42:17.027Z  INFO 47660 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:42:17.207Z  INFO 47660 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:42:17.272Z  INFO 47660 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:42:17.911Z  INFO 47660 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:42:17.987Z  INFO 47660 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:42:18.177Z  INFO 47660 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:42:18.569Z  INFO 47660 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:42:19.015Z  INFO 47660 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:42:19.033Z  INFO 47660 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:42:19.077Z  WARN 47660 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:42:19.093Z DEBUG 47660 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:42:19.397Z  INFO 47660 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:42:19.407Z  INFO 47660 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.336 seconds (process running for 4.822)
-2025-12-03T14:42:19.802Z  INFO 47660 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:42:19.802Z  INFO 47660 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:42:19.802Z  INFO 47660 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:42:19.804Z  INFO 47660 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-12-03T14:42:19.847Z  INFO 47660 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1781e2e1:0/SimpleConnection@51cfda08 [delegate=amqp://guest@127.0.0.1:5672/, localPort=65372]
-2025-12-03T14:43:09.639Z  INFO 47660 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:43:09.642Z  INFO 47660 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:43:09.664Z  INFO 47660 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:43:09.665Z  INFO 47660 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:43:09.669Z  INFO 47660 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:43:11.701Z  INFO 44316 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 44316 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:43:11.702Z  INFO 44316 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:43:12.411Z  INFO 44316 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:43:12.450Z  INFO 44316 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:43:12.799Z  INFO 44316 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:43:12.809Z  INFO 44316 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:43:12.809Z  INFO 44316 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:43:12.850Z  INFO 44316 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:43:12.850Z  INFO 44316 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1118 ms
-2025-12-03T14:43:12.970Z  INFO 44316 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:43:13.068Z  INFO 44316 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e40fdbd
-2025-12-03T14:43:13.069Z  INFO 44316 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:43:13.121Z  INFO 44316 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:43:13.155Z  INFO 44316 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:43:13.177Z  INFO 44316 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:43:13.356Z  INFO 44316 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:43:13.424Z  INFO 44316 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:43:14.063Z  INFO 44316 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:43:14.136Z  INFO 44316 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:43:14.327Z  INFO 44316 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:43:14.705Z  INFO 44316 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:43:15.148Z  INFO 44316 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:43:15.166Z  INFO 44316 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:43:15.208Z  WARN 44316 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:43:15.224Z DEBUG 44316 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:43:15.521Z  INFO 44316 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:43:15.532Z  INFO 44316 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.191 seconds (process running for 4.659)
-2025-12-03T14:43:16.080Z  INFO 44316 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:43:16.081Z  INFO 44316 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:43:16.081Z  INFO 44316 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:43:16.081Z  INFO 44316 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2025-12-03T14:43:16.124Z  INFO 44316 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#53cddaec:0/SimpleConnection@7315953e [delegate=amqp://guest@127.0.0.1:5672/, localPort=60194]
-2025-12-03T14:43:31.159Z  INFO 44316 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:43:31.164Z  INFO 44316 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:43:31.179Z  INFO 44316 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:43:31.180Z  INFO 44316 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:43:31.184Z  INFO 44316 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:43:33.260Z  INFO 46484 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 46484 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:43:33.261Z  INFO 46484 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:43:33.979Z  INFO 46484 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:43:34.022Z  INFO 46484 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:43:34.391Z  INFO 46484 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:43:34.402Z  INFO 46484 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:43:34.402Z  INFO 46484 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:43:34.439Z  INFO 46484 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:43:34.440Z  INFO 46484 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1148 ms
-2025-12-03T14:43:34.556Z  INFO 46484 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:43:34.657Z  INFO 46484 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1e0294a7
-2025-12-03T14:43:34.658Z  INFO 46484 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:43:34.709Z  INFO 46484 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:43:34.743Z  INFO 46484 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:43:34.766Z  INFO 46484 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:43:34.950Z  INFO 46484 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:43:35.015Z  INFO 46484 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:43:35.656Z  INFO 46484 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:43:35.731Z  INFO 46484 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:43:35.927Z  INFO 46484 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:43:36.305Z  INFO 46484 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:43:36.775Z  INFO 46484 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:43:36.792Z  INFO 46484 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:43:36.833Z  WARN 46484 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:43:36.849Z DEBUG 46484 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:43:37.148Z  INFO 46484 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:43:37.159Z  INFO 46484 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.239 seconds (process running for 4.691)
-2025-12-03T14:43:37.664Z  INFO 46484 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:43:37.665Z  INFO 46484 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:43:37.665Z  INFO 46484 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:43:37.666Z  INFO 46484 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-03T14:43:37.709Z  INFO 46484 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#37c48490:0/SimpleConnection@4e1847f3 [delegate=amqp://guest@127.0.0.1:5672/, localPort=54982]
-2025-12-03T14:45:17.603Z  INFO 46484 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:45:17.607Z  INFO 46484 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:45:17.620Z  INFO 46484 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:45:17.622Z  INFO 46484 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:45:17.625Z  INFO 46484 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:45:27.245Z  INFO 44536 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 44536 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:45:27.246Z  INFO 44536 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:45:27.961Z  INFO 44536 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:45:28.005Z  INFO 44536 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:45:28.350Z  INFO 44536 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:45:28.364Z  INFO 44536 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:45:28.364Z  INFO 44536 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:45:28.404Z  INFO 44536 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:45:28.404Z  INFO 44536 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1130 ms
-2025-12-03T14:45:28.526Z  INFO 44536 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:45:28.628Z  INFO 44536 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@21a9f95b
-2025-12-03T14:45:28.629Z  INFO 44536 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:45:28.686Z  INFO 44536 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:45:28.720Z  INFO 44536 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:45:28.743Z  INFO 44536 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:45:28.918Z  INFO 44536 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:45:28.985Z  INFO 44536 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:45:29.628Z  INFO 44536 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:45:29.708Z  INFO 44536 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:45:29.895Z  INFO 44536 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:45:30.261Z  WARN 44536 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'securityConfig': Injection of autowired dependencies failed
-2025-12-03T14:45:30.261Z  INFO 44536 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:45:30.263Z  INFO 44536 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:45:30.266Z  INFO 44536 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:45:30.269Z  INFO 44536 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2025-12-03T14:45:30.281Z  INFO 44536 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-12-03T14:45:30.293Z ERROR 44536 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'securityConfig': Injection of autowired dependencies failed
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\AuthServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'jwtTokenServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\JwtTokenServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtTokenRepository' defined in com.aneto.authService.repository.JwtTokenRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
@@ -645,31 +70,32 @@ org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating
 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
-	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:10) ~[classes/:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityConfig': Injection of autowired dependencies failed
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1770) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 21 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtTokenServiceImpl' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\service\impl\JwtTokenServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtTokenRepository' defined in com.aneto.authService.repository.JwtTokenRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:413) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1770) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 35 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtTokenRepository' defined in com.aneto.authService.repository.JwtTokenRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
@@ -679,199 +105,60 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 21 common frames omitted
-Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'app.security.cors.allowed-origins' in value "${app.security.cors.allowed-origins}"
-	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:298) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:131) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:293) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:264) ~[spring-core-6.2.12.jar:6.2.12]
-	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:186) ~[spring-context-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:970) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1675) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-6.2.12.jar:6.2.12]
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.2.12.jar:6.2.12]
-	... 41 common frames omitted
+	... 49 common frames omitted
+Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); Reason: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
+	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:120) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:104) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:92) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at java.base/java.util.Optional.map(Optional.java:260) ~[na:na]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:92) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:434) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$4(RepositoryFactoryBeanSupport.java:350) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:356) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 59 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.Optional com.aneto.authService.repository.JwtTokenRepository.findByUser(com.aneto.authService.models.Users); No property 'user' found for type 'JwtToken'; Did you mean 'users'
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:107) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:128) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:260) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	... 71 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'user' found for type 'JwtToken'; Did you mean 'users'
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:94) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:455) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:431) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:384) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330) ~[na:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:366) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:344) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:259) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[na:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:260) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:389) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[na:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:390) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:103) ~[spring-data-commons-3.5.5.jar:3.5.5]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:101) ~[spring-data-jpa-3.5.5.jar:3.5.5]
+	... 75 common frames omitted
 
-2025-12-03T14:46:12.174Z  INFO 46856 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 46856 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:46:12.176Z  INFO 46856 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-12-03T14:46:12.882Z  INFO 46856 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:46:12.922Z  INFO 46856 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:46:13.266Z  INFO 46856 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:46:13.277Z  INFO 46856 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:46:13.277Z  INFO 46856 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:46:13.318Z  INFO 46856 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:46:13.318Z  INFO 46856 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1115 ms
-2025-12-03T14:46:13.438Z  INFO 46856 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:46:13.545Z  INFO 46856 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@ca2cd5e
-2025-12-03T14:46:13.546Z  INFO 46856 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:46:13.598Z  INFO 46856 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:46:13.632Z  INFO 46856 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:46:13.656Z  INFO 46856 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:46:13.844Z  INFO 46856 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:46:13.911Z  INFO 46856 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:46:14.546Z  INFO 46856 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:46:14.628Z  INFO 46856 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:46:14.825Z  INFO 46856 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:46:15.202Z  INFO 46856 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:46:15.657Z  INFO 46856 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:46:15.675Z  INFO 46856 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:46:15.719Z  WARN 46856 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:46:15.735Z DEBUG 46856 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:46:16.040Z  INFO 46856 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:46:16.051Z  INFO 46856 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.214 seconds (process running for 4.655)
-2025-12-03T14:46:16.617Z  INFO 46856 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:46:16.618Z  INFO 46856 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:46:16.618Z  INFO 46856 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:46:16.620Z  INFO 46856 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-12-03T14:46:16.665Z  INFO 46856 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#59d0f14b:0/SimpleConnection@627f35e5 [delegate=amqp://guest@127.0.0.1:5672/, localPort=63269]
-2025-12-03T14:49:05.009Z  INFO 46856 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T14:49:05.013Z  INFO 46856 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T14:49:05.026Z  INFO 46856 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:49:05.028Z  INFO 46856 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T14:49:05.030Z  INFO 46856 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T14:49:08.011Z  INFO 45764 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 45764 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T14:49:08.013Z  INFO 45764 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
-2025-12-03T14:49:08.721Z  INFO 45764 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T14:49:08.766Z  INFO 45764 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2025-12-03T14:49:09.110Z  INFO 45764 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T14:49:09.120Z  INFO 45764 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T14:49:09.120Z  INFO 45764 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T14:49:09.159Z  INFO 45764 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T14:49:09.160Z  INFO 45764 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1120 ms
-2025-12-03T14:49:09.292Z  INFO 45764 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T14:49:09.395Z  INFO 45764 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3fe8ad3f
-2025-12-03T14:49:09.397Z  INFO 45764 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T14:49:09.449Z  INFO 45764 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T14:49:09.488Z  INFO 45764 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T14:49:09.512Z  INFO 45764 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T14:49:09.694Z  INFO 45764 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T14:49:09.757Z  INFO 45764 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T14:49:10.396Z  INFO 45764 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T14:49:10.473Z  INFO 45764 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T14:49:10.630Z  INFO 45764 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T14:49:11.037Z  INFO 45764 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T14:49:11.467Z  INFO 45764 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T14:49:11.485Z  INFO 45764 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T14:49:11.526Z  WARN 45764 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T14:49:11.544Z DEBUG 45764 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T14:49:11.825Z  INFO 45764 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T14:49:11.835Z  INFO 45764 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.163 seconds (process running for 4.603)
-2025-12-03T14:49:12.409Z  INFO 45764 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T14:49:12.410Z  INFO 45764 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T14:49:12.410Z  INFO 45764 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T14:49:12.411Z  INFO 45764 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-03T14:49:12.456Z  INFO 45764 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#5dea9867:0/SimpleConnection@52ddf1d9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=60124]
-2025-12-03T15:00:11.443Z  INFO 45764 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T15:00:11.448Z  INFO 45764 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T15:00:11.461Z  INFO 45764 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T15:00:11.463Z  INFO 45764 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T15:00:11.466Z  INFO 45764 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T15:00:13.564Z  INFO 15828 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 15828 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T15:00:13.565Z  INFO 15828 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
-2025-12-03T15:00:14.314Z  INFO 15828 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T15:00:14.354Z  INFO 15828 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 3 JPA repository interfaces.
-2025-12-03T15:00:14.705Z  INFO 15828 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T15:00:14.714Z  INFO 15828 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T15:00:14.714Z  INFO 15828 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T15:00:14.755Z  INFO 15828 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T15:00:14.755Z  INFO 15828 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1163 ms
-2025-12-03T15:00:14.871Z  INFO 15828 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T15:00:14.963Z  INFO 15828 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@389a1e34
-2025-12-03T15:00:14.964Z  INFO 15828 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T15:00:15.014Z  INFO 15828 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T15:00:15.046Z  INFO 15828 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T15:00:15.067Z  INFO 15828 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T15:00:15.246Z  INFO 15828 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T15:00:15.283Z  WARN 15828 --- [auth-service] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-03T15:00:15.295Z  INFO 15828 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T15:00:15.925Z  INFO 15828 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T15:00:16.002Z  INFO 15828 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T15:00:16.203Z  INFO 15828 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T15:00:16.576Z  INFO 15828 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T15:00:17.006Z  INFO 15828 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T15:00:17.026Z  INFO 15828 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T15:00:17.066Z  WARN 15828 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T15:00:17.082Z DEBUG 15828 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T15:00:17.416Z  INFO 15828 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T15:00:17.426Z  INFO 15828 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.207 seconds (process running for 4.651)
-2025-12-03T15:00:17.962Z  INFO 15828 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T15:00:17.962Z  INFO 15828 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T15:00:17.962Z  INFO 15828 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T15:00:17.963Z  INFO 15828 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-03T15:00:18.009Z  INFO 15828 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#561a4a5:0/SimpleConnection@5f7e301 [delegate=amqp://guest@127.0.0.1:5672/, localPort=49893]
-2025-12-03T15:16:24.848Z  INFO 15828 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T15:16:24.852Z  INFO 15828 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T15:16:24.870Z  INFO 15828 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T15:16:24.872Z  INFO 15828 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T15:16:24.874Z  INFO 15828 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-12-03T15:16:26.582Z  INFO 43368 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 43368 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2025-12-03T15:16:26.583Z  INFO 43368 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
-2025-12-03T15:16:27.286Z  INFO 43368 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-03T15:16:27.325Z  INFO 43368 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
-2025-12-03T15:16:27.670Z  INFO 43368 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-03T15:16:27.683Z  INFO 43368 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-03T15:16:27.683Z  INFO 43368 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-03T15:16:27.722Z  INFO 43368 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-03T15:16:27.722Z  INFO 43368 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1112 ms
-2025-12-03T15:16:27.839Z  INFO 43368 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-03T15:16:27.952Z  INFO 43368 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@571d0925
-2025-12-03T15:16:27.954Z  INFO 43368 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-03T15:16:28.025Z  INFO 43368 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-03T15:16:28.065Z  INFO 43368 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-03T15:16:28.090Z  INFO 43368 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-03T15:16:28.273Z  INFO 43368 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-03T15:16:28.312Z  WARN 43368 --- [auth-service] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-03T15:16:28.327Z  INFO 43368 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 15.15
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-12-03T15:16:28.954Z  INFO 43368 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-03T15:16:29.034Z  INFO 43368 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T15:16:29.232Z  INFO 43368 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-03T15:16:29.605Z  INFO 43368 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-03T15:16:30.033Z  INFO 43368 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-03T15:16:30.053Z  INFO 43368 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-03T15:16:30.100Z  WARN 43368 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-03T15:16:30.116Z DEBUG 43368 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-03T15:16:30.393Z  INFO 43368 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-03T15:16:30.403Z  INFO 43368 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.158 seconds (process running for 4.622)
-2025-12-03T15:16:30.954Z  INFO 43368 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-03T15:16:30.954Z  INFO 43368 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-03T15:16:30.954Z  INFO 43368 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-03T15:16:30.955Z  INFO 43368 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-03T15:16:30.999Z  INFO 43368 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2fa7a4d3:0/SimpleConnection@51f36de5 [delegate=amqp://guest@127.0.0.1:5672/, localPort=65095]
-2025-12-03T15:55:05.131Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-03T15:55:05.137Z  INFO 43368 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-03T15:55:05.155Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-03T15:55:05.157Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-03T15:55:05.160Z  INFO 43368 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

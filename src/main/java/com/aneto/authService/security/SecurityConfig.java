@@ -3,7 +3,6 @@ package com.aneto.authService.security;
 
 import com.aneto.authService.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,12 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -47,6 +40,7 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authProvider);
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -70,7 +64,7 @@ public class SecurityConfig {
 
                         // ⚠️ Nota: A rota "api/v1/projects/**" também está aqui, se for um erro de cópia, remova-a,
                         // pois a rota de projetos não deveria estar neste serviço.
-                         .requestMatchers("api/v1/projects/**","/api/v1/users/**").permitAll()
+                        .requestMatchers("api/v1/projects/**", "/api/v1/users/**").permitAll()
 
                         // Qualquer outra rota neste serviço DEVE ser protegida (e só pode ser acedida com um JWT válido,
                         // embora este serviço seja primariamente o criador de tokens).

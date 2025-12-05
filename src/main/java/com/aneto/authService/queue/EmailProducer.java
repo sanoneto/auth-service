@@ -1,7 +1,6 @@
 package com.aneto.authService.queue;
 
 
-
 import com.aneto.authService.config.RabbitMQConfig;
 import com.aneto.authService.dto.request.EmailRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +16,14 @@ public class EmailProducer {
     private static final Logger log = LoggerFactory.getLogger(EmailProducer.class);
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendRegistrationEmail(String recipientName, String recipientEmail) {
+    public void sendRegistrationEmail(String recipientName, String recipientEmail, String subject, String message) {
 
         // Constrói o DTO específico que a fila espera
         EmailRequest emailRequest = new EmailRequest(
                 recipientName,
                 recipientEmail,
-                "Bem-vindo(a) ao Registo de Horas Aneto! O seu registo foi concluído com sucesso."
+                subject,
+                message
         );
 
         log.info("Enviando mensagem para a Exchange: {} com Routing Key: {}", RabbitMQConfig.EMAIL_EXCHANGE, RabbitMQConfig.EMAIL_ROUTING_KEY);

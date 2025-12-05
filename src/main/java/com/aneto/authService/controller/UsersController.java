@@ -1,8 +1,7 @@
 package com.aneto.authService.controller;
 
 import com.aneto.authService.dto.request.UsersResponse;
-import com.aneto.authService.models.Users;
-import com.aneto.authService.service.impl.UsersServiceImpl;
+import com.aneto.authService.service.impl.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,13 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersController {
 
-    private final UsersServiceImpl usersServiceImpl;
+    private final AuthServiceImpl authServiceImpl;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users/all")
     public ResponseEntity<List<UsersResponse>> getListUsers() {
 
-        List<UsersResponse> usersResponses = usersServiceImpl.findAll();
+        List<UsersResponse> usersResponses = authServiceImpl.findAll();
         // 5. Retorno OK (200) com a lista de projetos
         return ResponseEntity.ok(usersResponses);
     }

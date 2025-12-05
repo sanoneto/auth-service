@@ -48,4 +48,9 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .filter(t -> t.getExpiresAt().isAfter(now));
     }
 
+    @Override
+    public Optional<JwtToken> validateToken(String token) {
+        return Optional.empty();
+    }
+
 }

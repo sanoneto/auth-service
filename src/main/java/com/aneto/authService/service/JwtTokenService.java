@@ -3,6 +3,7 @@ package com.aneto.authService.service;
 
 
 import com.aneto.authService.models.JwtToken;
+import com.aneto.authService.models.Users;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -19,4 +20,8 @@ public interface JwtTokenService {
     }
 
     Optional<JwtToken> getReusableTokenForUser(String username);
+
+
+    // Busca e valida um token.
+    Optional<JwtToken> validateToken(String token);
 }

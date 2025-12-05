@@ -1,31 +1,26 @@
 package com.aneto.authService.controller;
 
 import com.aneto.authService.dto.request.LoginRequest;
-import com.aneto.authService.dto.request.ProjectRequest;
+import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
-import com.aneto.authService.dto.response.ProjectResponse;
-import com.aneto.authService.mapper.RequestMapper; // Assumido
-import com.aneto.authService.models.Users; // Assumido
+import com.aneto.authService.mapper.RequestMapper;
+import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
-import com.aneto.authService.security.JwtTokenUtil;
-import com.aneto.authService.service.JwtTokenService; // Assumido
-import com.aneto.authService.service.UsersService;
-import com.aneto.authService.service.impl.ProjectorsServiceImpl;
+import com.aneto.authService.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,9 +28,7 @@ import java.util.List;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final UsersService usersService;
-    private final JwtTokenService jwtTokenService;
+    private final AuthService authService;
     private final RequestMapper requestMapper; // Assumido
     private final EmailProducer emailProducer;
 
@@ -58,21 +51,10 @@ public class AuthController {
         );
 
         // 2. Busca o usuário para obter roles
-        Users usuario = usersService.findPorUsername(loginRequest.username());
+        Users usuario = authService.findPorUsername(loginRequest.username());
 
         // 3. Normaliza a role para o token (remove 'ROLE_' e usa UPPERCASE)
-        String role = usuario.getRole();
-        List<String> rolesForToken = (role == null || role.isBlank())
-                ? List.of()
-                : List.of(role.startsWith("ROLE_") ? role.substring(5) : role);
-
-        // 4. Gera o token
-        String token = jwtTokenUtil.generateToken(usuario.getUsername(), rolesForToken);
-
-        // 5. Salva o token no banco (para revogação)
-        Instant issuedAt = Instant.now();
-        Instant expiresAt = issuedAt.plusMillis(jwtTokenUtil.getExpirationMillis());
-        jwtTokenService.saveToken(token, usuario.getUsername(), issuedAt, expiresAt);
+        String token = authService.saveToken(usuario);
 
         return ResponseEntity.ok(new LoginResponse(usuario.getUsername() + " logado com sucesso", token));
     }
@@ -87,28 +69,40 @@ public class AuthController {
     })
     @PostMapping("/register")
     public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest userCredentialsRequest) {
-        if (usersService.existeUsers(userCredentialsRequest.username())) {
+        if (authService.existeUsers(userCredentialsRequest.username())) {
             return ResponseEntity.badRequest().body("Username já existe!");
         }
 
         // Mapeia e registra o usuário (o service deve codificar a password)
         Users users = requestMapper.mapToLogin(userCredentialsRequest);
-        usersService.registrarUsers(users);
-
-        emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email());
+        authService.registrarUsers(users);
+        String message = "Bem-vindo(a) ao Registo de Horas Aneto! O seu registo foi concluído com sucesso.";
+        String subject = "Login - Sistema de Registo de Horas";
+        //enviar o email
+        emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email(), subject, message);
         // Gera e salva o token para o novo usuário
-
-        String role = users.getRole();
-        List<String> rolesForToken = (role == null || role.isBlank())
-                ? List.of()
-                : List.of(role.startsWith("ROLE_") ? role.substring(5) : role);
-        String token = jwtTokenUtil.generateToken(users.getUsername(), rolesForToken);
-
-        Instant issuedAt = Instant.now();
-        Instant expiresAt = issuedAt.plusMillis(jwtTokenUtil.getExpirationMillis());
-        jwtTokenService.saveToken(token, users.getUsername(), issuedAt, expiresAt);
+        String token = authService.saveToken(users);
 
         return ResponseEntity.ok(new LoginResponse(users.getUsername() + " registrado com sucesso", token));
     }
 
+    @PostMapping("/recuperar-password")
+    public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequest request) {
+        String email = request.email();
+        // Chama o serviço que faz toda a lógica
+        authService.createPasswordResetTokenForUser(email);
+        // Retorna uma mensagem genérica de sucesso para evitar vazamento de informações
+        return ResponseEntity.ok("Instruções de recuperação enviadas com sucesso, se o email existir.");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest request) {
+        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
+        if (request.token() == null || request.newPassword() == null) {
+            return ResponseEntity.badRequest().body("Token e nova password são obrigatórios.");
+        }
+        authService.resetPassword(request.token(), request.newPassword());
+        // Sucesso - Retorna 200 OK ou 204 No Content
+        return ResponseEntity.ok("Password redefinida com sucesso!");
+    }
 }

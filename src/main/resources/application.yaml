@@ -62,3 +62,6 @@ logging:
     org.flywaydb: DEBUG
   file:
     name: logs/app.log
+
+url:
+  front-end: ${URL_FRONT_END}

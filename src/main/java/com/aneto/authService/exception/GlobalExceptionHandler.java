@@ -101,5 +101,22 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
     }
-
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> ResourceAccessException(UserNotFoundException e) {
+        log.warn(" Instruções de recuperação enviadas com sucesso, se o email existir.: {}", e.getMessage());
+        ErrorResponse error = new ErrorResponse(
+                "Instruções de recuperação enviadas com sucesso, se o email existir. " + e.getMessage(),
+                HttpStatus.SERVICE_UNAVAILABLE.value()
+        );
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
+    }
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorResponse> ResourceAccessException(InvalidTokenException e) {
+        log.warn("Token expirado.: {}", e.getMessage());
+        ErrorResponse error = new ErrorResponse(
+                "Token expirado. " + e.getMessage(),
+                HttpStatus.SERVICE_UNAVAILABLE.value()
+        );
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
+    }
 }
