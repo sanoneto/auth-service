@@ -14,11 +14,11 @@ public record EmailRequest(
 
         @NotBlank
         @Email
-        @Size(max = 200)
         String email,
         String subject,
         @NotBlank
         @Size(max = 2000)
-        String message
+        String message,
+        String resetLink
 ) implements Serializable { // Adicione 'implements Serializable'
 }

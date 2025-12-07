@@ -79,7 +79,7 @@ public class AuthController {
         String message = "Bem-vindo(a) ao Registo de Horas "+userCredentialsRequest.username()+"! O seu registo foi concluído com sucesso.";
         String subject = "Login - Sistema de Registo de Horas";
         //enviar o email
-        emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email(), subject, message);
+        emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email(), subject, message, null);
         // Gera e salva o token para o novo usuário
         String token = authService.saveToken(users);
 

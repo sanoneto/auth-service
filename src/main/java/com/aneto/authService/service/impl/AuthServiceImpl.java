@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
                 + "Sua Equipe de Suporte.";
         String subject = "Recuperação de Password - Sistema de Registo de Horas";
         // 4. Envio do Email
-        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message);
+        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message,resetLink );
     }
 
     @Override
