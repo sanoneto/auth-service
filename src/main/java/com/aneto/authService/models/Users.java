@@ -69,7 +69,7 @@ public class Users {
     private void normalizeAndGenerateId() {
         // Normalização do Username (agora mais limpa)
         if (this.username != null) {
-            this.username = this.username.trim().toLowerCase();
+            this.username = this.username.trim();
         }
         // Geração do ID Público (Não precisa checar se é null se for feito no construtor)
         if (this.publicId == null) {

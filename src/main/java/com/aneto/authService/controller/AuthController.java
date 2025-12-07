@@ -73,10 +73,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Username já existe!");
         }
 
-        // Mapeia e registra o usuário (o service deve codificar a password)
+        // Mapeia e regista o utilizador (o service deve codificar a password)
         Users users = requestMapper.mapToLogin(userCredentialsRequest);
         authService.registrarUsers(users);
-        String message = "Bem-vindo(a) ao Registo de Horas Aneto! O seu registo foi concluído com sucesso.";
+        String message = "Bem-vindo(a) ao Registo de Horas "+userCredentialsRequest.username()+"! O seu registo foi concluído com sucesso.";
         String subject = "Login - Sistema de Registo de Horas";
         //enviar o email
         emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email(), subject, message);
