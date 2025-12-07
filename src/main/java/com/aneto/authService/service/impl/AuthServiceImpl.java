@@ -75,9 +75,6 @@ public class AuthServiceImpl implements AuthService {
         }
         // 1. Geração e salva o token
         String token = saveToken(users);
-
-        // 3. Formatação do Link
-        // O link direciona para o seu componente RecoverPasswordForm ou similar no front-end.
         // URL do seu front-end React
         String resetLink = FRONTEND_BASE_URL + "/reset-password?token=" + token;
 
@@ -121,7 +118,6 @@ public class AuthServiceImpl implements AuthService {
             // Se expirou, deve ser deletado imediatamente e lançar exceção
             tokenRepository.delete(jwtToken);
         }
-
         // 3. Atualizar a Password
         Users users = jwtToken.getUsers();
 
