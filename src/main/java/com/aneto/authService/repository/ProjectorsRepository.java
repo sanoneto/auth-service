@@ -9,6 +9,13 @@ import java.util.List;
 public interface ProjectorsRepository extends JpaRepository<Projects, Long> {
     Projects findByProjectName(String projectName);
 
-    @Query("SELECT p FROM Projects p WHERE p.username = :username")
-     List<Projects> findallbyName(String username);
+    @Query(value = "SELECT " +
+            "   distinct( project_name)" +
+            "FROM " +
+            "    auth.tb_projetos p " +
+            "WHERE " +
+            "    1=1 " +
+            "   AND (:project_param = 'all' OR p.project_name = :project_param)",
+            nativeQuery = true)
+     List<String> findallbyName(String project_param);
 }

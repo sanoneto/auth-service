@@ -42,7 +42,7 @@ public class ProjectorsServiceImpl implements ProjectorsService {
 
     @Override
     public List<String> findallbyName(String username) {
-        return repository.findallbyName(username).stream().map(Projects::getProjectName).toList();
+        return repository.findallbyName(username);
     }
 
 
