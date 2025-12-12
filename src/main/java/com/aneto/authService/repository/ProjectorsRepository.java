@@ -15,7 +15,7 @@ public interface ProjectorsRepository extends JpaRepository<Projects, Long> {
             "    auth.tb_projetos p " +
             "WHERE " +
             "    1=1 " +
-            "   AND (:project_param = 'all' OR p.project_name = :project_param)",
+            "   AND (:username = 'all' OR p.username = :username)",
             nativeQuery = true)
-     List<String> findallbyName(String project_param);
+     List<String> findAll  (String username);
 }

@@ -41,8 +41,8 @@ public class ProjectorsServiceImpl implements ProjectorsService {
     }
 
     @Override
-    public List<String> findallbyName(String username) {
-        return repository.findallbyName(username);
+    public List<String> findallbyName(String projectName) {
+        return repository.findAll(projectName);
     }
 
 
