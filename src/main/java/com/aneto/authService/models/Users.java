@@ -39,6 +39,8 @@ public class Users {
     @NotBlank(message = "Role não pode ser vazia")
     private String role;
 
+    private String profile_picture_url;
+
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     // Não usamos @ToString.Exclude, a implementação nativa de toString() é mais segura
@@ -52,11 +54,12 @@ public class Users {
     }
 
     // Construtor para criação de um NOVO usuário (Substitui o @Builder/@AllArgsConstructor)
-    public Users(String username, String email, String password, String role,double requiredHours) {
+    public Users(String username, String email, String password, String role, double requiredHours, String profilePictureUrl) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.profile_picture_url = profilePictureUrl;
         this.publicId = UUID.randomUUID(); // Inicialização explícita
         this.jwtToken = new ArrayList<>();
     }
@@ -86,7 +89,9 @@ public class Users {
     public String getPassword() { return password; }
     public String getRole() { return role; }
     public List<JwtToken> getJwtToken() { return jwtToken; }
-
+    public String getProfile_picture_url() {
+        return profile_picture_url;
+    }
     // Getter com lógica
     public String getUsername() { return username; }
 
@@ -102,4 +107,7 @@ public class Users {
     public void setRole(String role) { this.role = role; }
     public void setJwtToken(List<JwtToken> jwtToken) { this.jwtToken = jwtToken; }
 
+    public void setProfile_picture_url(String profile_picture_url) {
+        this.profile_picture_url = profile_picture_url;
+    }
 }

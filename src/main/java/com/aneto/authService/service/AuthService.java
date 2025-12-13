@@ -2,6 +2,7 @@ package com.aneto.authService.service;
 
 
 import com.aneto.authService.models.Users;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface AuthService {
 
@@ -27,4 +28,5 @@ public interface AuthService {
      * @throws IllegalArgumentException Se o token for inválido, nulo ou expirado.
      */
      void resetPassword(String token, String newPassword) ;
+     void UpdateProfile(String username, String publicUrl);
 }

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProjectorsRepository extends JpaRepository<Projects, Long> {
-    Projects findByProjectName(String projectName);
 
     @Query(value = "SELECT " +
             "   distinct( project_name)" +

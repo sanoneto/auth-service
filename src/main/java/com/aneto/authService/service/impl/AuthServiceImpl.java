@@ -132,4 +132,16 @@ public class AuthServiceImpl implements AuthService {
         // Deletar o token da base de dados imediatamente após o uso para prevenir repetição
         tokenRepository.delete(jwtToken);
     }
+
+    @Override
+    public void UpdateProfile(String username, String publicUrl) {
+        usersRepository.findByUsername(username)
+                .ifPresent(user -> {
+                    // 2. O objeto 'user' dentro deste bloco JÁ é um Users.
+                    user.setProfile_picture_url(publicUrl);
+                    // 3. O save() deve ser chamado com o objeto Users, não com o Optional.
+                    usersRepository.save(user);
+                });
+
+    }
 }

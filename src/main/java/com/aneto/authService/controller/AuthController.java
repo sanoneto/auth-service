@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -104,5 +101,13 @@ public class AuthController {
         authService.resetPassword(request.token(), request.newPassword());
         // Sucesso - Retorna 200 OK ou 204 No Content
         return ResponseEntity.ok("Password redefinida com sucesso!");
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
+        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
+        authService.UpdateProfile(username,publicUrl);
+        // Sucesso - Retorna 200 OK ou 204 No Content
+        return ResponseEntity.ok("Url adiciona com sucesso!");
     }
 }
