@@ -1,17 +1,20 @@
-2025-12-20T00:00:00.029Z  INFO 29272 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 3 JPA repository interfaces.
-2025-12-20T00:00:00.608Z  INFO 29272 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-12-20T00:00:00.625Z  INFO 29272 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-20T00:00:00.626Z  INFO 29272 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-20T00:00:00.699Z  INFO 29272 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-20T00:00:00.699Z  INFO 29272 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2053 ms
-2025-12-20T00:00:00.987Z  INFO 29272 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-20T00:00:01.293Z  INFO 29272 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@56cd5d76
-2025-12-20T00:00:01.295Z  INFO 29272 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-20T00:00:01.473Z  INFO 29272 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-20T00:00:01.583Z  INFO 29272 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-20T00:00:01.744Z  INFO 29272 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-20T00:00:02.505Z  INFO 29272 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-20T00:00:02.630Z  INFO 29272 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-12-26T13:44:59.702Z  INFO 11172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 11172 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-26T13:44:59.705Z  INFO 11172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-26T13:45:00.819Z  INFO 11172 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-26T13:45:00.868Z  INFO 11172 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 3 JPA repository interfaces.
+2025-12-26T13:45:01.264Z  INFO 11172 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-26T13:45:01.278Z  INFO 11172 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-26T13:45:01.278Z  INFO 11172 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-26T13:45:01.326Z  INFO 11172 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-26T13:45:01.326Z  INFO 11172 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1576 ms
+2025-12-26T13:45:01.460Z  INFO 11172 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-26T13:45:01.592Z  INFO 11172 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@627acb38
+2025-12-26T13:45:01.593Z  INFO 11172 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-26T13:45:01.662Z  INFO 11172 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-26T13:45:01.726Z  INFO 11172 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-26T13:45:01.757Z  INFO 11172 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-26T13:45:01.998Z  INFO 11172 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-26T13:45:02.099Z  INFO 11172 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 15.15
@@ -19,353 +22,35 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-12-20T00:00:03.718Z  INFO 29272 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-20T00:00:03.861Z  INFO 29272 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-20T00:00:04.139Z  INFO 29272 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-12-20T00:00:04.700Z  INFO 29272 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2025-12-20T00:00:05.433Z  INFO 29272 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2025-12-20T00:00:05.470Z  INFO 29272 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-20T00:00:05.549Z  WARN 29272 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2025-12-20T00:00:05.578Z DEBUG 29272 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-12-20T00:00:06.028Z  INFO 29272 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-12-20T00:00:06.044Z  INFO 29272 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 8.34 seconds (process running for 9.143)
-2025-12-20T00:00:06.526Z  INFO 29272 --- [auth-service] [RMI TCP Connection(4)-192.168.68.52] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-20T00:00:06.526Z  INFO 29272 --- [auth-service] [RMI TCP Connection(3)-192.168.68.52] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2025-12-20T00:00:06.526Z  INFO 29272 --- [auth-service] [RMI TCP Connection(4)-192.168.68.52] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-20T00:00:06.527Z  INFO 29272 --- [auth-service] [RMI TCP Connection(4)-192.168.68.52] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-20T00:00:06.589Z  INFO 29272 --- [auth-service] [RMI TCP Connection(3)-192.168.68.52] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#385d9880:0/SimpleConnection@9b47d61 [delegate=amqp://guest@127.0.0.1:5672/, localPort=59629]
-2025-12-20T00:00:42.528Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T00:00:42.544Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:00:42.549Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T00:00:42.663Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T00:00:42.664Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:00:42.664Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T00:04:03.589Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:04:03.590Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:04:03.591Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:07:46.653Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:07:46.654Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:07:46.655Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:07:46.669Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:07:46.669Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:07:46.670Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:08:34.159Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:08:34.160Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:08:34.160Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:15:36.401Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:15:36.402Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:15:36.402Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:15:47.862Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:15:47.863Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:15:47.864Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:16:29.323Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:16:29.324Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:16:29.324Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:16:30.280Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:16:30.281Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:16:30.282Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:16:30.296Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:16:30.296Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:16:30.296Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:16:30.316Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:16:30.317Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:16:30.317Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:07.998Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:18:07.998Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:07.999Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:18:08.010Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:18:08.011Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:08.011Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:18:12.115Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:12.115Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:12.116Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:12.125Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:12.125Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:12.126Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:12.134Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:12.135Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:12.135Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T00:18:33.983Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:18:33.984Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:33.984Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:18:33.995Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:18:33.995Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:18:33.996Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:30:03.789Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:30:03.790Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:30:03.790Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:30:03.811Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:30:03.811Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:30:03.812Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:37:03.134Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:37:03.134Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:37:03.135Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:37:03.147Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:37:03.147Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:37:03.147Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:37:06.645Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:37:06.645Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:37:06.645Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:37:06.656Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:37:06.656Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:37:06.657Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:59:14.193Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:59:14.194Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:59:14.194Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:59:14.209Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:59:14.209Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:59:14.210Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:59:37.152Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:59:37.152Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:59:37.152Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T00:59:37.162Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T00:59:37.162Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T00:59:37.163Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:07:47.590Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:07:47.590Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:07:47.590Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:07:47.601Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:07:47.602Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:07:47.602Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:07:47.618Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:07:47.619Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:07:47.620Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.901Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.902Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:15.903Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.914Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.915Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:15.915Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.934Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:15.934Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:15.935Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.455Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.456Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:44.459Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.469Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.469Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:44.469Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.491Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:11:44.491Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:11:44.492Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:16:28.131Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:16:28.132Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:16:28.132Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:16:28.145Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:16:28.145Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:16:28.145Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.537Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:17:05.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.546Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.546Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:17:05.547Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.575Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:17:05.575Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:17:05.576Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:22:42.795Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:22:42.796Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:22:42.796Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:22:42.809Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:22:42.809Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:22:42.809Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:23:19.394Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:23:19.394Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:23:19.395Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:23:19.403Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:23:19.403Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:23:19.404Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:23:19.433Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:23:19.433Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:23:19.433Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.708Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.709Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:28:29.709Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.723Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.723Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:28:29.723Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.746Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:28:29.746Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:28:29.747Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:37:10.007Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:37:10.007Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:37:10.008Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:37:10.018Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:37:10.018Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:37:10.018Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:53:15.045Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:53:15.045Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:53:15.046Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:53:15.060Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T01:53:15.060Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:53:15.061Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T01:53:36.024Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:53:36.025Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:53:36.025Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:53:36.033Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:53:36.034Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:53:36.034Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T01:53:36.063Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=adminhoras
-2025-12-20T01:53:36.064Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T01:53:36.064Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=adminhoras
-2025-12-20T02:19:49.219Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:19:49.220Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:19:49.220Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:19:49.232Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:19:49.233Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:19:49.233Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:41:34.043Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:41:34.044Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:41:34.044Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:41:34.065Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:41:34.065Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:41:34.066Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:42:42.146Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:42:42.146Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:42:42.146Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:44:03.871Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:44:03.871Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:44:03.872Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:44:47.878Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:44:47.878Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:44:47.879Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:49:16.540Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:49:16.541Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:49:16.541Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:49:16.552Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:49:16.552Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:49:16.553Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:50:10.568Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:50:10.569Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:50:10.569Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:50:10.578Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:50:10.578Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:50:10.578Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:50:16.839Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:50:16.839Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:50:16.839Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:50:16.849Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:50:16.849Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:50:16.850Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:54:25.555Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T02:54:25.555Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:54:25.555Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T02:54:25.579Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T02:54:25.579Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:54:25.580Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T02:55:12.084Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:12.084Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:12.085Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:12.093Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:12.095Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:12.095Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:13.750Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:13.750Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:13.750Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:18.921Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T02:55:18.921Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:18.921Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T02:55:18.933Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/users/all
-2025-12-20T02:55:18.933Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:18.933Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/users/all
-2025-12-20T02:55:34.383Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:34.383Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:34.384Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:34.394Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:34.394Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:34.394Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:41.706Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:41.706Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:41.706Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:41.720Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:41.720Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:41.720Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:43.799Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:43.799Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:43.799Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:55:43.810Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:55:43.810Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:55:43.811Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:40.264Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:40.264Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:40.264Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:40.274Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:40.274Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:40.275Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:57.520Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:57.520Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:57.520Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:57.537Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:57.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:57.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:59.282Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:59.282Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:59.282Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:56:59.294Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:56:59.295Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:56:59.295Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:57:50.541Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:57:50.544Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:57:50.544Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:57:50.554Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:57:50.554Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:57:50.555Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:57:52.529Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:57:52.529Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:57:52.530Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:57:52.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:57:52.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:57:52.538Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:11.044Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2025-12-20T02:58:11.045Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:11.045Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2025-12-20T02:58:11.237Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
-2025-12-20T02:58:11.238Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
-2025-12-20T02:58:11.238Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
-2025-12-20T02:58:11.316Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2025-12-20T02:58:14.001Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:14.001Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:14.001Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:14.011Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:14.011Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:14.012Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:18.662Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:18.662Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:18.662Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:18.678Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:18.678Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:18.678Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:22.174Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:22.174Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:22.175Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:58:22.184Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:58:22.184Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:58:22.184Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:59:23.222Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:59:23.222Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:59:23.222Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T02:59:23.231Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T02:59:23.232Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T02:59:23.232Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T03:24:17.325Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T03:24:17.326Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T03:24:17.326Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T03:24:17.338Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
-2025-12-20T03:24:17.339Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T03:24:17.339Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
-2025-12-20T04:53:51.869Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2025-12-20T04:53:51.870Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T04:53:51.870Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2025-12-20T04:53:51.894Z ERROR 29272 --- [auth-service] [http-nio-8081-exec-9] c.a.a.exception.GlobalExceptionHandler   : Erro de validação: {password=Senha deve ter entre 8 e 100 caracteres}
-2025-12-20T04:54:05.750Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2025-12-20T04:54:05.751Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-12-20T04:54:05.751Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2025-12-20T04:54:05.762Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
-2025-12-20T04:54:05.762Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
-2025-12-20T04:54:05.762Z  INFO 29272 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
-2025-12-20T04:54:05.823Z DEBUG 29272 --- [auth-service] [http-nio-8081-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2025-12-20T05:11:57.753Z  INFO 29272 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-12-20T05:11:57.757Z  INFO 29272 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-12-20T05:11:57.776Z  INFO 29272 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-12-20T05:11:57.779Z  INFO 29272 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-12-20T05:11:57.781Z  INFO 29272 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-26T13:45:02.853Z  INFO 11172 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-26T13:45:02.974Z  INFO 11172 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-26T13:45:03.208Z  INFO 11172 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-26T13:45:03.748Z  INFO 11172 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-26T13:45:04.303Z  INFO 11172 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-12-26T13:45:04.325Z  INFO 11172 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-26T13:45:04.374Z  WARN 11172 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-12-26T13:45:04.393Z DEBUG 11172 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-26T13:45:04.688Z  INFO 11172 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-26T13:45:04.698Z  INFO 11172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.57 seconds (process running for 6.232)
+2025-12-26T13:45:04.964Z  INFO 11172 --- [auth-service] [RMI TCP Connection(5)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-26T13:45:04.965Z  INFO 11172 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-26T13:45:04.965Z  INFO 11172 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-26T13:45:04.965Z  INFO 11172 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-12-26T13:45:05.017Z  INFO 11172 --- [auth-service] [RMI TCP Connection(5)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2cd2fdd8:0/SimpleConnection@437627a [delegate=amqp://guest@127.0.0.1:5672/, localPort=62029]
+2025-12-26T14:01:56.334Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2025-12-26T14:01:56.354Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-26T14:01:56.360Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2025-12-26T14:01:56.593Z  INFO 11172 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
+2025-12-26T14:01:56.593Z  INFO 11172 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
+2025-12-26T14:01:56.593Z  INFO 11172 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
+2025-12-26T14:01:56.658Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-12-26T14:09:30.485Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-26T14:09:30.486Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-26T14:09:30.487Z DEBUG 11172 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-26T14:09:30.504Z  INFO 11172 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Enviando mensagem para a Exchange: email.exchange com Routing Key: email.send
+2025-12-26T14:09:30.509Z  INFO 11172 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Mensagem de registo de e-mail enviada para a fila: netosano@hotmail.com
+2025-12-26T16:52:09.792Z  INFO 11172 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-26T16:52:09.796Z  INFO 11172 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-26T16:52:09.818Z  INFO 11172 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-26T16:52:09.821Z  INFO 11172 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-26T16:52:09.825Z  INFO 11172 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

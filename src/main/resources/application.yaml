@@ -13,7 +13,7 @@ spring:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
 
   jpa:
     hibernate:
@@ -22,10 +22,10 @@ spring:
     open-in-view: true
 
   rabbitmq:
-    host: ${RABBITMQ_PRIVATE_URL}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_DEFAULT_USER}
-    password: ${RABBITMQ_DEFAULT_PASS}
+    host:  ${SPRING_RABBITMQ_HOST}   # Se estiver a correr o RabbitMQ localmente
+    port: ${SPRING_RABBITMQ_PORT}           # Porta padrão do RabbitMQ
+    username:  ${SPRING_RABBITMQ_USERNAME}   # Usuário padrão
+    password: ${SPRING_RABBITMQ_PASSWORD}   # Password padrão
 
 jwt:
   secret: ${JWT_SECRET}
