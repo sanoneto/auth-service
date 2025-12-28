@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
+
+    Optional<Users> findByEmailIgnoreCase(String email);
+
     Optional<Users> findByUsername(String username);
 
     /**

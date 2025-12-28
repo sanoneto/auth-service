@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void createPasswordResetTokenForUser(String email) {
-        Users users = usersRepository.findByEmail(email)
+        Users users = usersRepository.findByEmailIgnoreCase(email)
                 .orElse(null);
 
         // Se o usuário não for encontrado, não faz nada para evitar indicar

@@ -19,11 +19,18 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     open-in-view: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
   # rabbitmq
   rabbitmq:
     host:  ${SPRING_RABBITMQ_HOST}   # Se estiver a correr o RabbitMQ localmente
@@ -61,8 +68,17 @@ springdoc:
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    com.registo.horas_estagio: DEBUG
+    org:
+      hibernate:
+        ORM:
+          jdbc:
+            bind: trace
+      springframework:
+        security: DEBUG
+    flywaydb: DEBUG
+    com:
+      registo:
+        horas_estagio: DEBUG
     org.flywaydb: DEBUG
   file:
     name: logs/app.log

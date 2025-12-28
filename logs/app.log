@@ -319,3 +319,228 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-12-28T14:46:31.623Z  INFO 29192 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-12-28T14:46:31.629Z  INFO 29192 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-12-28T14:46:31.633Z  INFO 29192 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-28T14:46:33.710Z  INFO 50956 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 50956 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-28T14:46:33.711Z  INFO 50956 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-28T14:46:34.440Z  INFO 50956 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-28T14:46:34.478Z  INFO 50956 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 3 JPA repository interfaces.
+2025-12-28T14:46:34.829Z  INFO 50956 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-28T14:46:34.839Z  INFO 50956 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-28T14:46:34.840Z  INFO 50956 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-28T14:46:34.882Z  INFO 50956 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-28T14:46:34.882Z  INFO 50956 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1145 ms
+2025-12-28T14:46:35.005Z  INFO 50956 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-28T14:46:35.108Z  INFO 50956 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7d977a20
+2025-12-28T14:46:35.109Z  INFO 50956 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-28T14:46:35.164Z  INFO 50956 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-28T14:46:35.200Z  INFO 50956 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-28T14:46:35.223Z  INFO 50956 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-28T14:46:35.409Z  INFO 50956 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-28T14:46:35.474Z  INFO 50956 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-28T14:46:36.132Z  INFO 50956 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-28T14:46:36.215Z  INFO 50956 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T14:46:36.409Z  INFO 50956 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-28T14:46:36.790Z  INFO 50956 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-28T14:46:37.221Z  INFO 50956 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-12-28T14:46:37.240Z  INFO 50956 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-28T14:46:37.282Z  WARN 50956 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-12-28T14:46:37.299Z DEBUG 50956 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-28T14:46:37.586Z  INFO 50956 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-28T14:46:37.602Z  INFO 50956 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.24 seconds (process running for 4.688)
+2025-12-28T14:46:38.112Z  INFO 50956 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-28T14:46:38.113Z  INFO 50956 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-28T14:46:38.113Z  INFO 50956 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T14:46:38.114Z  INFO 50956 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-12-28T14:46:38.158Z  INFO 50956 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1da78c7c:0/SimpleConnection@25f72f78 [delegate=amqp://guest@127.0.0.1:5672/, localPort=64681]
+2025-12-28T15:32:34.082Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T15:32:34.102Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T15:32:34.107Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T15:32:34.335Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-1] c.aneto.authService.queue.EmailProducer  : Enviando mensagem para a Exchange: email.exchange com Routing Key: email.send
+2025-12-28T15:32:34.340Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-1] c.aneto.authService.queue.EmailProducer  : Mensagem de registo de e-mail enviada para a fila: netosano@hotmail.com
+2025-12-28T15:46:29.996Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T15:46:29.997Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T15:46:29.997Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T15:46:30.015Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Enviando mensagem para a Exchange: email.exchange com Routing Key: email.send
+2025-12-28T15:46:30.015Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-2] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T15:46:30.022Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-2] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1da78c7c:1/SimpleConnection@740370c0 [delegate=amqp://guest@127.0.0.1:5672/, localPort=64630]
+2025-12-28T15:46:30.030Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Mensagem de registo de e-mail enviada para a fila: netosano@hotmail.com
+2025-12-28T16:00:49.381Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:00:49.382Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:00:49.383Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:00:49.395Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-5] c.aneto.authService.queue.EmailProducer  : Enviando mensagem para a Exchange: email.exchange com Routing Key: email.send
+2025-12-28T16:00:49.396Z  INFO 50956 --- [auth-service] [http-nio-8081-exec-5] c.aneto.authService.queue.EmailProducer  : Mensagem de registo de e-mail enviada para a fila: netosano@hotmail.com
+2025-12-28T16:07:29.537Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:07:29.538Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:07:29.538Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:08:13.232Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:08:13.233Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:08:13.233Z DEBUG 50956 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:09:39.322Z  INFO 50956 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-28T16:09:39.327Z  INFO 50956 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-28T16:09:39.356Z  INFO 50956 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:09:39.359Z  INFO 50956 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-28T16:09:39.363Z  INFO 50956 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-28T16:09:42.771Z  INFO 26940 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 26940 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-28T16:09:42.773Z  INFO 26940 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-28T16:09:43.661Z  INFO 26940 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-28T16:09:43.719Z  INFO 26940 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2025-12-28T16:09:44.249Z  INFO 26940 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-28T16:09:44.272Z  INFO 26940 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-28T16:09:44.272Z  INFO 26940 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-28T16:09:44.334Z  INFO 26940 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-28T16:09:44.335Z  INFO 26940 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1528 ms
+2025-12-28T16:09:44.507Z  INFO 26940 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-28T16:09:44.651Z  INFO 26940 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@30bbe83
+2025-12-28T16:09:44.653Z  INFO 26940 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-28T16:09:44.722Z  INFO 26940 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-28T16:09:44.774Z  INFO 26940 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-28T16:09:44.807Z  INFO 26940 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-28T16:09:45.074Z  INFO 26940 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-28T16:09:45.160Z  INFO 26940 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-28T16:09:46.155Z  INFO 26940 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-28T16:09:46.246Z  INFO 26940 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:09:46.501Z  INFO 26940 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-28T16:09:46.944Z  INFO 26940 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-28T16:09:47.527Z  INFO 26940 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-12-28T16:09:47.549Z  INFO 26940 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-28T16:09:47.602Z  WARN 26940 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-12-28T16:09:47.624Z DEBUG 26940 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-28T16:09:48.015Z  INFO 26940 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-28T16:09:48.028Z  INFO 26940 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.67 seconds (process running for 6.337)
+2025-12-28T16:09:48.820Z  INFO 26940 --- [auth-service] [RMI TCP Connection(7)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T16:09:48.825Z  INFO 26940 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-28T16:09:48.825Z  INFO 26940 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-28T16:09:48.828Z  INFO 26940 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-12-28T16:09:48.878Z  INFO 26940 --- [auth-service] [RMI TCP Connection(7)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1b4695a:0/SimpleConnection@22ac3b3b [delegate=amqp://guest@127.0.0.1:5672/, localPort=52785]
+2025-12-28T16:09:52.720Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2025-12-28T16:09:52.740Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:09:52.747Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2025-12-28T16:09:52.986Z  INFO 26940 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
+2025-12-28T16:09:52.987Z  INFO 26940 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
+2025-12-28T16:09:52.987Z  INFO 26940 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
+2025-12-28T16:09:53.052Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-12-28T16:10:09.295Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:10:09.296Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:10:09.297Z DEBUG 26940 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:23:40.807Z  WARN 26940 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m56s49ms331µs500ns).
+2025-12-28T16:23:40.830Z  INFO 26940 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-28T16:23:40.834Z  INFO 26940 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-28T16:23:40.843Z  INFO 26940 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:23:40.844Z  INFO 26940 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-28T16:23:40.850Z  INFO 26940 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-28T16:23:45.711Z  INFO 15916 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 15916 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-28T16:23:45.714Z  INFO 15916 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-28T16:23:46.503Z  INFO 15916 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-28T16:23:46.548Z  INFO 15916 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2025-12-28T16:23:46.927Z  INFO 15916 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-28T16:23:46.937Z  INFO 15916 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-28T16:23:46.937Z  INFO 15916 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-28T16:23:46.982Z  INFO 15916 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-28T16:23:46.982Z  INFO 15916 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1239 ms
+2025-12-28T16:23:47.111Z  INFO 15916 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-28T16:23:47.234Z  INFO 15916 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2c0fefac
+2025-12-28T16:23:47.236Z  INFO 15916 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-28T16:23:47.294Z  INFO 15916 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-28T16:23:47.335Z  INFO 15916 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-28T16:23:47.362Z  INFO 15916 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-28T16:23:47.572Z  INFO 15916 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-28T16:23:47.641Z  INFO 15916 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-28T16:23:48.357Z  INFO 15916 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-28T16:23:48.439Z  INFO 15916 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:23:48.657Z  INFO 15916 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-28T16:23:49.087Z  INFO 15916 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-28T16:23:49.607Z  INFO 15916 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-12-28T16:23:49.628Z  INFO 15916 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-28T16:23:49.674Z  WARN 15916 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-12-28T16:23:49.692Z DEBUG 15916 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-28T16:23:50.012Z  INFO 15916 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-28T16:23:50.022Z  INFO 15916 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.72 seconds (process running for 5.38)
+2025-12-28T16:23:50.399Z  INFO 15916 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T16:23:50.400Z  INFO 15916 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-28T16:23:50.400Z  INFO 15916 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-28T16:23:50.402Z  INFO 15916 --- [auth-service] [RMI TCP Connection(4)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-12-28T16:23:50.444Z  INFO 15916 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#78ab6103:0/SimpleConnection@10638cbb [delegate=amqp://guest@127.0.0.1:5672/, localPort=59103]
+2025-12-28T16:24:23.954Z DEBUG 15916 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:24:23.975Z DEBUG 15916 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:24:23.981Z DEBUG 15916 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:30:35.068Z  WARN 15916 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m17s730ms66µs100ns).
+2025-12-28T16:30:35.091Z  INFO 15916 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-28T16:30:35.094Z  INFO 15916 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-28T16:30:35.103Z  INFO 15916 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:30:35.106Z  INFO 15916 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-28T16:30:35.109Z  INFO 15916 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-28T16:30:37.255Z  INFO 9900 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 9900 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2025-12-28T16:30:37.256Z  INFO 9900 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2025-12-28T16:30:38.030Z  INFO 9900 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-28T16:30:38.075Z  INFO 9900 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2025-12-28T16:30:38.455Z  INFO 9900 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-28T16:30:38.465Z  INFO 9900 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-28T16:30:38.465Z  INFO 9900 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-28T16:30:38.508Z  INFO 9900 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-28T16:30:38.508Z  INFO 9900 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1220 ms
+2025-12-28T16:30:38.640Z  INFO 9900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-28T16:30:38.764Z  INFO 9900 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f908bc0
+2025-12-28T16:30:38.765Z  INFO 9900 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-28T16:30:38.826Z  INFO 9900 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-28T16:30:38.865Z  INFO 9900 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-28T16:30:38.892Z  INFO 9900 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-28T16:30:39.104Z  INFO 9900 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-28T16:30:39.174Z  INFO 9900 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-28T16:30:39.891Z  INFO 9900 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-28T16:30:39.972Z  INFO 9900 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:30:40.148Z  INFO 9900 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-28T16:30:40.594Z  INFO 9900 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2025-12-28T16:30:41.086Z  INFO 9900 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2025-12-28T16:30:41.107Z  INFO 9900 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-28T16:30:41.155Z  WARN 9900 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-12-28T16:30:41.173Z DEBUG 9900 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-28T16:30:41.519Z  INFO 9900 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-28T16:30:41.530Z  INFO 9900 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 4.685 seconds (process running for 5.345)
+2025-12-28T16:30:41.926Z  INFO 9900 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-28T16:30:41.926Z  INFO 9900 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-28T16:30:41.927Z  INFO 9900 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-12-28T16:30:41.927Z  INFO 9900 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T16:30:41.974Z  INFO 9900 --- [auth-service] [RMI TCP Connection(2)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#27ad03:0/SimpleConnection@409f9a25 [delegate=amqp://guest@127.0.0.1:5672/, localPort=60616]
+2025-12-28T16:31:29.207Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:31:29.227Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:31:29.233Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:40:49.875Z  WARN 9900 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m41s1ms876µs200ns).
+2025-12-28T16:40:49.878Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/recuperar-password
+2025-12-28T16:40:49.879Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-12-28T16:40:49.880Z DEBUG 9900 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/recuperar-password
+2025-12-28T16:40:49.900Z  INFO 9900 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-28T16:40:49.960Z  INFO 9900 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Enviando mensagem para a Exchange: email.exchange com Routing Key: email.send
+2025-12-28T16:40:49.962Z  INFO 9900 --- [auth-service] [http-nio-8081-exec-2] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2025-12-28T16:40:49.969Z  INFO 9900 --- [auth-service] [http-nio-8081-exec-2] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#27ad03:1/SimpleConnection@1ed66a49 [delegate=amqp://guest@127.0.0.1:5672/, localPort=58849]
+2025-12-28T16:40:49.979Z  INFO 9900 --- [auth-service] [http-nio-8081-exec-2] c.aneto.authService.queue.EmailProducer  : Mensagem de registo de e-mail enviada para a fila: dossantosbarbosaneto@gmail.com
+2025-12-28T16:40:50.027Z  INFO 9900 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-28T16:40:50.043Z  INFO 9900 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-28T16:40:50.045Z  INFO 9900 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-28T16:40:50.048Z  INFO 9900 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
