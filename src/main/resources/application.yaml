@@ -58,7 +58,7 @@ springdoc:
 logging:
   level:
     root: INFO
-    com.aneto: ERROR
+    com.aneto: INFO
     org.springframework.security: WARN
     org.springframework.web: WARN
     org.hibernate: WARN
