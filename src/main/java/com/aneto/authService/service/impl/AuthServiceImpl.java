@@ -12,6 +12,8 @@ import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.AuthService;
 import com.aneto.authService.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +28,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     private final UsersRepository usersRepository; // Repositório dos usuários.
     private final PasswordEncoder passwordEncoder;     // Para a codificação da senha.
     private final RequestMapper requestMapper;
@@ -87,6 +89,8 @@ public class AuthServiceImpl implements AuthService {
                 + "Sua Equipe de Suporte.";
         String subject = "Recuperação de Password - Sistema de Registo de Horas";
         // 4. Envio do Email
+        log.info("foi enviado para a fila o e-mail :{}", users.getEmail());
+
         emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message,resetLink );
     }
 
