@@ -57,9 +57,11 @@ springdoc:
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    com.registo.horas_estagio: DEBUG
-    org.flywaydb: DEBUG
+    root: INFO
+    com.aneto: ERROR
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.hibernate: WARN
   file:
     name: logs/app.log
 
