@@ -4,9 +4,7 @@ import com.aneto.authService.dto.request.LoginRequest;
 import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
-import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.Users;
-import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,8 +24,6 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
-    private final RequestMapper requestMapper; // Assumido
-    private final EmailProducer emailProducer;
 
     private static final String X_USER_ID = "X-User-Id";
 
@@ -65,22 +61,10 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Username já existe ou dados inválidos")
     })
     @PostMapping("/register")
-    public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest userCredentialsRequest) {
-        if (authService.existeUsers(userCredentialsRequest.username())) {
-            return ResponseEntity.badRequest().body("Username já existe!");
-        }
+    public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest request) {
+        // Sem try-catch! O GlobalExceptionHandler trata tudo por trás das cenas.
+        return ResponseEntity.ok(authService.registrarUsers(request));
 
-        // Mapeia e regista o utilizador (o service deve codificar a password)
-        Users users = requestMapper.mapToLogin(userCredentialsRequest);
-        authService.registrarUsers(users);
-        String message = "Bem-vindo(a) ao Registo de Horas "+userCredentialsRequest.username()+"! O seu registo foi concluído com sucesso.";
-        String subject = "Login - Sistema de Registo de Horas";
-        //enviar o email
-        emailProducer.sendRegistrationEmail(userCredentialsRequest.username(), userCredentialsRequest.email(), subject, message, null);
-        // Gera e salva o token para o novo usuário
-        String token = authService.saveToken(users);
-
-        return ResponseEntity.ok(new LoginResponse(users.getUsername() + " registrado com sucesso", token));
     }
 
     @PostMapping("/recuperar-password")
@@ -106,7 +90,7 @@ public class AuthController {
     @PutMapping("/")
     public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
         // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
-        authService.UpdateProfile(username,publicUrl);
+        authService.UpdateProfile(username, publicUrl);
         // Sucesso - Retorna 200 OK ou 204 No Content
         return ResponseEntity.ok("Url adiciona com sucesso!");
     }

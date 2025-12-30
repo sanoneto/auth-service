@@ -67,3 +67,7 @@ logging:
 
 url:
   front-end: ${URL_FRONT_END}
+
+codes:
+  admin: MASTER2025
+  especialista: EXPERT2025

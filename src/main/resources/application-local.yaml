@@ -1,11 +1,5 @@
 server:
   port: ${PORT:8081}
-app:
-  security:
-    cors:
-      allowed-origins: http://localhost:5173, https://treg-app.vercel.app, https://front-end-three-self.vercel.app
-      allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
-      allowed-headers: Authorization,Content-Type,X-User-Roles,X-User-Id
 spring:
   application:
     name: auth-service
@@ -85,3 +79,8 @@ logging:
 
 url:
   front-end: ${URL_FRONT_END}
+
+codes:
+  admin: MASTER2025
+  especialista: EXPERT2025
+

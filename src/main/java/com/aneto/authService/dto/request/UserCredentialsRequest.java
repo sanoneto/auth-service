@@ -43,7 +43,7 @@ public record UserCredentialsRequest(
         @NotBlank(message = "O e-mail é obrigatório.")
         // (Ex: deve conter um '@' e um '.' no domínio)
         @Email(message = "O e-mail deve ter um formato válido.")
-        @NotEmpty String email)
-
+        @NotEmpty String email,
+        String inviteCode)
 {
 }

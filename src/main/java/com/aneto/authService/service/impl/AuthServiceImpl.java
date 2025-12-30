@@ -1,7 +1,10 @@
 package com.aneto.authService.service.impl;
 
 
+import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
+import com.aneto.authService.dto.response.ErrorResponse;
+import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.JwtToken;
 import com.aneto.authService.models.Users;
@@ -15,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +31,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     private final UsersRepository usersRepository; // Repositório dos usuários.
@@ -37,15 +41,51 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenService jwtTokenService;
     private final JwtTokenRepository tokenRepository;
 
-    private static final int EXPIRATION_TIME_HOURS = 1;
+    public AuthServiceImpl(UsersRepository usersRepository, RequestMapper requestMapper,
+                           PasswordEncoder passwordEncoder, EmailProducer emailProducer,JwtTokenUtil jwtTokenUtil,JwtTokenService jwtTokenService,JwtTokenRepository tokenRepository) {
+        this.usersRepository = usersRepository;
+        this.requestMapper = requestMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.emailProducer = emailProducer;
+        this.jwtTokenUtil=jwtTokenUtil;
+        this.jwtTokenService=jwtTokenService;
+        this.tokenRepository=tokenRepository;
+    }
 
     @Value("${url.front-end}")
     String FRONTEND_BASE_URL;
 
+    @Value("${codes.especialista}")
+    private String CODEESPECIALISTA;
+
+    @Value("${codes.admin}")
+    private String CODEADMIN;
+
     @Override
-    public Users registrarUsers(Users users) {
+    public LoginResponse registrarUsers(UserCredentialsRequest request) {
+        // 1. Validação de existência
+        if (existeUsers(request.username())) {
+            throw new RuntimeException("O nome de utilizador já está em uso.");
+        }
+        // 2. Validação de Códigos
+        String roleSolicitada = request.role().toUpperCase();
+        if (roleSolicitada.equals("ADMIN") && !CODEADMIN.equals(request.inviteCode())) {
+            throw new SecurityException("Código inválido para ADMINISTRADOR.");
+        }
+        if (roleSolicitada.equals("ESPECIALISTA") && !CODEESPECIALISTA.equals(request.inviteCode())) {
+            throw new SecurityException("Código inválido para ESPECIALISTA.");
+        }
+        // 3. Persistência
+        Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        return usersRepository.save(users);
+        usersRepository.save(users);
+
+        // 4. Email e Token
+        String message = "Bem-vindo(a) " + request.username() + "!";
+        emailProducer.sendRegistrationEmail(request.username(), request.email(), "Registo Concluído", message, null);
+
+        String token = saveToken(users);
+        return new LoginResponse(users.getUsername() + " registado com sucesso", token);
     }
 
     @Override
@@ -91,7 +131,7 @@ public class AuthServiceImpl implements AuthService {
 
         log.info("foi enviado para a fila o e-mail :{}", users.getEmail());
         // 4. Envio do Email
-        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message,resetLink );
+        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message, resetLink);
     }
 
     @Override

@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorResponse> BadCredentialsException(Exception e) {
+    public ResponseEntity<ErrorResponse> handleBadCredentials(Exception e) {
         log.warn("Falha de autenticação para usuário {}", e.getMessage());
         ErrorResponse error = new ErrorResponse(
                 "Falha de autenticação para usuário: " + e.getMessage(),
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceAccessException.class)
-    public ResponseEntity<ErrorResponse> ResourceAccessException(Exception e) {
+    public ResponseEntity<ErrorResponse> handleResourceAccess(Exception e) {
         log.warn(" Unsupported or unrecognized SSL message: {}", e.getMessage());
         ErrorResponse error = new ErrorResponse(
                 "Problema de conectividade com o Vault: " + e.getMessage(),
@@ -103,7 +103,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
     }
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> ResourceAccessException(UserNotFoundException e) {
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException e) {
         log.warn(" Instruções de recuperação enviadas com sucesso, se o email existir.: {}", e.getMessage());
         ErrorResponse error = new ErrorResponse(
                 "Instruções de recuperação enviadas com sucesso, se o email existir. " + e.getMessage(),
@@ -112,7 +112,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
     }
     @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<ErrorResponse> ResourceAccessException(InvalidTokenException e) {
+    public ResponseEntity<ErrorResponse> InvalidTokenException(InvalidTokenException e) {
         log.warn("Token expirado.: {}", e.getMessage());
         ErrorResponse error = new ErrorResponse(
                 "Token expirado. " + e.getMessage(),
@@ -120,15 +120,24 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
     }
-
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> ResourceAccessException(DataIntegrityViolationException e) {
+    public ResponseEntity<ErrorResponse> DataIntegrityViolationException(DataIntegrityViolationException e) {
         log.warn("err: {}", e.getMessage());
         ErrorResponse error = new ErrorResponse(
                 "the data already exists.",
                 HttpStatus.BAD_REQUEST.value()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ErrorResponse> handleSecurityException(SecurityException e) {
+        log.error("Violação de segurança (Código de convite): {}", e.getMessage());
+        ErrorResponse error = new ErrorResponse(
+                e.getMessage(), // Mensagem: "Código de autorização inválido..."
+                HttpStatus.FORBIDDEN.value()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 
 }
