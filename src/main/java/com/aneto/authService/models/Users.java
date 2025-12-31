@@ -4,12 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TB_USERS", schema = "AUTH", uniqueConstraints = { // <--- Esquema configurado
         @UniqueConstraint(columnNames = "username")
 })
@@ -56,8 +61,16 @@ public class Users {
         this.jwtToken = new ArrayList<>();
     }
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     // Construtor para criação de um NOVO usuário (Substitui o @Builder/@AllArgsConstructor)
-    public Users(String username, String email, String password, String role, double requiredHours, String profilePictureUrl,String verificationCode ) {
+    public Users(String username, String email, String password, String role, String profilePictureUrl,String verificationCode ) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -98,6 +111,9 @@ public class Users {
     }
     // Getter com lógica
     public String getUsername() { return username; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 
     // Setter com lógica (Mantido devido à regra de normalização)
     public void setUsername(String username) {
