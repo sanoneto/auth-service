@@ -46,6 +46,9 @@ public class Users {
     // Não usamos @ToString.Exclude, a implementação nativa de toString() é mais segura
     private List<JwtToken> jwtToken = new ArrayList<>();
 
+    private String verificationCode;
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean enabled = false;
 
     // Construtor sem argumentos para JPA
     public Users() {
@@ -54,11 +57,12 @@ public class Users {
     }
 
     // Construtor para criação de um NOVO usuário (Substitui o @Builder/@AllArgsConstructor)
-    public Users(String username, String email, String password, String role, double requiredHours, String profilePictureUrl) {
+    public Users(String username, String email, String password, String role, double requiredHours, String profilePictureUrl,String verificationCode ) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.verificationCode=verificationCode;
         this.profile_picture_url = profilePictureUrl;
         this.publicId = UUID.randomUUID(); // Inicialização explícita
         this.jwtToken = new ArrayList<>();
@@ -109,5 +113,21 @@ public class Users {
 
     public void setProfile_picture_url(String profile_picture_url) {
         this.profile_picture_url = profile_picture_url;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

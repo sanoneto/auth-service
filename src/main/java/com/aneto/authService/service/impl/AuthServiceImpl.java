@@ -3,7 +3,6 @@ package com.aneto.authService.service.impl;
 
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
-import com.aneto.authService.dto.response.ErrorResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.JwtToken;
@@ -14,21 +13,15 @@ import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.AuthService;
 import com.aneto.authService.service.JwtTokenService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -42,14 +35,14 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenRepository tokenRepository;
 
     public AuthServiceImpl(UsersRepository usersRepository, RequestMapper requestMapper,
-                           PasswordEncoder passwordEncoder, EmailProducer emailProducer,JwtTokenUtil jwtTokenUtil,JwtTokenService jwtTokenService,JwtTokenRepository tokenRepository) {
+                           PasswordEncoder passwordEncoder, EmailProducer emailProducer, JwtTokenUtil jwtTokenUtil, JwtTokenService jwtTokenService, JwtTokenRepository tokenRepository) {
         this.usersRepository = usersRepository;
         this.requestMapper = requestMapper;
         this.passwordEncoder = passwordEncoder;
         this.emailProducer = emailProducer;
-        this.jwtTokenUtil=jwtTokenUtil;
-        this.jwtTokenService=jwtTokenService;
-        this.tokenRepository=tokenRepository;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtTokenService = jwtTokenService;
+        this.tokenRepository = tokenRepository;
     }
 
     @Value("${url.front-end}")
@@ -62,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     private String CODEADMIN;
 
     @Override
-    public LoginResponse registrarUsers(UserCredentialsRequest request) {
+    public String registrarUsers(UserCredentialsRequest request) {
         // 1. Validação de existência
         if (existeUsers(request.username())) {
             throw new RuntimeException("O nome de utilizador já está em uso.");
@@ -78,16 +71,41 @@ public class AuthServiceImpl implements AuthService {
         // 3. Persistência
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
+
+        // Gerar código aleatório de 6 dígitos
+        String code = String.format("%06d", new Random().nextInt(999999));
+        users.setVerificationCode(code);
+        users.setEnabled(false);
         usersRepository.save(users);
 
-        // 4. Email e Token
-        String message = "Bem-vindo(a) " + request.username() + "!";
-        emailProducer.sendRegistrationEmail(request.username(), request.email(), "Registo Concluído", message, null);
-
-        String token = saveToken(users);
-        return new LoginResponse(users.getUsername() + " registado com sucesso", token);
+        // Enviar e-mail com o CÓDIGO e não apenas boas-vindas
+        String message = "O seu código de ativação é: " + code;
+        log.info("O seu código de ativação é: :{}", code);
+        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), "Código de Verificação", message, null);
+        return "Registo realizado. Verifique o seu e-mail para ativar a conta.";
     }
+    @Override
+    public LoginResponse verificarCodigo(UserCredentialsRequest request) {
+        // 1. Procura o utilizador pelo e-mail
+        Users user = usersRepository.findByEmail(request.email())
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
 
+        // 2. Verifica se o código é o mesmo que guardamos no registo
+        if (user.getVerificationCode() == null || !user.getVerificationCode().equals(request.code())) {
+            throw new SecurityException("Código de verificação inválido ou expirado.");
+        }
+
+        // 3. Ativa a conta e limpa o código para não ser reutilizado
+        user.setEnabled(true);
+        user.setVerificationCode(null);
+        usersRepository.save(user);
+
+        // 4. GERA O TOKEN AQUI!
+        // O utilizador valida o e-mail e já fica logado.
+        String token = saveToken(user);
+
+        return new LoginResponse("Conta ativada com sucesso!", token);
+    }
     @Override
     public Users findPorUsername(String username) throws UsernameNotFoundException {
         return usersRepository.findByUsername(username)
@@ -188,4 +206,5 @@ public class AuthServiceImpl implements AuthService {
                 });
 
     }
+
 }

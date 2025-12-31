@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
 
-    LoginResponse registrarUsers(UserCredentialsRequest request);
+    String registrarUsers(UserCredentialsRequest request);
 
     Users findPorUsername(String username);
 
@@ -21,4 +21,6 @@ public interface AuthService {
     void resetPassword(String token, String newPassword);
 
     void UpdateProfile(String username, String publicUrl);
+
+    LoginResponse verificarCodigo(UserCredentialsRequest request);
 }

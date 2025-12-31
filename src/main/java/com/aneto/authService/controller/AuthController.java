@@ -5,6 +5,7 @@ import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.models.Users;
+import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,6 +25,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
+    private final UsersRepository usersRepository;
 
     private static final String X_USER_ID = "X-User-Id";
 
@@ -65,6 +67,12 @@ public class AuthController {
         // Sem try-catch! O GlobalExceptionHandler trata tudo por trás das cenas.
         return ResponseEntity.ok(authService.registrarUsers(request));
 
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyCode(@RequestBody UserCredentialsRequest request) {
+        // 1. O retorno de findByEmail é Optional. Use .isPresent() ou .orElse(null)
+        return ResponseEntity.ok(authService.verificarCodigo(request));
     }
 
     @PostMapping("/recuperar-password")
