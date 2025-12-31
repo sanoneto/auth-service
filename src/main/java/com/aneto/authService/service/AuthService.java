@@ -3,12 +3,13 @@ package com.aneto.authService.service;
 
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
+import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.models.Users;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
 
-    String registrarUsers(UserCredentialsRequest request);
+    RegistrationResponse registrarUsers(UserCredentialsRequest request);
 
     Users findPorUsername(String username);
 

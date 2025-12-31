@@ -4,6 +4,7 @@ package com.aneto.authService.service.impl;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
+import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.JwtToken;
 import com.aneto.authService.models.Users;
@@ -13,6 +14,7 @@ import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.AuthService;
 import com.aneto.authService.service.JwtTokenService;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
 
@@ -55,7 +58,8 @@ public class AuthServiceImpl implements AuthService {
     private String CODEADMIN;
 
     @Override
-    public String registrarUsers(UserCredentialsRequest request) {
+    @Transactional
+    public RegistrationResponse registrarUsers(UserCredentialsRequest request) {
         // 1. Validação de existência
         if (existeUsers(request.username())) {
             throw new RuntimeException("O nome de utilizador já está em uso.");
@@ -73,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
         // Gerar código aleatório de 6 dígitos
-        String code = String.format("%06d", new Random().nextInt(999999));
+        String code = String.format("%06d", new SecureRandom().nextInt(999999));
         users.setVerificationCode(code);
         users.setEnabled(false);
         usersRepository.save(users);
@@ -81,8 +85,8 @@ public class AuthServiceImpl implements AuthService {
         // Enviar e-mail com o CÓDIGO e não apenas boas-vindas
         String message = "O seu código de ativação é: " + code;
         log.info("O seu código de ativação é: :{}", code);
-        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), "Código de Verificação", message, null);
-        return "Registo realizado. Verifique o seu e-mail para ativar a conta.";
+        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), "Código de Verificação ", message, null);
+        return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
     }
     @Override
     public LoginResponse verificarCodigo(UserCredentialsRequest request) {

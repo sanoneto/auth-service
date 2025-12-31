@@ -44,13 +44,10 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
         );
-
         // 2. Busca o usuário para obter roles
         Users usuario = authService.findPorUsername(loginRequest.username());
-
         // 3. Normaliza a role para o token (remove 'ROLE_' e usa UPPERCASE)
         String token = authService.saveToken(usuario);
-
         return ResponseEntity.ok(new LoginResponse(usuario.getUsername() + " logado com sucesso", token));
     }
 
