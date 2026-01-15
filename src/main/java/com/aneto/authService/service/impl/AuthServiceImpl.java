@@ -101,7 +101,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 3. Ativa a conta e limpa o código para não ser reutilizado
         user.setEnabled(true);
-        user.setVerificationCode(null);
+        user.setVerificationCode(null); // coloca o codigo a null
         usersRepository.save(user);
 
         // 4. GERA O TOKEN AQUI!
