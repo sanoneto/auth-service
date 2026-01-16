@@ -107,7 +107,7 @@ public class AuthController {
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
 
-    @PutMapping("/")
+    @PutMapping("/updateProfile")
     public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
         // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
         authService.UpdateProfile(username, publicUrl);

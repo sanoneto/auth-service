@@ -248,6 +248,7 @@ public class AuthServiceImpl implements AuthService {
                     user.setProfile_picture_url(publicUrl);
                     // 3. O save() deve ser chamado com o objeto Users, não com o Optional.
                     usersRepository.save(user);
+                    log.info("A adicionado o link {} da foto do perfil {}", username, publicUrl);
                 });
 
     }
