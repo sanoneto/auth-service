@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
 
@@ -64,30 +63,44 @@ public class AuthServiceImpl implements AuthService {
         if (existeUsers(request.username())) {
             throw new RuntimeException("O nome de utilizador já está em uso.");
         }
-        // 2. Validação de Códigos
+
+        // 2. Validação de Códigos de Convite (Invite Codes)
         String roleSolicitada = request.role().toUpperCase();
         if (roleSolicitada.equals("ADMIN") && !CODEADMIN.equals(request.inviteCode())) {
-            throw new SecurityException("Código inválido para ADMINISTRADOR.");
+            throw new SecurityException("Código de autorização inválido para ADMINISTRADOR.");
         }
         if (roleSolicitada.equals("ESPECIALISTA") && !CODEESPECIALISTA.equals(request.inviteCode())) {
-            throw new SecurityException("Código inválido para ESPECIALISTA.");
+            throw new SecurityException("Código de autorização inválido para ESPECIALISTA.");
         }
-        // 3. Persistência
+
+        // 3. Mapeamento e Codificação de Password
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        // Gerar código aleatório de 6 dígitos
-        String code = String.format("%06d", new SecureRandom().nextInt(999999));
+        // 4. Gerar código de verificação de 6 dígitos
+        String code = String.format("%06d", new java.security.SecureRandom().nextInt(999999));
         users.setVerificationCode(code);
-        users.setEnabled(false);
-        usersRepository.save(users);
+        users.setEnabled(false); // Conta desativada até validar o código
 
-        // Enviar e-mail com o CÓDIGO e não apenas boas-vindas
-        String message = "O seu código de ativação é: " + code;
-        log.info("O seu código de ativação é: :{}", code);
-        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), "Código de Verificação ", message, null);
-        return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
+        usersRepository.save(users);
+        String subject = "Ativação de Conta - Código de Verificação";
+        String htmlMessage = "Obrigado por te registares! Para ativar a tua conta, utiliza o seguinte código:";
+
+        // IMPORTANTE: Passamos o 'code' no campo de mensagem
+        // O EmailServiceImpl vai colocar isto dentro do template HTML
+        emailProducer.publishEmailRequest(
+                users.getUsername(),
+                users.getEmail(),
+                subject,
+                "<h3>" + code + "</h3>", // Destaque para o código
+                null
+        );
+
+        log.info("Utilizador {} registado. Código de ativação gerado.", users.getUsername());
+
+        return new RegistrationResponse("Registo realizado. Verifique o seu e-mail para ativar a conta.", users.getUsername());
     }
+
     @Override
     public LoginResponse verificarCodigo(UserCredentialsRequest request) {
         // 1. Procura o utilizador pelo e-mail
@@ -108,8 +121,35 @@ public class AuthServiceImpl implements AuthService {
         // O utilizador valida o e-mail e já fica logado.
         String token = saveToken(user);
 
-        return new LoginResponse("Conta ativada com sucesso!", token);
+        return new LoginResponse("Conta ativada com sucesso!", token, null);
     }
+
+    @Override
+    @Transactional
+    public LoginResponse processGoogleLogin(String email, String name) {
+        Users user = usersRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    log.info("Criando novo utilizador via Google Login: {}", email);
+                    Users newUser = new Users();
+                    newUser.setEmail(email);
+                    newUser.setUsername(email); // Pode ajustar para extrair parte do e-mail se preferir
+                    newUser.setRole("USER");
+                    // Senha aleatória forte para conta social
+                    newUser.setPassword(passwordEncoder.encode(Base64.getEncoder().encodeToString(new byte[16])));
+                    newUser.setEnabled(true); // Google já verificou o e-mail
+                    return usersRepository.save(newUser);
+                });
+
+        // Se o usuário existia mas estava desativado, ativamos (opcional)
+        if (!user.isEnabled()) {
+            user.setEnabled(true);
+            usersRepository.save(user);
+        }
+
+        String systemToken = saveToken(user);
+        return new LoginResponse("Login efetuado com sucesso!", systemToken, null);
+    }
+
     @Override
     public Users findPorUsername(String username) throws UsernameNotFoundException {
         return usersRepository.findByUsername(username)
@@ -132,28 +172,29 @@ public class AuthServiceImpl implements AuthService {
         Users users = usersRepository.findByEmailIgnoreCase(email)
                 .orElse(null);
 
-        // Se o usuário não for encontrado, não faz nada para evitar indicar
-        // se o email está ou não registado.
+        // Proteção contra enumeração de emails
         if (users == null) {
+            log.warn("Tentativa de recuperação de senha para email inexistente: {}", email);
             return;
         }
-        // 1. Geração e salva o token
+
         String token = saveToken(users);
-        // URL do seu front-end React
+
         String resetLink = FRONTEND_BASE_URL + "/reset-password?token=" + token;
 
-        String message = "Olá, \n\n"
-                + "Você solicitou a redefinição da sua password. Por favor, clique no link abaixo para continuar:\n\n"
-                + resetLink + "\n\n"
-                + "Este link expira em 1 hora.\n\n"
-                + "Se você não solicitou esta alteração, ignore este e-mail.\n\n"
-                + "Atenciosamente,\n"
-                + "Sua Equipe de Suporte.";
-        String subject = "Recuperação de Password - Sistema de Registo de Horas";
+        String subject = "Recuperação de Password - Sanoneto System";
+        String message = "Recebemos um pedido para redefinir a sua password. Clique no botão abaixo para prosseguir. Este link é válido por 1 hora.";
 
-        log.info("foi enviado para a fila o e-mail :{}", users.getEmail());
-        // 4. Envio do Email
-        emailProducer.sendRegistrationEmail(users.getUsername(), users.getEmail(), subject, message, resetLink);
+        log.info("Enviando solicitação de reset de senha para a fila: {}", users.getEmail());
+
+        // 4. Envio via Producer (usando o novo nome do método)
+        emailProducer.publishEmailRequest(
+                users.getUsername(),
+                users.getEmail(),
+                subject,
+                message,
+                resetLink // O EmailServiceImpl usará isto para criar o botão HTML
+        );
     }
 
     @Override
@@ -172,7 +213,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void resetPassword(String token, String newPassword) {
-// 1. Validar o Token
+        // 1. Validar o Token
         Optional<JwtToken> jwtTokenOptional = jwtTokenService.findByToken(token);
 
         JwtToken jwtToken = jwtTokenOptional

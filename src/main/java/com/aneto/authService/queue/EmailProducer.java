@@ -4,34 +4,35 @@ package com.aneto.authService.queue;
 import com.aneto.authService.config.RabbitMQConfig;
 import com.aneto.authService.dto.request.EmailRequest;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailProducer {
 
-    private static final Logger log = LoggerFactory.getLogger(EmailProducer.class);
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendRegistrationEmail(String recipientName, String recipientEmail, String subject, String message, String resetLink) {
+    public void publishEmailRequest(String name, String email, String subject, String message, String resetLink) {
 
-        // Constrói o DTO específico que a fila espera
         EmailRequest emailRequest = new EmailRequest(
-                recipientName,
-                recipientEmail,
+                name,
+                email,
                 subject,
                 message,
                 resetLink
         );
 
-        log.info("Enviando mensagem para a Exchange: {} com Routing Key: {}", RabbitMQConfig.EMAIL_EXCHANGE, RabbitMQConfig.EMAIL_ROUTING_KEY);
+        log.info("Publicando evento de email para: {}", email);
 
-        // Envia a mensagem para a fila
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_EXCHANGE, RabbitMQConfig.EMAIL_ROUTING_KEY, emailRequest);
+        // Se isto falhar, o GlobalExceptionHandler assume o controlo!
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EMAIL_EXCHANGE,
+                RabbitMQConfig.EMAIL_ROUTING_KEY,
+                emailRequest
+        );
 
-        log.info("Mensagem de registo de e-mail enviada para a fila: {}", emailRequest.email());
+        log.info("Mensagem enviada para a fila.");
     }
 }

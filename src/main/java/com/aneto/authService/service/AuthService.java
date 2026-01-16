@@ -24,4 +24,5 @@ public interface AuthService {
     void UpdateProfile(String username, String publicUrl);
 
     LoginResponse verificarCodigo(UserCredentialsRequest request);
+    LoginResponse processGoogleLogin(String email, String name);
 }

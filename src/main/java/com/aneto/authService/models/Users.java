@@ -55,6 +55,9 @@ public class Users {
     @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean enabled = false;
 
+    @Column(name = "google_token", length = 1000) // Tokens do Google podem ser longos
+    private String googleToken;
+
     // Construtor sem argumentos para JPA
     public Users() {
         // Inicializa a lista aqui, se não for feito na declaração
@@ -114,6 +117,9 @@ public class Users {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public String getGoogleToken() {
+        return googleToken;
+    }
 
     // Setter com lógica (Mantido devido à regra de normalização)
     public void setUsername(String username) {
@@ -145,5 +151,9 @@ public class Users {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void setGoogleToken(String googleToken) {
+        this.googleToken = googleToken;
     }
 }
