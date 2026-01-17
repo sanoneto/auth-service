@@ -15,10 +15,15 @@ import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.AuthService;
 import com.aneto.authService.service.JwtTokenService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,6 +53,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${codes.admin}")
     private String CODEADMIN;
+
+    @Value("${google.client-id}")
+    private String googleClientId;
 
     @Override
     @Transactional
@@ -181,6 +189,52 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
+    public  LoginResponse getLoginResponse(Map<String, String> data) {
+        String googleToken = data.get("token");
+
+        if (googleToken == null || googleToken.isBlank()) {
+            throw new BadCredentialsException("Token do Google não fornecido no corpo da requisição.");
+        }
+        // 1. Valida o token com o Google
+        // Nota: O ideal é mover este 'verifier' para um @Bean de configuração
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections.singletonList(googleClientId))
+                .build();
+
+        // Removemos o try-catch manual, o GlobalExceptionHandler cuida das exceções!
+        GoogleIdToken idToken;
+        try {
+            idToken = verifier.verify(googleToken);
+        } catch (Exception e) {
+            // Lançamos uma exceção personalizada ou BadCredentials para o Handler capturar
+            throw new BadCredentialsException("Token do Google inválido ou expirado.");
+        }
+
+        if (idToken == null) {
+            throw new BadCredentialsException("Não foi possível validar o token com o Google.");
+        }
+
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        String email = payload.getEmail();
+        String name = (String) payload.get("name");
+
+        // 2. Lógica de Login/Registo
+        LoginResponse response = processGoogleLogin(email, name);
+
+        // 3. Enviar e-mail de "Bem-vindo" via Fila (RabbitMQ -> Resend)
+        // Usamos o novo nome do método que criámos no EmailProducer
+        emailProducer.publishEmailRequest(
+                name,
+                email,
+                "Bem-vindo ao Sistema Sanoneto",
+                "Estamos felizes por teres feito login com o Google!",
+                null
+        );
+        return response;
+    }
+
+    @Override
     public Users findPorUsername(String username) throws UsernameNotFoundException {
         return usersRepository.findByUsername(username)
                 // Se o utilizador não for encontrado na base de dados, esta exceção é lançada
@@ -210,7 +264,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = saveToken(users);
 
-        String resetLink = FRONTEND_BASE_URL + "/reset-password?token=" + token;
+        String resetLink = "%s/reset-password?token=%s".formatted(FRONTEND_BASE_URL, token);
 
         String subject = "Recuperação de Password - Sanoneto System";
         String message = "Recebemos um pedido para redefinir a sua password. Clique no botão abaixo para prosseguir. Este link é válido por 1 hora.";

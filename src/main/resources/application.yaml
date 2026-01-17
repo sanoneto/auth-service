@@ -71,3 +71,6 @@ url:
 codes:
   admin: ${CODE_ADMIN}
   especialista: ${CODE_EXPERT}
+
+google:
+  client-id: ${GOOGLE_CLIENT_ID}

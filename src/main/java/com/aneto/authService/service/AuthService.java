@@ -8,6 +8,8 @@ import com.aneto.authService.models.Users;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Map;
+
 public interface AuthService {
 
     RegistrationResponse registrarUsers(UserCredentialsRequest request);
@@ -30,4 +32,6 @@ public interface AuthService {
     void eliminarUtilizador(String publicId);
 
     void atualizarUtilizador(String publicId, @Valid UserCredentialsRequest request);
+
+    LoginResponse getLoginResponse(Map<String, String> data);
 }

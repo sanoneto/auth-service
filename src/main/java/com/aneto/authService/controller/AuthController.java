@@ -8,10 +8,6 @@ import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.AuthService;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,12 +15,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -133,46 +127,11 @@ public class AuthController {
 
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
-        String googleToken = data.get("token");
-
-        // 1. Valida o token com o Google
-        // Nota: O ideal é mover este 'verifier' para um @Bean de configuração
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                .setAudience(Collections.singletonList("SEU_CLIENT_ID_GOOGLE"))
-                .build();
-
-        // Removemos o try-catch manual, o GlobalExceptionHandler cuida das exceções!
-        GoogleIdToken idToken;
-        try {
-            idToken = verifier.verify(googleToken);
-        } catch (Exception e) {
-            // Lançamos uma exceção personalizada ou BadCredentials para o Handler capturar
-            throw new BadCredentialsException("Token do Google inválido ou expirado.");
-        }
-
-        if (idToken == null) {
-            throw new BadCredentialsException("Não foi possível validar o token com o Google.");
-        }
-
-        GoogleIdToken.Payload payload = idToken.getPayload();
-        String email = payload.getEmail();
-        String name = (String) payload.get("name");
-
-        // 2. Lógica de Login/Registo
-        LoginResponse response = authService.processGoogleLogin(email, name);
-
-        // 3. Enviar e-mail de "Bem-vindo" via Fila (RabbitMQ -> Resend)
-        // Usamos o novo nome do método que criámos no EmailProducer
-        emailProducer.publishEmailRequest(
-                name,
-                email,
-                "Bem-vindo ao Sistema Sanoneto",
-                "Estamos felizes por teres feito login com o Google!",
-                null
-        );
+        LoginResponse response = authService.getLoginResponse(data);
 
         return ResponseEntity.ok(response);
     }
+
 
     @PutMapping("/updateProfile")
     public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
