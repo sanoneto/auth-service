@@ -197,3 +197,49 @@
 2026-01-17T01:45:49.370Z  INFO 62644 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-01-17T01:45:49.371Z  INFO 62644 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-01-17T01:45:49.376Z  INFO 62644 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-17T01:45:51.233Z  INFO 6560 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 6560 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-01-17T01:45:51.235Z  INFO 6560 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-01-17T01:45:52.150Z  INFO 6560 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-17T01:45:52.193Z  INFO 6560 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 3 JPA repository interfaces.
+2026-01-17T01:45:52.674Z  INFO 6560 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-17T01:45:52.685Z  INFO 6560 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-17T01:45:52.686Z  INFO 6560 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-01-17T01:45:52.737Z  INFO 6560 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-17T01:45:52.738Z  INFO 6560 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1465 ms
+2026-01-17T01:45:52.878Z  INFO 6560 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-17T01:45:52.998Z  INFO 6560 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@b2da3a5
+2026-01-17T01:45:52.999Z  INFO 6560 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-17T01:45:53.330Z  INFO 6560 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-17T01:45:54.252Z  INFO 6560 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-17T01:45:54.476Z  INFO 6560 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-17T01:45:54.904Z  INFO 6560 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-01-17T01:45:55.426Z  INFO 6560 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-01-17T01:45:55.462Z  INFO 6560 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-01-17T01:45:55.533Z  WARN 6560 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2026-01-17T01:45:55.564Z DEBUG 6560 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-01-17T01:45:55.954Z  INFO 6560 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-01-17T01:45:55.963Z  INFO 6560 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.163 seconds (process running for 5.755)
+2026-01-17T01:45:56.287Z  INFO 6560 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-17T01:45:56.287Z  INFO 6560 --- [auth-service] [RMI TCP Connection(6)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-01-17T01:45:56.342Z  INFO 6560 --- [auth-service] [RMI TCP Connection(6)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1177049c:0/SimpleConnection@45cdb856 [delegate=amqp://guest@127.0.0.1:5672/, localPort=54656]
+2026-01-17T01:51:11.435Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/google
+2026-01-17T01:51:11.452Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-17T01:51:11.456Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/google
+2026-01-17T01:51:11.530Z  WARN 6560 --- [auth-service] [http-nio-8081-exec-1] c.a.a.exception.GlobalExceptionHandler   : Falha de autenticação para usuário Token do Google inválido ou expirado.
+2026-01-17T01:58:24.945Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-01-17T01:58:24.945Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-17T01:58:24.946Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-01-17T01:58:25.129Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: neto
+2026-01-17T01:58:25.129Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESTAGIARIO
+2026-01-17T01:58:25.129Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESTAGIARIO]
+2026-01-17T01:58:25.193Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-01-17T01:59:03.013Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/google
+2026-01-17T01:59:03.013Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-17T01:59:03.014Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/google
+2026-01-17T01:59:03.359Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-4] c.aneto.authService.queue.EmailProducer  : Publicando evento de email para: sanoneto@gmail.com
+2026-01-17T01:59:03.363Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-4] c.aneto.authService.queue.EmailProducer  : Mensagem enviada para a fila.
+2026-01-17T02:00:50.989Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/google
+2026-01-17T02:00:50.991Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-17T02:00:50.991Z DEBUG 6560 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/google
+2026-01-17T02:00:51.133Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-6] c.aneto.authService.queue.EmailProducer  : Publicando evento de email para: dossantosbarbosaneto@gmail.com
+2026-01-17T02:00:51.134Z  INFO 6560 --- [auth-service] [http-nio-8081-exec-6] c.aneto.authService.queue.EmailProducer  : Mensagem enviada para a fila.
