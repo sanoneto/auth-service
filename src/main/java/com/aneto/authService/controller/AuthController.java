@@ -107,12 +107,28 @@ public class AuthController {
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
 
-    @PutMapping("/updateProfile")
-    public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
-        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
-        authService.UpdateProfile(username, publicUrl);
-        // Sucesso - Retorna 200 OK ou 204 No Content
-        return ResponseEntity.ok("Url adiciona com sucesso!");
+    @Operation(
+            summary = "Edita os dados de um utilizador",
+            description = "Permite atualizar o username, email ou cargo de um utilizador via publicId."
+    )
+    @PutMapping("/users/{publicId}")
+    public ResponseEntity<?> editarUtilizador(
+            @PathVariable String publicId,
+            @RequestBody @Valid UserCredentialsRequest request) {
+
+        // O serviço tratará a lógica de procurar por publicId e atualizar
+        authService.atualizarUtilizador(publicId, request);
+        return ResponseEntity.ok("Utilizador atualizado com sucesso!");
+    }
+
+    @Operation(
+            summary = "Elimina um utilizador do sistema",
+            description = "Remove permanentemente o utilizador através do seu publicId."
+    )
+    @DeleteMapping("/users/{publicId}")
+    public ResponseEntity<?> eliminarUtilizador(@PathVariable String publicId) {
+        authService.eliminarUtilizador(publicId);
+        return ResponseEntity.ok("Utilizador eliminado com sucesso!");
     }
 
     @PostMapping("/google")
@@ -158,4 +174,11 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/updateProfile")
+    public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
+        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
+        authService.UpdateProfile(username, publicUrl);
+        // Sucesso - Retorna 200 OK ou 204 No Content
+        return ResponseEntity.ok("Url adiciona com sucesso!");
+    }
 }

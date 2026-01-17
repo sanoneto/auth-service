@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProjectorsRepository extends JpaRepository<Projects, Long> {
+public interface ProjectsRepository extends JpaRepository<Projects, Long> {
 
     @Query(value = "SELECT " +
             "   distinct( project_name)" +
@@ -17,4 +17,6 @@ public interface ProjectorsRepository extends JpaRepository<Projects, Long> {
             "   AND (:username = 'all' OR p.username = :username)",
             nativeQuery = true)
      List<String> findAll  (String username);
+
+    void deleteByUsersId(Long userId);
 }

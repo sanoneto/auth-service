@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.lang.ScopedValue;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
@@ -18,5 +20,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByUsernameIgnoreCase(@Param("username") String username);
 
     Optional<Users> findByEmail(String email);
+
+    // 🔑 Importante para o Delete e Edit
+    Optional<Users> findByPublicId(UUID publicId);
 }
 

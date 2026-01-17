@@ -15,4 +15,5 @@ public interface JwtTokenRepository extends JpaRepository<JwtToken, Long> {
 
     // Método para buscar um token por usuário (para garantir que só haja um por usuário, se necessário)
     Optional<JwtToken> findByUsers(Users user);
+    void deleteByUsersId(Long userId);
 }

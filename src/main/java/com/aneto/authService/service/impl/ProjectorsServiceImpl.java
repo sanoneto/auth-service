@@ -5,7 +5,7 @@ import com.aneto.authService.dto.response.ProjectResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.Projects;
 import com.aneto.authService.models.Users;
-import com.aneto.authService.repository.ProjectorsRepository;
+import com.aneto.authService.repository.ProjectsRepository;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.ProjectorsService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectorsServiceImpl implements ProjectorsService {
 
-    private final ProjectorsRepository repository;
+    private final ProjectsRepository repository;
     private final UsersRepository usersRepository;
     private final RequestMapper requestMapper;
 
