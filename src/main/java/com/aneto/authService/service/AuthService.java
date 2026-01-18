@@ -34,4 +34,6 @@ public interface AuthService {
     void atualizarUtilizador(String publicId, @Valid UserCredentialsRequest request);
 
     LoginResponse getLoginResponse(Map<String, String> data);
+
+    LoginResponse processarLoginFacebook(Map<String, String> data);
 }

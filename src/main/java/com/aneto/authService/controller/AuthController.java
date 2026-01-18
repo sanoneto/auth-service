@@ -132,6 +132,12 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/facebook")
+    public ResponseEntity<LoginResponse> facebookLogin(@RequestBody Map<String, String> data) {
+        // data conterá {"accessToken": "..."} enviado pelo frontend
+        LoginResponse response = authService.processarLoginFacebook(data);
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("/updateProfile")
     public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {

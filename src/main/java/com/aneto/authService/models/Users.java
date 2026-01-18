@@ -58,6 +58,9 @@ public class Users {
     @Column(name = "google_token", length = 1000) // Tokens do Google podem ser longos
     private String googleToken;
 
+    @Column(name = "facebook_id", unique = true)
+    private String facebookId;
+
     // Construtor sem argumentos para JPA
     public Users() {
         // Inicializa a lista aqui, se não for feito na declaração
@@ -73,12 +76,12 @@ public class Users {
     private LocalDateTime updatedAt;
 
     // Construtor para criação de um NOVO usuário (Substitui o @Builder/@AllArgsConstructor)
-    public Users(String username, String email, String password, String role, String profilePictureUrl,String verificationCode ) {
+    public Users(String username, String email, String password, String role, String profilePictureUrl, String verificationCode) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.verificationCode=verificationCode;
+        this.verificationCode = verificationCode;
         this.profile_picture_url = profilePictureUrl;
         this.publicId = UUID.randomUUID(); // Inicialização explícita
         this.jwtToken = new ArrayList<>();
@@ -103,22 +106,53 @@ public class Users {
 
     // --- Getters e Setters Manuais (Apenas onde a lógica é necessária) ---
 
-    public Long getId() { return id; }
-    public UUID getPublicId() { return publicId; }
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public String getRole() { return role; }
-    public List<JwtToken> getJwtToken() { return jwtToken; }
+    public Long getId() {
+        return id;
+    }
+
+    public UUID getPublicId() {
+        return publicId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public List<JwtToken> getJwtToken() {
+        return jwtToken;
+    }
+
     public String getProfile_picture_url() {
         return profile_picture_url;
     }
-    // Getter com lógica
-    public String getUsername() { return username; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    // Getter com lógica
+    public String getUsername() {
+        return username;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public String getGoogleToken() {
         return googleToken;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
     }
 
     // Setter com lógica (Mantido devido à regra de normalização)
@@ -127,11 +161,25 @@ public class Users {
     }
 
     // Setters restantes (Se forem necessários para o fluxo de atualização)
-    public void setPublicId(UUID publicId) { this.publicId = publicId; }
-    public void setEmail(String email) { this.email = email; }
-    public void setPassword(String password) { this.password = password; }
-    public void setRole(String role) { this.role = role; }
-    public void setJwtToken(List<JwtToken> jwtToken) { this.jwtToken = jwtToken; }
+    public void setPublicId(UUID publicId) {
+        this.publicId = publicId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setJwtToken(List<JwtToken> jwtToken) {
+        this.jwtToken = jwtToken;
+    }
 
     public void setProfile_picture_url(String profile_picture_url) {
         this.profile_picture_url = profile_picture_url;
@@ -155,5 +203,9 @@ public class Users {
 
     public void setGoogleToken(String googleToken) {
         this.googleToken = googleToken;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 }

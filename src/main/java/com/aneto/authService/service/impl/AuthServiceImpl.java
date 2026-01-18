@@ -27,6 +27,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Instant;
 import java.util.*;
@@ -43,6 +45,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenService jwtTokenService;
     private final JwtTokenRepository tokenRepository;
     private final ProjectsRepository projectsRepository;
+    private final RestTemplate restTemplate;
 
 
     @Value("${url.front-end}")
@@ -74,7 +77,6 @@ public class AuthServiceImpl implements AuthService {
             throw new SecurityException("Código de autorização inválido para ESPECIALISTA.");
         }
 
-        // 3. Mapeamento e Codificação de Password
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
@@ -98,7 +100,6 @@ public class AuthServiceImpl implements AuthService {
         );
 
         log.info("Utilizador {} registado. Código de ativação gerado.", users.getUsername());
-
         return new RegistrationResponse("Registo realizado. Verifique o seu e-mail para ativar a conta.", users.getUsername());
     }
 
@@ -133,6 +134,8 @@ public class AuthServiceImpl implements AuthService {
                     log.info("Criando novo utilizador via Google Login: {}", email);
                     Users newUser = new Users();
                     newUser.setEmail(email);
+                    String username = email.split("@")[0];
+                    newUser.setUsername(username);
                     newUser.setUsername(email); // Pode ajustar para extrair parte do e-mail se preferir
                     newUser.setRole("USER");
                     // Senha aleatória forte para conta social
@@ -190,7 +193,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public  LoginResponse getLoginResponse(Map<String, String> data) {
+    public LoginResponse getLoginResponse(Map<String, String> data) {
         String googleToken = data.get("token");
 
         if (googleToken == null || googleToken.isBlank()) {
@@ -233,6 +236,65 @@ public class AuthServiceImpl implements AuthService {
         );
         return response;
     }
+    @Override
+    @Transactional
+    public LoginResponse processarLoginFacebook(Map<String, String> data) {
+        String accessToken = data.get("accessToken");
+
+        // 1. Validar o token com a Graph API da Meta (apenas ID e Email, como no Google)
+        String fbUrl = UriComponentsBuilder.fromUriString("https://graph.facebook.com/me")
+                .queryParam("fields", "id,email")
+                .queryParam("access_token", accessToken)
+                .toUriString();
+        try {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> fbProfile = restTemplate.getForObject(fbUrl, Map.class);
+
+            if (fbProfile == null || !fbProfile.containsKey("id")) {
+                throw new RuntimeException("Token do Facebook inválido ou expirado.");
+            }
+
+            String email = (String) fbProfile.get("email");
+            String facebookId = (String) fbProfile.get("id");
+
+            // 2. Lógica idêntica ao Google: Procura ou cria o utilizador
+            Users user = usersRepository.findByEmail(email)
+                    .orElseGet(() -> {
+                        log.info("Criando novo utilizador via Facebook Login: {}", email);
+                        Users newUser = new Users();
+                        newUser.setEmail(email);
+                        String username = email.split("@")[0];
+                        newUser.setUsername(username);
+                        newUser.setFacebookId(facebookId); // Identificador único do FB
+                        newUser.setRole("USER");
+                        // Usa a mesma lógica de senha segura do Google
+                        newUser.setPassword(passwordEncoder.encode(Base64.getEncoder().encodeToString(new byte[16])));
+
+                        newUser.setEnabled(true); // Facebook já verificou o e-mail
+                        return usersRepository.save(newUser);
+                    });
+
+            // 3. Mesma verificação de ativação do Google
+            if (!user.isEnabled()) {
+                user.setEnabled(true);
+                usersRepository.save(user);
+            }
+
+            // 4. Se o utilizador já existia (ex: vindo do Google), mas agora entrou via FB,
+            // podes atualizar o facebookId se estiver vazio (opcional)
+            if (user.getFacebookId() == null) {
+                user.setFacebookId(facebookId);
+                usersRepository.save(user);
+            }
+
+            String systemToken = saveToken(user);
+            return new LoginResponse("Login efetuado com sucesso!", systemToken, null);
+
+        } catch (Exception e) {
+            log.error("Erro na autenticação Facebook: {}", e.getMessage());
+            throw new RuntimeException("Falha ao processar login social.");
+        }
+    }
 
     @Override
     public Users findPorUsername(String username) throws UsernameNotFoundException {
@@ -263,12 +325,9 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = saveToken(users);
-
         String resetLink = "%s/reset-password?token=%s".formatted(FRONTEND_BASE_URL, token);
-
         String subject = "Recuperação de Password - Sanoneto System";
         String message = "Recebemos um pedido para redefinir a sua password. Clique no botão abaixo para prosseguir. Este link é válido por 1 hora.";
-
         log.info("Enviando solicitação de reset de senha para a fila: {}", users.getEmail());
 
         // 4. Envio via Producer (usando o novo nome do método)
