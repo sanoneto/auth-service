@@ -236,6 +236,7 @@ public class AuthServiceImpl implements AuthService {
         );
         return response;
     }
+
     @Override
     @Transactional
     public LoginResponse processarLoginFacebook(Map<String, String> data) {
@@ -396,4 +397,34 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+    @Override
+    @Transactional
+    public void vincularTelegram(UUID publicId, String chatId) {
+        Users usuario = usersRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuario.setTelegramChatId(chatId);
+        usersRepository.saveAndFlush(usuario);
+        // O log ajuda-te a ver no terminal se o Java chegou aqui
+        log.info("DEBUG: Vinculado {} ao chat {}", usuario.getUsername(), chatId);
+    }
+
+    @Override
+    @Transactional
+    public void unlinkTelegram(String username) {
+        Users user = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado: " + username));
+
+        user.setTelegramChatId(null);
+        usersRepository.save(user);
+    }
+
+    @Override
+    public String obterTelegramChatId(String username) {
+        Users usuario = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + username));
+
+        // Assume-se que o campo no teu modelo Users se chama telegramChatId
+        return usuario.getTelegramChatId();
+    }
 }

@@ -6,9 +6,9 @@ import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.models.Users;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
+import java.util.UUID;
 
 public interface AuthService {
 
@@ -27,6 +27,7 @@ public interface AuthService {
     void UpdateProfile(String username, String publicUrl);
 
     LoginResponse verificarCodigo(UserCredentialsRequest request);
+
     LoginResponse processGoogleLogin(String email, String name);
 
     void eliminarUtilizador(String publicId);
@@ -36,4 +37,10 @@ public interface AuthService {
     LoginResponse getLoginResponse(Map<String, String> data);
 
     LoginResponse processarLoginFacebook(Map<String, String> data);
+
+    void vincularTelegram(UUID publicId, String chatId);
+
+    void unlinkTelegram(String username);
+
+    String obterTelegramChatId(String username);
 }

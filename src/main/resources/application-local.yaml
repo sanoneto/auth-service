@@ -86,3 +86,8 @@ codes:
 
 google:
   client-id: ${GOOGLE_CLIENT_ID}
+
+telegram:
+  bot:
+    token:
+      anetoBot: ${TELEGRAM_BOT_TOKEN}

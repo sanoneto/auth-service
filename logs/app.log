@@ -1,9 +1,90 @@
-2026-01-18T00:26:39.990Z DEBUG 27132 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/facebook
-2026-01-18T00:26:40.009Z DEBUG 27132 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2026-01-18T00:26:40.014Z DEBUG 27132 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/facebook
-2026-01-18T00:26:41.349Z  INFO 27132 --- [auth-service] [http-nio-8081-exec-1] c.a.a.service.impl.AuthServiceImpl       : Criando novo utilizador via Facebook Login: sanoneto@hotmail.com
-2026-01-18T00:34:08.162Z  INFO 27132 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-18T00:34:08.167Z  INFO 27132 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-18T00:34:08.190Z  INFO 27132 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-18T00:34:08.192Z  INFO 27132 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-01-18T00:34:08.194Z  INFO 27132 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-19T00:00:02.520Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:00:02.523Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:00:02.523Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:01:02.822Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:01:02.822Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:01:02.823Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:02:03.076Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:02:03.077Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:02:03.077Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:03:03.300Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:03:03.300Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:03:03.300Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:04:03.543Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:04:03.543Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:04:03.544Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:05:03.850Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:05:03.850Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:05:03.850Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:06:04.099Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:06:04.099Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:06:04.100Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:07:04.324Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:07:04.325Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:07:04.326Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:08:04.582Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:08:04.582Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:08:04.583Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:09:04.823Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:09:04.823Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:09:04.823Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:10:05.062Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:10:05.062Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:10:05.062Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:11:05.286Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:11:05.287Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:11:05.287Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:12:05.572Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:12:05.573Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:12:05.573Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:13:05.801Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:13:05.802Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:13:05.802Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:14:06.043Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:14:06.043Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:14:06.044Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:15:06.294Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:15:06.295Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:15:06.295Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:16:06.562Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:16:06.563Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:16:06.563Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:17:06.799Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:17:06.799Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:17:06.799Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:18:07.015Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:18:07.015Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:18:07.015Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:19:07.250Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:19:07.251Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:19:07.251Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:20:07.589Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:20:07.590Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:20:07.590Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:21:07.860Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:21:07.860Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:21:07.861Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:22:08.125Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:22:08.126Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:22:08.126Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:23:08.357Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:23:08.357Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:23:08.358Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:24:08.618Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:24:08.618Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:24:08.619Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:25:08.905Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:25:08.906Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:25:08.906Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:26:09.194Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:26:09.194Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:26:09.195Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:27:09.498Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:27:09.499Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:27:09.499Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:28:09.727Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:28:09.728Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:28:09.728Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto
+2026-01-19T00:29:10.008Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/telegram-id/neto
+2026-01-19T00:29:10.009Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-19T00:29:10.009Z DEBUG 52248 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/telegram-id/neto

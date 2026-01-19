@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -145,5 +146,34 @@ public class AuthController {
         authService.UpdateProfile(username, publicUrl);
         // Sucesso - Retorna 200 OK ou 204 No Content
         return ResponseEntity.ok("Url adiciona com sucesso!");
+    }
+
+    @PostMapping("/desvincular-telegram/{username}")
+    public ResponseEntity<?> unlinkTelegram(@PathVariable String username) {
+        try {
+            authService.unlinkTelegram(username);
+            return ResponseEntity.ok("Vínculo com Telegram removido com sucesso.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao desvincular.");
+        }
+    }
+
+    @Operation(
+            summary = "Retorna o Chat ID do Telegram para comunicação entre microsserviços",
+            description = "Endpoint interno usado pelo EventService via WebClient."
+    )
+    @GetMapping("/telegram-id/{username}")
+    public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
+        try {
+            String chatId = authService.obterTelegramChatId(username);
+            if (chatId == null || chatId.isEmpty()) {
+                return ResponseEntity.noContent().build(); // 204 se não tiver vinculado
+            }
+            return ResponseEntity.ok(chatId); // 200 com o ID
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

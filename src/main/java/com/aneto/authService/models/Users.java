@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,32 +19,37 @@ import java.util.UUID;
 @Table(name = "TB_USERS", schema = "AUTH", uniqueConstraints = { // <--- Esquema configurado
         @UniqueConstraint(columnNames = "username")
 })
+
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(name = "public_id", unique = true, nullable = false, updatable = false)
     private UUID publicId; // Não final, pois é gerado no @PrePersist
 
     @Column(unique = true, nullable = false)
     @NotBlank(message = "Username não pode ser vazio")
     private String username;
 
+    @Setter
     @Column(unique = true, nullable = false)
     @Email(message = "email inválido")
     private String email;
 
+    @Setter
     @Column(nullable = false)
     @JsonIgnore
     @NotBlank(message = "Password não pode ser vazia")
     private String password;
 
+    @Setter
     @Column(nullable = false)
     @NotBlank(message = "Role não pode ser vazia")
     private String role;
 
+    @Setter
     private String profile_picture_url;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -51,15 +57,22 @@ public class Users {
     // Não usamos @ToString.Exclude, a implementação nativa de toString() é mais segura
     private List<JwtToken> jwtToken = new ArrayList<>();
 
+    @Setter
     private String verificationCode;
+    @Setter
     @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean enabled = false;
 
     @Column(name = "google_token", length = 1000) // Tokens do Google podem ser longos
     private String googleToken;
 
+    @Setter
     @Column(name = "facebook_id", unique = true)
     private String facebookId;
+
+    @Setter
+    @Column(name = "telegram_chat_id", unique = true)
+    private String telegramChatId;
 
     // Construtor sem argumentos para JPA
     public Users() {
@@ -147,6 +160,10 @@ public class Users {
         return updatedAt;
     }
 
+    public String getTelegramChatId() {
+        return telegramChatId;
+    }
+
     public String getGoogleToken() {
         return googleToken;
     }
@@ -165,47 +182,20 @@ public class Users {
         this.publicId = publicId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public void setJwtToken(List<JwtToken> jwtToken) {
         this.jwtToken = jwtToken;
-    }
-
-    public void setProfile_picture_url(String profile_picture_url) {
-        this.profile_picture_url = profile_picture_url;
     }
 
     public String getVerificationCode() {
         return verificationCode;
     }
 
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
-
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void setGoogleToken(String googleToken) {
         this.googleToken = googleToken;
     }
 
-    public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-    }
 }
