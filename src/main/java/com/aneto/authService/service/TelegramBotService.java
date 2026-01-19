@@ -30,49 +30,47 @@ public class TelegramBotService implements LongPollingUpdateConsumer {
 
     @Override
     public void consume(List<Update> updates) {
-        updates.forEach(update -> {
-            log.info("--- NOVO UPDATE RECEBIDO: {} ---", update.getUpdateId());
+        // A biblioteca agora envia uma lista de atualizações de uma vez
+        for (Update update : updates) {
+            if (update.hasMessage() && update.getMessage().hasText()) {
+                String messageText = update.getMessage().getText();
+                String chatId = update.getMessage().getChatId().toString();
 
-            if (update.hasMessage()) {
-                String text = update.getMessage().getText();
-                String chatId = String.valueOf(update.getMessage().getChatId());
-                log.info("Conteúdo da mensagem: [{}]", text); // Verifica se o UUID aparece aqui
-                log.info("Chat ID: {}", chatId);
-
-                // O Telegram às vezes envia o comando colado ao nome do bot: /start@meu_bot <ID>
-                if (text != null && text.contains("/start")) {
-                    handleVinculo(text, chatId);
+                if (messageText.startsWith("/start")) {
+                    log.info("🤖 Comando /start recebido no Auth-Service. ChatID: {}", chatId);
+                    handleVinculo(messageText, chatId); // Chamar a tua lógica de extração
                 }
-            } else {
-                log.warn("Update recebido não contém mensagem.");
             }
-        });
+        }
     }
     private void handleVinculo(String text, String chatId) {
         try {
-            // Pega tudo o que vem depois do primeiro espaço (o UUID)
+            // O comando chega como "/start <UUID>"
             String[] parts = text.split("\\s+");
 
             if (parts.length < 2) {
-                log.error("Comando /start sem parâmetro. Texto recebido: [{}]", text);
-                enviarMensagem(chatId, "❌ Link inválido. Clique no botão 'Vincular' no site.");
+                log.warn("⚠️ Comando /start sem parâmetro recebido do ChatID: {}", chatId);
+                enviarMensagem(chatId, "👋 Olá! Para vincular a tua conta, utiliza o botão 'Verificar' no nosso site.");
                 return;
             }
 
             String uuidPart = parts[1].trim();
-            log.info("UUID extraído: [{}]", uuidPart);
-
             UUID publicId = UUID.fromString(uuidPart);
+
+            // Grava no banco de dados através do serviço
             authService.vincularTelegram(publicId, chatId);
 
-            enviarMensagem(chatId, "✅ Vínculo realizado com sucesso!");
+            enviarMensagem(chatId, "✅ *Conta vinculada com sucesso!*\n\nJá podes fechar o Telegram e voltar ao sistema.");
+            log.info("✅ Vínculo realizado: PublicID {} -> ChatID {}", publicId, chatId);
 
+        } catch (IllegalArgumentException e) {
+            log.error("❌ UUID inválido recebido: {}", e.getMessage());
+            enviarMensagem(chatId, "⚠️ O link de ativação parece estar incorreto. Tenta clicar novamente no site.");
         } catch (Exception e) {
-            log.error("Erro ao vincular: ", e);
-            enviarMensagem(chatId, "❌ Erro ao processar vínculo. Tente novamente.");
+            log.error("❌ Erro ao vincular: ", e);
+            enviarMensagem(chatId, "❌ Ocorreu um erro interno. Tenta novamente mais tarde.");
         }
     }
-
     private void enviarMensagem(String chatId, String texto) {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId)

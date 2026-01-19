@@ -405,12 +405,9 @@ public class AuthServiceImpl implements AuthService {
         log.info("Iniciando vínculo para PublicID: {} com ChatID: {}", publicId, chatId);
 
         // 1. Limpeza de duplicados: Verifica se este Telegram já pertence a outra conta
+        // 1. Limpeza de duplicados (Evita erro 500 de Constraint Violada)
         usersRepository.findByTelegramChatId(chatId).ifPresent(userExistente -> {
-            // Se o ChatID já existe em outro PublicID, removemos do antigo para evitar o erro de Unique Constraint
             if (!userExistente.getPublicId().equals(publicId)) {
-                log.warn("O ChatID {} já estava vinculado ao user {}. Removendo vínculo antigo...",
-                        chatId, userExistente.getUsername());
-
                 userExistente.setTelegramChatId(null);
                 usersRepository.saveAndFlush(userExistente);
             }
@@ -433,6 +430,8 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+
+
     @Override
     @Transactional
     public void unlinkTelegram(String username) {
@@ -450,5 +449,15 @@ public class AuthServiceImpl implements AuthService {
 
         // Assume-se que o campo no teu modelo Users se chama telegramChatId
         return usuario.getTelegramChatId();
+    }
+
+    @Override
+    @Transactional
+    public void removerChatIdPorBloqueio(String chatId) {
+        usersRepository.findByTelegramChatId(chatId).ifPresent(user -> {
+            log.warn("🚨 Utilizador {} bloqueou o bot. Removendo vínculo para evitar erros de API.", user.getUsername());
+            user.setTelegramChatId(null);
+            usersRepository.save(user);
+        });
     }
 }

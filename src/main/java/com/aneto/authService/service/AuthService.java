@@ -43,4 +43,6 @@ public interface AuthService {
     void unlinkTelegram(String username);
 
     String obterTelegramChatId(String username);
+
+    void removerChatIdPorBloqueio(String chatId);
 }

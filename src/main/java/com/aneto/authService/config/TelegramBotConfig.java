@@ -18,12 +18,20 @@ public class TelegramBotConfig {
 
         TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
         try {
-            // Remove espaços, aspas e caracteres de controle invisíveis
             String cleanToken = botToken.replaceAll("[\\p{Cntrl}\\s]", "").trim();
 
+            // Log de segurança para debugar em produção
+            if (cleanToken.length() > 10) {
+                log.info("🤖 A tentar registar o bot com o token iniciado por: {}...", cleanToken.substring(0, 10));
+            } else {
+                log.error("❌ O token do Telegram parece ser demasiado curto ou inválido!");
+            }
+
             botsApplication.registerBot(cleanToken, telegramBotService);
+            log.info("✅ Bot do Telegram registado com sucesso!");
         } catch (Exception e) {
-            log.error("ERRO FATAL AO REGISTRAR BOT: ", e);
+            log.error("❌ ERRO FATAL AO REGISTRAR BOT: {}", e.getMessage());
+            // Não lançar exceção aqui permite que o resto do auth-service suba mesmo sem bot
         }
         return botsApplication;
     }
