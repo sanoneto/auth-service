@@ -23,6 +23,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -400,13 +402,35 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void vincularTelegram(UUID publicId, String chatId) {
-        Users usuario = usersRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        log.info("Iniciando vínculo para PublicID: {} com ChatID: {}", publicId, chatId);
 
-        usuario.setTelegramChatId(chatId);
-        usersRepository.saveAndFlush(usuario);
-        // O log ajuda-te a ver no terminal se o Java chegou aqui
-        log.info("DEBUG: Vinculado {} ao chat {}", usuario.getUsername(), chatId);
+        // 1. Limpeza de duplicados: Verifica se este Telegram já pertence a outra conta
+        usersRepository.findByTelegramChatId(chatId).ifPresent(userExistente -> {
+            // Se o ChatID já existe em outro PublicID, removemos do antigo para evitar o erro de Unique Constraint
+            if (!userExistente.getPublicId().equals(publicId)) {
+                log.warn("O ChatID {} já estava vinculado ao user {}. Removendo vínculo antigo...",
+                        chatId, userExistente.getUsername());
+
+                userExistente.setTelegramChatId(null);
+                usersRepository.saveAndFlush(userExistente);
+            }
+        });
+
+        // 2. Procura o usuário que enviou o comando /start pelo PublicID
+        Users user = usersRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado com PublicID: " + publicId));
+
+        // 3. Define o novo vínculo (Corrigido o erro de sintaxe aqui)
+        user.setTelegramChatId(chatId);
+        user.setUpdatedAt(LocalDateTime.now());
+
+        try {
+            usersRepository.saveAndFlush(user);
+            log.info("✅ Telegram vinculado com sucesso ao utilizador: {}", user.getUsername());
+        } catch (DataIntegrityViolationException e) {
+            log.error("❌ Erro de integridade: {}", e.getMessage());
+            throw new RuntimeException("Este Telegram já está vinculado e não pôde ser movido.");
+        }
     }
 
     @Override

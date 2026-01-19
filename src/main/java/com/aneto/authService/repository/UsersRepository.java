@@ -26,5 +26,11 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByPublicId(UUID publicId);
     // 2. Para quando quiseres enviar uma notificação para todos os vinculados
     List<Users> findByTelegramChatIdIsNotNull();
+
+    // Essencial para a limpeza de duplicados
+    Optional<Users> findByTelegramChatId(String telegramChatId);
+
+    // Essencial para encontrar o user pelo ID do link /start
+
 }
 

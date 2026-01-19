@@ -1,12 +1,14 @@
 package com.aneto.authService.config;
 
 import com.aneto.authService.service.TelegramBotService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 
 @Configuration
+@Slf4j
 public class TelegramBotConfig {
 
     @Bean
@@ -16,10 +18,12 @@ public class TelegramBotConfig {
 
         TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
         try {
-            // Isto é o que faz o bot começar a ouvir as mensagens do Telegram
-            botsApplication.registerBot(botToken, telegramBotService);
+            // Remove espaços, aspas e caracteres de controle invisíveis
+            String cleanToken = botToken.replaceAll("[\\p{Cntrl}\\s]", "").trim();
+
+            botsApplication.registerBot(cleanToken, telegramBotService);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("ERRO FATAL AO REGISTRAR BOT: ", e);
         }
         return botsApplication;
     }

@@ -61,7 +61,7 @@ public class SecurityConfig {
                         // Rotas ABERTAS: Login, Registo e documentação (Swagger/OpenAPI)
                         // Permite "/api/auth/**" (login, register, etc.)
                         .requestMatchers("/api/auth/**","/actuator/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/api-docs/**").permitAll()
-
+                        .requestMatchers("/api/admin/telegram/**").hasRole("ADMIN")
                         // ⚠️ Nota: A rota "api/v1/projects/**" também está aqui, se for um erro de cópia, remova-a,
                         // pois a rota de projetos não deveria estar neste serviço.
                         .requestMatchers("api/v1/projects/**", "/api/v1/users/**").permitAll()

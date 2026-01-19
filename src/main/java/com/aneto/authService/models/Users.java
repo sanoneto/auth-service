@@ -70,7 +70,6 @@ public class Users {
     @Column(name = "facebook_id", unique = true)
     private String facebookId;
 
-    @Setter
     @Column(name = "telegram_chat_id", unique = true)
     private String telegramChatId;
 
@@ -196,6 +195,15 @@ public class Users {
 
     public void setGoogleToken(String googleToken) {
         this.googleToken = googleToken;
+    }
+
+
+    public void setTelegramChatId(String telegramChatId) {
+        this.telegramChatId = telegramChatId;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }
