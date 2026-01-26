@@ -159,18 +159,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void eliminarUtilizador(String publicId) {
-        // 1. Localiza o utilizador pelo publicId
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
-        // Apaga todos os tokens associados ao ID do utilizador
-        tokenRepository.deleteByUsersId(usuario.getId());
-        // Apaga todos os projetos associados ao ID do utilizador
-        projectsRepository.deleteByUsersId(usuario.getId());
 
-        // 3. Agora que os filhos morreram, podemos apagar o pai
         usersRepository.delete(usuario);
-
-        log.info("Limpeza completa: Tokens, Projetos e Utilizador {} removidos.", usuario.getUsername());
+        log.info("Utilizador {} e todas as suas dependências foram removidos via Cascade.", usuario.getUsername());
     }
 
     @Override
@@ -344,15 +337,19 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public String saveToken(Users users) {
         String role = users.getRole();
         List<String> rolesForToken = (role == null || role.isBlank())
                 ? List.of()
                 : List.of(role.startsWith("ROLE_") ? role.substring(5) : role);
+
         String token = jwtTokenUtil.generateToken(users.getUsername(), rolesForToken);
 
         Instant issuedAt = Instant.now();
         Instant expiresAt = issuedAt.plusMillis(jwtTokenUtil.getExpirationMillis());
+
+
         jwtTokenService.saveToken(token, users.getUsername(), issuedAt, expiresAt);
         return token;
     }
@@ -429,7 +426,6 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Este Telegram já está vinculado e não pôde ser movido.");
         }
     }
-
 
 
     @Override
