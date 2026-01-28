@@ -1,4 +1,4 @@
-2026-01-26T01:10:54.995Z ERROR 8484 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 550 millis...
+2026-01-28T01:11:02.673Z ERROR 70788 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 573 millis...
 
 org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: null
 	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:156) ~[telegrambots-longpolling-7.10.0.jar:na]
@@ -13,7 +13,7 @@ Caused by: org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResp
 	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:152) ~[telegrambots-longpolling-7.10.0.jar:na]
 	... 7 common frames omitted
 
-2026-01-26T01:10:55.615Z ERROR 8484 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 666 millis...
+2026-01-28T01:11:03.313Z ERROR 70788 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 565 millis...
 
 org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: null
 	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:156) ~[telegrambots-longpolling-7.10.0.jar:na]
@@ -28,54 +28,3 @@ Caused by: org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResp
 	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:152) ~[telegrambots-longpolling-7.10.0.jar:na]
 	... 7 common frames omitted
 
-2026-01-26T04:35:43.202Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@5e9cd2e6 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:35:43.266Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@14015be5 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:35:46.641Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7da88ae5 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:35:46.920Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@451b7c54 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:35:59.477Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3203f3eb (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:35:59.911Z  WARN 8484 --- [auth-service] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@150510f2 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
-2026-01-26T04:36:05.949Z  INFO 8484 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-26T04:36:05.956Z  INFO 8484 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-26T04:36:05.984Z  INFO 8484 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-26T04:36:05.991Z  INFO 8484 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-01-26T04:36:08.551Z  INFO 8484 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-01-26T10:47:43.841Z  INFO 51016 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 51016 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
-2026-01-26T10:47:43.846Z  INFO 51016 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
-2026-01-26T10:47:44.930Z  INFO 51016 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-01-26T10:47:44.974Z  INFO 51016 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 3 JPA repository interfaces.
-2026-01-26T10:47:45.484Z  INFO 51016 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-01-26T10:47:45.495Z  INFO 51016 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-01-26T10:47:45.497Z  INFO 51016 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2026-01-26T10:47:45.546Z  INFO 51016 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-01-26T10:47:45.546Z  INFO 51016 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1669 ms
-2026-01-26T10:47:45.676Z  INFO 51016 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-01-26T10:47:45.806Z  INFO 51016 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@42cfd794
-2026-01-26T10:47:45.808Z  INFO 51016 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-01-26T10:47:46.217Z  INFO 51016 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-01-26T10:47:47.205Z  INFO 51016 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-01-26T10:47:47.463Z  INFO 51016 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-01-26T10:47:48.092Z  INFO 51016 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
-2026-01-26T10:47:48.574Z  INFO 51016 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
-2026-01-26T10:47:49.084Z  INFO 51016 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
-2026-01-26T10:47:49.085Z  INFO 51016 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
-2026-01-26T10:47:49.486Z  INFO 51016 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
-2026-01-26T10:47:49.527Z  INFO 51016 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2026-01-26T10:47:49.600Z  WARN 51016 --- [auth-service] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/v1/projects/**, /api/v1/users/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
-2026-01-26T10:47:49.625Z DEBUG 51016 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2026-01-26T10:47:50.113Z  INFO 51016 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2026-01-26T10:47:50.128Z  INFO 51016 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 6.758 seconds (process running for 7.45)
-2026-01-26T10:47:50.511Z  INFO 51016 --- [auth-service] [RMI TCP Connection(6)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-01-26T10:47:50.511Z  INFO 51016 --- [auth-service] [RMI TCP Connection(5)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
-2026-01-26T10:47:50.576Z  INFO 51016 --- [auth-service] [RMI TCP Connection(5)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1703b09a:0/SimpleConnection@6332dca2 [delegate=amqp://guest@127.0.0.1:5672/, localPort=55853]
-2026-01-26T14:09:13.107Z DEBUG 51016 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
-2026-01-26T14:09:13.122Z DEBUG 51016 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2026-01-26T14:09:13.128Z DEBUG 51016 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
-2026-01-26T14:09:13.350Z  INFO 51016 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: bneto
-2026-01-26T14:09:13.350Z  INFO 51016 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESPECIALISTA
-2026-01-26T14:09:13.350Z  INFO 51016 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESPECIALISTA]
-2026-01-26T14:09:13.422Z DEBUG 51016 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2026-01-26T15:35:59.783Z  INFO 51016 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2026-01-26T15:35:59.787Z  INFO 51016 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2026-01-26T15:35:59.814Z  INFO 51016 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-01-26T15:35:59.816Z  INFO 51016 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-01-26T15:35:59.820Z  INFO 51016 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
