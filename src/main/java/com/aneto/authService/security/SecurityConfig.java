@@ -1,15 +1,12 @@
-
 package com.aneto.authService.security;
 
 import com.aneto.authService.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,9 +27,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Configura o AuthenticationManager que usa o CustomUserDetailsService e o PasswordEncoder.
-     */
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -43,32 +37,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
-                .cors(Customizer.withDefaults())
-
-                // 2. Desabilita CSRF (Essencial para APIs REST Stateless)
                 .csrf(AbstractHttpConfigurer::disable)
-
-                // 3. Define a política de sessão como Stateless (Fundamental para JWT)
+                .cors(org.springframework.security.config.Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // 5. Define regras de autorização
-                .authorizeHttpRequests(authorize -> authorize
-                        // Permite TODOS os requests OPTIONS (Necessário para o CORS Pre-flight)
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // Rotas ABERTAS: Login, Registo e documentação (Swagger/OpenAPI)
-                        // Permite "/api/auth/**" (login, register, etc.)
-                        .requestMatchers("/api/auth/**","/actuator/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/api-docs/**").permitAll()
-                        .requestMatchers("/api/admin/telegram/**").hasRole("ADMIN")
-                        // ⚠️ Nota: A rota "api/v1/projects/**" também está aqui, se for um erro de cópia, remova-a,
-                        // pois a rota de projetos não deveria estar neste serviço.
-                        .requestMatchers("api/v1/projects/**", "/api/v1/users/**").permitAll()
-
-                        // Qualquer outra rota neste serviço DEVE ser protegida (e só pode ser acedida com um JWT válido,
-                        // embora este serviço seja primariamente o criador de tokens).
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(auth -> auth
+                        // Como o Gateway já filtra, aqui permitimos tudo para o contexto interno
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

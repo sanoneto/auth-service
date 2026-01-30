@@ -12,6 +12,11 @@ import java.util.UUID;
 
 public interface AuthService {
 
+    // =========================================================================
+    // FUNÇÃO DE LOGIN (ADICIONADA)
+    // =========================================================================
+    LoginResponse login(UserCredentialsRequest request);
+
     RegistrationResponse registrarUsers(UserCredentialsRequest request);
 
     Users findPorUsername(String username);
@@ -45,4 +50,10 @@ public interface AuthService {
     String obterTelegramChatId(String username);
 
     void removerChatIdPorBloqueio(String chatId);
+
+    void mudarStatusMfa(String username, boolean status);
+    void activateMfa(String token, String code);
+    Map<String, String> setupMfa(String token);
+
+    boolean verificarCodigoMfa(String username, String code);
 }

@@ -13,6 +13,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil {
@@ -24,26 +25,20 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    private SecretKey finalKey; // A chave secreta final e uniforme
+    private SecretKey finalKey;
     private static final String ROLES_CLAIM = "roles";
 
-    /**
-     * Inicializa a chave secreta APÓS a injeção do valor de '${jwt.secret}'.
-     * Garante a derivação uniforme para todos os serviços.
-     */
     @PostConstruct
     public void init() {
         if (secret == null || secret.length() < 32) {
             log.error("Chave secreta JWT ausente ou muito curta!");
             throw new IllegalStateException("Chave secreta inválida. Mínimo 32 caracteres.");
         }
-        // CORRIGIDO: Usa a string secreta diretamente, sem MessageDigest
         this.finalKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         log.info("JwtTokenUtil inicializado com sucesso.");
     }
 
     public String generateToken(String username, List<String> roles) {
-        // Validação básica para garantir que a chave foi inicializada
         if (finalKey == null) {
             throw new IllegalStateException("Chave JWT não inicializada.");
         }
@@ -56,7 +51,39 @@ public class JwtTokenUtil {
                 .signWith(finalKey)
                 .compact();
     }
-    // Novo método exposto para obter a expiração em milissegundos
+
+    // --- MÉTODOS ADICIONADOS PARA RESOLVER O ERRO NO AUTHSERVICE ---
+
+    /**
+     * Extrai o nome de utilizador (Subject) do token.
+     */
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    /**
+     * Extrai a data de expiração do token.
+     */
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    /**
+     * Método genérico para extrair qualquer Claim.
+     */
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(finalKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
     public long getExpirationMillis() {
         return expiration != null ? expiration : 0L;
     }

@@ -1,6 +1,5 @@
 package com.aneto.authService.service.impl;
 
-
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
@@ -19,11 +18,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,8 +39,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final UsersRepository usersRepository; // Repositório dos usuários.
-    private final PasswordEncoder passwordEncoder;     // Para a codificação da senha.
+    private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
     private final RequestMapper requestMapper;
     private final JwtTokenUtil jwtTokenUtil;
     private final EmailProducer emailProducer;
@@ -48,7 +48,6 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenRepository tokenRepository;
     private final ProjectsRepository projectsRepository;
     private final RestTemplate restTemplate;
-
 
     @Value("${url.front-end}")
     String FRONTEND_BASE_URL;
@@ -63,14 +62,31 @@ public class AuthServiceImpl implements AuthService {
     private String googleClientId;
 
     @Override
+    public LoginResponse login(UserCredentialsRequest request) {
+        log.info("Tentativa de login para o utilizador: {}", request.username());
+
+        Users user = usersRepository.findByUsername(request.username())
+                .orElseThrow(() -> new BadCredentialsException("Utilizador ou password incorretos."));
+
+        if (!user.isEnabled()) {
+            throw new RuntimeException("Esta conta ainda não foi ativada. Verifique o seu e-mail.");
+        }
+
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new BadCredentialsException("Utilizador ou password incorretos.");
+        }
+
+        String token = saveToken(user);
+        return new LoginResponse("Login efetuado com sucesso!", token, user.getRole());
+    }
+
+    @Override
     @Transactional
     public RegistrationResponse registrarUsers(UserCredentialsRequest request) {
-        // 1. Validação de existência
         if (existeUsers(request.username())) {
             throw new RuntimeException("O nome de utilizador já está em uso.");
         }
 
-        // 2. Validação de Códigos de Convite (Invite Codes)
         String roleSolicitada = request.role().toUpperCase();
         if (roleSolicitada.equals("ADMIN") && !CODEADMIN.equals(request.inviteCode())) {
             throw new SecurityException("Código de autorização inválido para ADMINISTRADOR.");
@@ -82,50 +98,37 @@ public class AuthServiceImpl implements AuthService {
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        // 4. Gerar código de verificação de 6 dígitos
         String code = String.format("%06d", new java.security.SecureRandom().nextInt(999999));
         users.setVerificationCode(code);
-        users.setEnabled(false); // Conta desativada até validar o código
+        users.setEnabled(false);
 
         usersRepository.save(users);
-        String subject = "Ativação de Conta - Código de Verificação";
-        String htmlMessage = "Obrigado por te registares! Para ativar a tua conta, utiliza o seguinte código:";
-
-        // IMPORTANTE: Passamos o 'code' no campo de mensagem
-        // O EmailServiceImpl vai colocar isto dentro do template HTML
         emailProducer.publishEmailRequest(
                 users.getUsername(),
                 users.getEmail(),
-                subject,
-                "<h3>" + code + "</h3>", // Destaque para o código
+                "Ativação de Conta",
+                "<h3>" + code + "</h3>",
                 null
         );
 
-        log.info("Utilizador {} registado. Código de ativação gerado.", users.getUsername());
-        return new RegistrationResponse("Registo realizado. Verifique o seu e-mail para ativar a conta.", users.getUsername());
+        return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
     }
 
     @Override
     public LoginResponse verificarCodigo(UserCredentialsRequest request) {
-        // 1. Procura o utilizador pelo e-mail
         Users user = usersRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
 
-        // 2. Verifica se o código é o mesmo que guardamos no registo
         if (user.getVerificationCode() == null || !user.getVerificationCode().equals(request.code())) {
-            throw new SecurityException("Código de verificação inválido ou expirado.");
+            throw new SecurityException("Código de verificação inválido.");
         }
 
-        // 3. Ativa a conta e limpa o código para não ser reutilizado
         user.setEnabled(true);
-        user.setVerificationCode(null); // coloca o codigo a null
+        user.setVerificationCode(null);
         usersRepository.save(user);
 
-        // 4. GERA O TOKEN AQUI!
-        // O utilizador valida o e-mail e já fica logado.
         String token = saveToken(user);
-
-        return new LoginResponse("Conta ativada com sucesso!", token, null);
+        return new LoginResponse("Conta ativada!", token, user.getRole());
     }
 
     @Override
@@ -133,27 +136,17 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse processGoogleLogin(String email, String name) {
         Users user = usersRepository.findByEmail(email)
                 .orElseGet(() -> {
-                    log.info("Criando novo utilizador via Google Login: {}", email);
                     Users newUser = new Users();
                     newUser.setEmail(email);
-                    String username = email.split("@")[0];
-                    newUser.setUsername(username);
-                    newUser.setUsername(email); // Pode ajustar para extrair parte do e-mail se preferir
+                    newUser.setUsername(email.split("@")[0]);
                     newUser.setRole("USER");
-                    // Senha aleatória forte para conta social
-                    newUser.setPassword(passwordEncoder.encode(Base64.getEncoder().encodeToString(new byte[16])));
-                    newUser.setEnabled(true); // Google já verificou o e-mail
+                    newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+                    newUser.setEnabled(true);
                     return usersRepository.save(newUser);
                 });
 
-        // Se o usuário existia mas estava desativado, ativamos (opcional)
-        if (!user.isEnabled()) {
-            user.setEnabled(true);
-            usersRepository.save(user);
-        }
-
         String systemToken = saveToken(user);
-        return new LoginResponse("Login efetuado com sucesso!", systemToken, null);
+        return new LoginResponse("Login efetuado com sucesso!", systemToken, user.getRole());
     }
 
     @Override
@@ -161,28 +154,16 @@ public class AuthServiceImpl implements AuthService {
     public void eliminarUtilizador(String publicId) {
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
-
         usersRepository.delete(usuario);
-        log.info("Utilizador {} e todas as suas dependências foram removidos via Cascade.", usuario.getUsername());
     }
 
     @Override
     @Transactional
     public void atualizarUtilizador(String publicId, UserCredentialsRequest request) {
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado com o ID: " + publicId));
-
-        // Atualização seletiva: só altera se o campo não for nulo no request
-        if (request.username() != null && !request.username().isBlank()) {
-            usuario.setUsername(request.username());
-        }
-        if (request.email() != null && !request.email().isBlank()) {
-            usuario.setEmail(request.email());
-        }
-        if (request.role() != null && !request.role().isBlank()) {
-            usuario.setRole(request.role());
-        }
-
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+        if (request.username() != null) usuario.setUsername(request.username());
+        if (request.email() != null) usuario.setEmail(request.email());
         usersRepository.save(usuario);
     }
 
@@ -190,113 +171,40 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public LoginResponse getLoginResponse(Map<String, String> data) {
         String googleToken = data.get("token");
-
-        if (googleToken == null || googleToken.isBlank()) {
-            throw new BadCredentialsException("Token do Google não fornecido no corpo da requisição.");
-        }
-        // 1. Valida o token com o Google
-        // Nota: O ideal é mover este 'verifier' para um @Bean de configuração
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
                 .setAudience(Collections.singletonList(googleClientId))
                 .build();
 
-        // Removemos o try-catch manual, o GlobalExceptionHandler cuida das exceções!
-        GoogleIdToken idToken;
         try {
-            idToken = verifier.verify(googleToken);
+            GoogleIdToken idToken = verifier.verify(googleToken);
+            if (idToken == null) throw new BadCredentialsException("Token inválido.");
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            return processGoogleLogin(payload.getEmail(), (String) payload.get("name"));
         } catch (Exception e) {
-            // Lançamos uma exceção personalizada ou BadCredentials para o Handler capturar
-            throw new BadCredentialsException("Token do Google inválido ou expirado.");
+            throw new BadCredentialsException("Erro ao validar Google Token.");
         }
-
-        if (idToken == null) {
-            throw new BadCredentialsException("Não foi possível validar o token com o Google.");
-        }
-
-        GoogleIdToken.Payload payload = idToken.getPayload();
-        String email = payload.getEmail();
-        String name = (String) payload.get("name");
-
-        // 2. Lógica de Login/Registo
-        LoginResponse response = processGoogleLogin(email, name);
-
-        // 3. Enviar e-mail de "Bem-vindo" via Fila (RabbitMQ -> Resend)
-        // Usamos o novo nome do método que criámos no EmailProducer
-        emailProducer.publishEmailRequest(
-                name,
-                email,
-                "Bem-vindo ao Sistema Sanoneto",
-                "Estamos felizes por teres feito login com o Google!",
-                null
-        );
-        return response;
     }
 
     @Override
     @Transactional
     public LoginResponse processarLoginFacebook(Map<String, String> data) {
         String accessToken = data.get("accessToken");
-
-        // 1. Validar o token com a Graph API da Meta (apenas ID e Email, como no Google)
         String fbUrl = UriComponentsBuilder.fromUriString("https://graph.facebook.com/me")
                 .queryParam("fields", "id,email")
-                .queryParam("access_token", accessToken)
-                .toUriString();
+                .queryParam("access_token", accessToken).toUriString();
         try {
-            @SuppressWarnings("unchecked")
             Map<String, Object> fbProfile = restTemplate.getForObject(fbUrl, Map.class);
-
-            if (fbProfile == null || !fbProfile.containsKey("id")) {
-                throw new RuntimeException("Token do Facebook inválido ou expirado.");
-            }
-
             String email = (String) fbProfile.get("email");
-            String facebookId = (String) fbProfile.get("id");
-
-            // 2. Lógica idêntica ao Google: Procura ou cria o utilizador
-            Users user = usersRepository.findByEmail(email)
-                    .orElseGet(() -> {
-                        log.info("Criando novo utilizador via Facebook Login: {}", email);
-                        Users newUser = new Users();
-                        newUser.setEmail(email);
-                        String username = email.split("@")[0];
-                        newUser.setUsername(username);
-                        newUser.setFacebookId(facebookId); // Identificador único do FB
-                        newUser.setRole("USER");
-                        // Usa a mesma lógica de senha segura do Google
-                        newUser.setPassword(passwordEncoder.encode(Base64.getEncoder().encodeToString(new byte[16])));
-
-                        newUser.setEnabled(true); // Facebook já verificou o e-mail
-                        return usersRepository.save(newUser);
-                    });
-
-            // 3. Mesma verificação de ativação do Google
-            if (!user.isEnabled()) {
-                user.setEnabled(true);
-                usersRepository.save(user);
-            }
-
-            // 4. Se o utilizador já existia (ex: vindo do Google), mas agora entrou via FB,
-            // podes atualizar o facebookId se estiver vazio (opcional)
-            if (user.getFacebookId() == null) {
-                user.setFacebookId(facebookId);
-                usersRepository.save(user);
-            }
-
-            String systemToken = saveToken(user);
-            return new LoginResponse("Login efetuado com sucesso!", systemToken, null);
-
+            return processGoogleLogin(email, email.split("@")[0]);
         } catch (Exception e) {
-            log.error("Erro na autenticação Facebook: {}", e.getMessage());
-            throw new RuntimeException("Falha ao processar login social.");
+            throw new RuntimeException("Erro Facebook login.");
         }
     }
 
     @Override
     public Users findPorUsername(String username) throws UsernameNotFoundException {
         return usersRepository.findByUsername(username)
-                // Se o utilizador não for encontrado na base de dados, esta exceção é lançada
-                .orElseThrow(() -> new UsernameNotFoundException("Utilizador não encontrado com o nome: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Não encontrado."));
     }
 
     @Override
@@ -305,104 +213,133 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public List<UsersResponse> findAll() {
-        List<Users> userlist = usersRepository.findAll();
-        return requestMapper.UsersResponse(userlist);
+        return requestMapper.UsersResponse(usersRepository.findAll());
     }
 
     @Override
     public void createPasswordResetTokenForUser(String email) {
-        Users users = usersRepository.findByEmailIgnoreCase(email)
-                .orElse(null);
-
-        // Proteção contra enumeração de emails
-        if (users == null) {
-            log.warn("Tentativa de recuperação de senha para email inexistente: {}", email);
-            return;
-        }
-
-        String token = saveToken(users);
-        String resetLink = "%s/reset-password?token=%s".formatted(FRONTEND_BASE_URL, token);
-        String subject = "Recuperação de Password - Sanoneto System";
-        String message = "Recebemos um pedido para redefinir a sua password. Clique no botão abaixo para prosseguir. Este link é válido por 1 hora.";
-        log.info("Enviando solicitação de reset de senha para a fila: {}", users.getEmail());
-
-        // 4. Envio via Producer (usando o novo nome do método)
-        emailProducer.publishEmailRequest(
-                users.getUsername(),
-                users.getEmail(),
-                subject,
-                message,
-                resetLink // O EmailServiceImpl usará isto para criar o botão HTML
-        );
+        Users user = usersRepository.findByEmailIgnoreCase(email).orElse(null);
+        if (user == null) return;
+        String token = saveToken(user);
+        emailProducer.publishEmailRequest(user.getUsername(), user.getEmail(), "Reset Password", "Link: ", FRONTEND_BASE_URL + "/reset-password?token=" + token);
     }
 
     @Override
     @Transactional
     public String saveToken(Users users) {
         String role = users.getRole();
-        List<String> rolesForToken = (role == null || role.isBlank())
-                ? List.of()
-                : List.of(role.startsWith("ROLE_") ? role.substring(5) : role);
-
-        String token = jwtTokenUtil.generateToken(users.getUsername(), rolesForToken);
-
-        Instant issuedAt = Instant.now();
-        Instant expiresAt = issuedAt.plusMillis(jwtTokenUtil.getExpirationMillis());
-
-
-        jwtTokenService.saveToken(token, users.getUsername(), issuedAt, expiresAt);
+        List<String> roles = List.of(role != null ? role : "USER");
+        String token = jwtTokenUtil.generateToken(users.getUsername(), roles);
+        jwtTokenService.saveToken(token, users.getUsername(), Instant.now(), Instant.now().plusMillis(jwtTokenUtil.getExpirationMillis()));
         return token;
     }
 
     @Override
     public void resetPassword(String token, String newPassword) {
-        // 1. Validar o Token
-        Optional<JwtToken> jwtTokenOptional = jwtTokenService.findByToken(token);
-
-        JwtToken jwtToken = jwtTokenOptional
-                // Lança uma RuntimeException se o Optional estiver vazio
-                .orElseThrow(() -> new NoSuchElementException("Token inválido ou inexistente."));
-
-        // 2. Verificar se o token expirou
-        if (jwtToken.getExpiresAt().isBefore(new Date().toInstant())) {
-            // Se expirou, deve ser deletado imediatamente e lançar exceção
-            tokenRepository.delete(jwtToken);
-        }
-        // 3. Atualizar a Password
-        Users users = jwtToken.getUsers();
-
-        // Codificar a nova password
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        users.setPassword(encodedPassword);
-
-        // Salvar a nova password do utilizador
-        usersRepository.save(users);
-
-        // 4. Invalidar o Token
-        // Deletar o token da base de dados imediatamente após o uso para prevenir repetição
+        JwtToken jwtToken = jwtTokenService.findByToken(token).orElseThrow();
+        Users user = jwtToken.getUsers();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        usersRepository.save(user);
         tokenRepository.delete(jwtToken);
     }
 
     @Override
     public void UpdateProfile(String username, String publicUrl) {
-        usersRepository.findByUsername(username)
-                .ifPresent(user -> {
-                    // 2. O objeto 'user' dentro deste bloco JÁ é um Users.
-                    user.setProfile_picture_url(publicUrl);
-                    // 3. O save() deve ser chamado com o objeto Users, não com o Optional.
-                    usersRepository.save(user);
-                    log.info("A adicionado o link {} da foto do perfil {}", username, publicUrl);
-                });
+        usersRepository.findByUsername(username).ifPresent(u -> {
+            u.setProfile_picture_url(publicUrl);
+            usersRepository.save(u);
+        });
+    }
 
+    @Override
+    @Transactional
+    public void mudarStatusMfa(String username, boolean status) {
+        Users user = usersRepository.findByUsername(username).orElseThrow();
+        user.setMfaEnabled(status);
+        usersRepository.save(user);
+    }
+
+    // =========================================================================
+    // CORREÇÃO: setupMfa e activateMfa
+    // =========================================================================
+    @Override
+    @Transactional
+    public Map<String, String> setupMfa(String token) {
+        // CORREÇÃO: Certifique-se que o seu JwtTokenUtil tem o método extractUsername ou similar
+        String username = jwtTokenUtil.extractUsername(token);
+
+        Users user = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+
+        if (user.getMfaSecret() == null || user.getMfaSecret().isEmpty()) {
+            // CORREÇÃO: Sintaxe correta para a biblioteca googleauth
+            GoogleAuthenticator gAuth = new GoogleAuthenticator();
+            final GoogleAuthenticatorKey key = gAuth.createCredentials();
+            user.setMfaSecret(key.getKey());
+            usersRepository.save(user);
+        }
+
+        String appName = "PROACT";
+        String qrCodeUrl = String.format(
+                "https://api.qrserver.com/v1/create-qr-code/?data=otpauth://totp/%s:%s?secret=%s&issuer=%s&size=200x200",
+                appName, user.getEmail(), user.getMfaSecret(), appName
+        );
+
+        Map<String, String> response = new HashMap<>();
+        response.put("qrCodeUrl", qrCodeUrl);
+        response.put("secret", user.getMfaSecret());
+        return response;
+    }
+
+    @Override
+    public boolean verificarCodigoMfa(String username, String code) {
+        // 1. Procurar o utilizador na base de dados
+        Users usuario = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+
+        // 2. Verificar se o segredo existe
+        String secret = usuario.getMfaSecret();
+        if (secret == null || secret.isEmpty()) {
+            throw new RuntimeException("MFA não está configurado para este utilizador");
+        }
+
+        // 3. Validar o código de 6 dígitos usando a biblioteca GoogleAuthenticator
+        GoogleAuthenticator gAuth = new GoogleAuthenticator();
+
+        try {
+            int codeInt = Integer.parseInt(code); // Converte o código String para Int
+            return gAuth.authorize(secret, codeInt);
+        } catch (NumberFormatException e) {
+            return false; // Se não for um número válido, falha logo
+        }
+    }
+
+    @Override
+    @Transactional
+    public void activateMfa(String token, String code) {
+        String username = jwtTokenUtil.extractUsername(token);
+        Users user = usersRepository.findByUsername(username).orElseThrow();
+
+        if (verifyTotpCode(user.getMfaSecret(), code)) {
+            user.setMfaEnabled(true);
+            usersRepository.save(user);
+        } else {
+            throw new SecurityException("Código inválido.");
+        }
+    }
+
+    private boolean verifyTotpCode(String secret, String code) {
+        try {
+            GoogleAuthenticator gAuth = new GoogleAuthenticator();
+            return gAuth.authorize(secret, Integer.parseInt(code));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     @Transactional
     public void vincularTelegram(UUID publicId, String chatId) {
-        log.info("Iniciando vínculo para PublicID: {} com ChatID: {}", publicId, chatId);
-
-        // 1. Limpeza de duplicados: Verifica se este Telegram já pertence a outra conta
-        // 1. Limpeza de duplicados (Evita erro 500 de Constraint Violada)
         usersRepository.findByTelegramChatId(chatId).ifPresent(userExistente -> {
             if (!userExistente.getPublicId().equals(publicId)) {
                 userExistente.setTelegramChatId(null);
@@ -410,48 +347,34 @@ public class AuthServiceImpl implements AuthService {
             }
         });
 
-        // 2. Procura o usuário que enviou o comando /start pelo PublicID
         Users user = usersRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado com PublicID: " + publicId));
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
 
-        // 3. Define o novo vínculo (Corrigido o erro de sintaxe aqui)
         user.setTelegramChatId(chatId);
         user.setUpdatedAt(LocalDateTime.now());
-
-        try {
-            usersRepository.saveAndFlush(user);
-            log.info("✅ Telegram vinculado com sucesso ao utilizador: {}", user.getUsername());
-        } catch (DataIntegrityViolationException e) {
-            log.error("❌ Erro de integridade: {}", e.getMessage());
-            throw new RuntimeException("Este Telegram já está vinculado e não pôde ser movido.");
-        }
+        usersRepository.saveAndFlush(user);
     }
-
 
     @Override
     @Transactional
     public void unlinkTelegram(String username) {
         Users user = usersRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado: " + username));
-
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
         user.setTelegramChatId(null);
         usersRepository.save(user);
     }
 
     @Override
     public String obterTelegramChatId(String username) {
-        Users usuario = usersRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + username));
-
-        // Assume-se que o campo no teu modelo Users se chama telegramChatId
-        return usuario.getTelegramChatId();
+        return usersRepository.findByUsername(username)
+                .map(Users::getTelegramChatId)
+                .orElse(null);
     }
 
     @Override
     @Transactional
     public void removerChatIdPorBloqueio(String chatId) {
         usersRepository.findByTelegramChatId(chatId).ifPresent(user -> {
-            log.warn("🚨 Utilizador {} bloqueou o bot. Removendo vínculo para evitar erros de API.", user.getUsername());
             user.setTelegramChatId(null);
             usersRepository.save(user);
         });

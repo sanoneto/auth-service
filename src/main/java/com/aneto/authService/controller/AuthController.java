@@ -5,12 +5,9 @@ import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.models.Users;
-import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,150 +27,149 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
     private final UsersRepository usersRepository;
-    private final EmailProducer emailProducer;
 
-    private static final String X_USER_ID = "X-User-Id";
-
-    @Operation(
-            summary = "Autentica um usuário e emite um token JWT",
-            description = "Valida credenciais e retorna um JWT válido."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Login bem-sucedido"),
-            @ApiResponse(responseCode = "401", description = "Credenciais inválidas")
-    })
+    @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
+        // 1. Valida a password
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
         );
 
         Users usuario = authService.findPorUsername(loginRequest.username());
+
+        // 2. SE MFA ATIVO: Não envia token, envia apenas o sinal "mfaRequired"
+        if (Boolean.TRUE.equals(usuario.getMfaEnabled())) {
+            return ResponseEntity.ok(Map.of(
+                    "mfaRequired", true,
+                    "username", usuario.getUsername()
+            ));
+        }
+
+        // 3. Caso contrário, gera token normalmente
         String token = authService.saveToken(usuario);
-
-        // 🔑 Obtemos o googleToken que está guardado no perfil do usuário
-        String googleToken = usuario.getGoogleToken();
-
-        return ResponseEntity.ok(new LoginResponse(
-                usuario.getUsername() + " logado com sucesso",
-                token,
-                googleToken // Enviado para o Frontend
-        ));
+        return ResponseEntity.ok(new LoginResponse("Logado", token, usuario.getRole()));
     }
 
-    @Operation(
-            summary = "Regista um novo usuário e emite um token de sessão",
-            description = "Regista um novo usuário e automaticamente faz o login, emitindo um token JWT."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário registrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Username já existe ou dados inválidos")
-    })
+    // =========================================================================
+    // ENDPOINTS MFA (ADICIONADOS)
+    // =========================================================================
+
+    @Operation(summary = "Gera o QR Code para configurar o MFA")
+    @GetMapping("/mfa-setup")
+    public ResponseEntity<Map<String, String>> setupMfa(@RequestHeader("Authorization") String token) {
+        // Remove "Bearer " se presente
+        String jwt = token.startsWith("Bearer ") ? token.substring(7) : token;
+        return ResponseEntity.ok(authService.setupMfa(jwt));
+    }
+
+    @Operation(summary = "Ativa o MFA após validar o primeiro código")
+    @PostMapping("/mfa-activate")
+    public ResponseEntity<?> activateMfa(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Map<String, String> body) {
+
+        String jwt = token.startsWith("Bearer ") ? token.substring(7) : token;
+        String code = body.get("code");
+
+        authService.activateMfa(jwt, code);
+        return ResponseEntity.ok("MFA ativado com sucesso!");
+    }
+    @PostMapping("/verify-mfa")
+    public ResponseEntity<LoginResponse> verifyMfa(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String code = request.get("code");
+
+        // Valida o código através do serviço
+        boolean isCodeValid = authService.verificarCodigoMfa(username, code);
+
+        if (isCodeValid) {
+            Users usuario = authService.findPorUsername(username);
+            String token = authService.saveToken(usuario);
+            return ResponseEntity.ok(new LoginResponse(
+                    "Autenticação MFA concluída",
+                    token,
+                    usuario.getRole()
+            ));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+    @Operation(summary = "Altera o status do MFA (Ligar/Desligar)")
+    @PostMapping("/mfa-status")
+    public ResponseEntity<?> mudarStatusMfa(
+            @RequestParam String username,
+            @RequestParam boolean status) {
+        authService.mudarStatusMfa(username, status);
+        return ResponseEntity.ok("Status do MFA atualizado.");
+    }
+
+    // =========================================================================
+    // RESTANTE DOS ENDPOINTS MANTIDOS
+    // =========================================================================
+
     @PostMapping("/register")
     public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest request) {
-        // Sem try-catch! O GlobalExceptionHandler trata tudo por trás das cenas.
         return ResponseEntity.ok(authService.registrarUsers(request));
-
     }
 
     @PostMapping("/verify")
     public ResponseEntity<?> verifyCode(@RequestBody UserCredentialsRequest request) {
-        // 1. O retorno de findByEmail é Optional. Use .isPresent() ou .orElse(null)
         return ResponseEntity.ok(authService.verificarCodigo(request));
     }
 
     @PostMapping("/recuperar-password")
     public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequest request) {
-        String email = request.email();
-        // Chama o serviço que faz toda a lógica
-        authService.createPasswordResetTokenForUser(email);
-        // Retorna uma mensagem genérica de sucesso para evitar vazamento de informações
-        return ResponseEntity.ok("Instruções de recuperação enviadas com sucesso, se o email existir.");
+        authService.createPasswordResetTokenForUser(request.email());
+        return ResponseEntity.ok("Instruções de recuperação enviadas.");
     }
 
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest request) {
-        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
         if (request.token() == null || request.newPassword() == null) {
-            return ResponseEntity.badRequest().body("Token e nova password são obrigatórios.");
+            return ResponseEntity.badRequest().body("Dados obrigatórios ausentes.");
         }
         authService.resetPassword(request.token(), request.newPassword());
-        // Sucesso - Retorna 200 OK ou 204 No Content
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
 
-    @Operation(
-            summary = "Edita os dados de um utilizador",
-            description = "Permite atualizar o username, email ou cargo de um utilizador via publicId."
-    )
     @PutMapping("/users/{publicId}")
-    public ResponseEntity<?> editarUtilizador(
-            @PathVariable String publicId,
-            @RequestBody @Valid UserCredentialsRequest request) {
-
-        // O serviço tratará a lógica de procurar por publicId e atualizar
+    public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
         authService.atualizarUtilizador(publicId, request);
-        return ResponseEntity.ok("Utilizador atualizado com sucesso!");
+        return ResponseEntity.ok("Utilizador atualizado!");
     }
 
-    @Operation(
-            summary = "Elimina um utilizador do sistema",
-            description = "Remove permanentemente o utilizador através do seu publicId."
-    )
     @DeleteMapping("/users/{publicId}")
     public ResponseEntity<?> eliminarUtilizador(@PathVariable String publicId) {
         authService.eliminarUtilizador(publicId);
-        return ResponseEntity.ok("Utilizador eliminado com sucesso!");
+        return ResponseEntity.ok("Utilizador eliminado!");
     }
 
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
-        LoginResponse response = authService.getLoginResponse(data);
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(authService.getLoginResponse(data));
     }
 
     @PostMapping("/facebook")
     public ResponseEntity<LoginResponse> facebookLogin(@RequestBody Map<String, String> data) {
-        // data conterá {"accessToken": "..."} enviado pelo frontend
-        LoginResponse response = authService.processarLoginFacebook(data);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(authService.processarLoginFacebook(data));
     }
 
     @PutMapping("/updateProfile")
-    public ResponseEntity<?> UpdateProfile(@RequestParam String username, @RequestParam String publicUrl) {
-        // Validação básica do corpo da requisição (pode ser aprimorada com @Valid)
+    public ResponseEntity<?> updateProfile(@RequestParam String username, @RequestParam String publicUrl) {
         authService.UpdateProfile(username, publicUrl);
-        // Sucesso - Retorna 200 OK ou 204 No Content
-        return ResponseEntity.ok("Url adiciona com sucesso!");
+        return ResponseEntity.ok("Perfil atualizado!");
     }
 
     @PostMapping("/desvincular-telegram/{username}")
     public ResponseEntity<?> unlinkTelegram(@PathVariable String username) {
-        try {
-            authService.unlinkTelegram(username);
-            return ResponseEntity.ok("Vínculo com Telegram removido com sucesso.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao desvincular.");
-        }
+        authService.unlinkTelegram(username);
+        return ResponseEntity.ok("Telegram desvinculado.");
     }
 
-    @Operation(
-            summary = "Retorna o Chat ID do Telegram para comunicação entre microsserviços",
-            description = "Endpoint interno usado pelo EventService via WebClient."
-    )
     @GetMapping("/telegram-id/{username}")
     public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
-        try {
-            String chatId = authService.obterTelegramChatId(username);
-            if (chatId == null || chatId.isEmpty()) {
-                return ResponseEntity.noContent().build(); // 204 se não tiver vinculado
-            }
-            return ResponseEntity.ok(chatId); // 200 com o ID
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        String chatId = authService.obterTelegramChatId(username);
+        return (chatId == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(chatId);
     }
 }
