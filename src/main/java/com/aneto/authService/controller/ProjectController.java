@@ -22,7 +22,7 @@ public class ProjectController {
 
     @Operation(summary = "Retorna o total de horas de um usuário")
     @PostMapping()
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('ESTAGIARIO') and #username == authentication.name)")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('ESTAGIARIO')or hasRole('USER') and #username == authentication.name)")
     public ResponseEntity<ProjectResponse> saveProjeto(@RequestBody @Valid ProjectRequest projectRequest) {
         ProjectResponse response = projectorsService.saveProjets(projectRequest);
 

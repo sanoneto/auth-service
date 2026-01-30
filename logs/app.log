@@ -1,30 +1,7 @@
-2026-01-28T01:11:02.673Z ERROR 70788 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 573 millis...
-
-org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: null
-	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:156) ~[telegrambots-longpolling-7.10.0.jar:na]
-	at org.telegram.telegrambots.longpolling.BotSession.lambda$createPollerTask$1(BotSession.java:103) ~[telegrambots-longpolling-7.10.0.jar:na]
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
-	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
-	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
-Caused by: org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: 
-	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:152) ~[telegrambots-longpolling-7.10.0.jar:na]
-	... 7 common frames omitted
-
-2026-01-28T01:11:03.313Z ERROR 70788 --- [auth-service] [pool-3-thread-1] o.t.telegrambots.longpolling.BotSession  : Error received from Telegram GetUpdates Request, retrying in 565 millis...
-
-org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: null
-	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:156) ~[telegrambots-longpolling-7.10.0.jar:na]
-	at org.telegram.telegrambots.longpolling.BotSession.lambda$createPollerTask$1(BotSession.java:103) ~[telegrambots-longpolling-7.10.0.jar:na]
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
-	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
-	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
-Caused by: org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResponseException: 
-	at org.telegram.telegrambots.longpolling.BotSession.getUpdatesFromTelegram(BotSession.java:152) ~[telegrambots-longpolling-7.10.0.jar:na]
-	... 7 common frames omitted
-
+2026-01-30T00:08:07.687Z DEBUG 16720 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-01-30T00:08:07.694Z DEBUG 16720 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-01-30T00:08:07.695Z DEBUG 16720 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-01-30T00:08:07.702Z  INFO 16720 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: neto
+2026-01-30T00:08:07.703Z  INFO 16720 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESTAGIARIO
+2026-01-30T00:08:07.703Z  INFO 16720 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESTAGIARIO]
+2026-01-30T00:08:07.780Z DEBUG 16720 --- [auth-service] [http-nio-8081-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
