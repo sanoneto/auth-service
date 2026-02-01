@@ -10,15 +10,15 @@ import com.aneto.authService.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -75,11 +75,12 @@ public class AuthController {
         authService.activateMfa(jwt, code);
         return ResponseEntity.ok("MFA ativado com sucesso!");
     }
+
     @PostMapping("/verify-mfa")
     public ResponseEntity<LoginResponse> verifyMfa(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String code = request.get("code");
-
+        log.info( "eu entrei aqui ");
         // Valida o código através do serviço
         boolean isCodeValid = authService.verificarCodigoMfa(username, code);
 
@@ -95,6 +96,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
+
     @Operation(summary = "Altera o status do MFA (Ligar/Desligar)")
     @PostMapping("/mfa-status")
     public ResponseEntity<?> mudarStatusMfa(
