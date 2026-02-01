@@ -2121,3 +2121,30 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 2026-02-01T17:55:33.308Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-01T17:55:33.309Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-01T17:55:33.314Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T17:55:35.498Z  INFO 3624 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 3624 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T17:55:35.500Z  INFO 3624 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T17:55:36.370Z  INFO 3624 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T17:55:36.412Z  INFO 3624 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 3 JPA repository interfaces.
+2026-02-01T17:55:36.860Z  INFO 3624 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T17:55:36.869Z  INFO 3624 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T17:55:36.870Z  INFO 3624 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T17:55:36.920Z  INFO 3624 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T17:55:36.920Z  INFO 3624 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1387 ms
+2026-02-01T17:55:37.052Z  INFO 3624 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T17:55:37.154Z  INFO 3624 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1926f962
+2026-02-01T17:55:37.155Z  INFO 3624 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T17:55:37.463Z  INFO 3624 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T17:55:38.273Z  INFO 3624 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T17:55:38.479Z  INFO 3624 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T17:55:38.867Z  INFO 3624 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T17:55:39.169Z  INFO 3624 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T17:55:39.606Z  INFO 3624 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T17:55:39.606Z  INFO 3624 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T17:55:39.894Z  INFO 3624 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T17:55:39.913Z  INFO 3624 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T17:55:39.966Z DEBUG 3624 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T17:55:40.298Z  INFO 3624 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T17:55:40.308Z  INFO 3624 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.264 seconds (process running for 6.019)
+2026-02-01T17:55:40.525Z  INFO 3624 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T17:55:40.525Z  INFO 3624 --- [auth-service] [RMI TCP Connection(1)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T17:55:40.575Z  INFO 3624 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#5eab0592:0/SimpleConnection@3adc5118 [delegate=amqp://guest@127.0.0.1:5672/, localPort=61254]
