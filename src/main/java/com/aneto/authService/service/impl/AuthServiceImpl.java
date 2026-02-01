@@ -152,8 +152,18 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void eliminarUtilizador(String publicId) {
-        Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
+        // 1. Convertemos com segurança
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(publicId);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("ID Público em formato inválido");
+        }
+        // 2. Buscamos o usuário (Isso coloca o objeto no contexto do Hibernate)
+        Users usuario = usersRepository.findByPublicId(uuid)
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+
+        // 3. O CascadeType.ALL + orphanRemoval garante que tokens e projetos morram junto
         usersRepository.delete(usuario);
     }
 

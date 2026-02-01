@@ -1785,3 +1785,339 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 2026-02-01T03:40:55.064Z  INFO 26328 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-01T03:40:55.070Z  INFO 26328 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-01T03:40:55.076Z  INFO 26328 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T14:30:40.787Z  INFO 29600 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 29600 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T14:30:40.800Z  INFO 29600 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T14:30:43.260Z  INFO 29600 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T14:30:43.365Z  INFO 29600 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 96 ms. Found 3 JPA repository interfaces.
+2026-02-01T14:30:44.248Z  INFO 29600 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T14:30:44.266Z  INFO 29600 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T14:30:44.266Z  INFO 29600 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T14:30:44.359Z  INFO 29600 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T14:30:44.359Z  INFO 29600 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3473 ms
+2026-02-01T14:30:44.753Z  INFO 29600 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T14:30:45.494Z  INFO 29600 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2382b2f
+2026-02-01T14:30:45.496Z  INFO 29600 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T14:30:46.519Z  INFO 29600 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T14:30:47.928Z  INFO 29600 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T14:30:48.512Z  INFO 29600 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T14:30:49.133Z  INFO 29600 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T14:30:49.566Z  INFO 29600 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T14:30:50.075Z  INFO 29600 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T14:30:50.076Z  INFO 29600 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T14:30:50.477Z  INFO 29600 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T14:30:50.509Z  INFO 29600 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T14:30:50.599Z DEBUG 29600 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T14:30:51.287Z  INFO 29600 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T14:30:51.304Z  INFO 29600 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 12.218 seconds (process running for 21.336)
+2026-02-01T14:32:43.376Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T14:32:43.396Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-01T14:32:43.419Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T14:32:43.424Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-01T14:32:43.651Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: bneto
+2026-02-01T14:32:43.652Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESPECIALISTA
+2026-02-01T14:32:43.652Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESPECIALISTA]
+2026-02-01T14:32:43.715Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-01T14:33:02.207Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-mfa
+2026-02-01T14:33:02.208Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T14:33:02.208Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-mfa
+2026-02-01T14:33:02.210Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-3] c.a.a.controller.AuthController          : eu entrei aqui 
+2026-02-01T15:49:14.995Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-01T15:49:14.996Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T15:49:14.996Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-01T15:49:15.004Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
+2026-02-01T15:49:15.004Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
+2026-02-01T15:49:15.004Z  INFO 29600 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
+2026-02-01T15:49:15.061Z DEBUG 29600 --- [auth-service] [http-nio-8081-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-01T15:51:35.561Z  INFO 29600 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T15:51:35.565Z  INFO 29600 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T15:51:35.574Z  INFO 29600 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T15:51:35.576Z  INFO 29600 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T15:51:35.580Z  INFO 29600 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T15:51:38.037Z  INFO 17172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 17172 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T15:51:38.039Z  INFO 17172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T15:51:38.860Z  INFO 17172 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T15:51:38.903Z  INFO 17172 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
+2026-02-01T15:51:39.366Z  INFO 17172 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T15:51:39.377Z  INFO 17172 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T15:51:39.377Z  INFO 17172 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T15:51:39.427Z  INFO 17172 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T15:51:39.428Z  INFO 17172 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1354 ms
+2026-02-01T15:51:39.553Z  INFO 17172 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T15:51:39.665Z  INFO 17172 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@422ba9b7
+2026-02-01T15:51:39.666Z  INFO 17172 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T15:51:39.985Z  INFO 17172 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T15:51:40.802Z  INFO 17172 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T15:51:41.005Z  INFO 17172 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T15:51:41.399Z  INFO 17172 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T15:51:41.697Z  INFO 17172 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T15:51:42.143Z  INFO 17172 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T15:51:42.143Z  INFO 17172 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T15:51:42.441Z  INFO 17172 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T15:51:42.462Z  INFO 17172 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T15:51:42.513Z DEBUG 17172 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T15:51:42.843Z  INFO 17172 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T15:51:42.852Z  INFO 17172 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.211 seconds (process running for 6.109)
+2026-02-01T15:51:43.061Z  INFO 17172 --- [auth-service] [RMI TCP Connection(2)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T15:51:43.062Z  INFO 17172 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T15:51:43.115Z  INFO 17172 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#77eab063:0/SimpleConnection@69c89b [delegate=amqp://guest@127.0.0.1:5672/, localPort=62079]
+2026-02-01T16:09:20.856Z  INFO 17172 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T16:09:20.864Z  INFO 17172 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T16:09:20.880Z  INFO 17172 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:09:20.882Z  INFO 17172 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T16:09:20.888Z  INFO 17172 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T16:09:24.383Z  INFO 37388 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 37388 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T16:09:24.384Z  INFO 37388 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T16:09:25.221Z  INFO 37388 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T16:09:25.266Z  INFO 37388 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2026-02-01T16:09:25.762Z  INFO 37388 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T16:09:25.771Z  INFO 37388 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T16:09:25.772Z  INFO 37388 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T16:09:25.823Z  INFO 37388 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T16:09:25.823Z  INFO 37388 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1406 ms
+2026-02-01T16:09:25.948Z  INFO 37388 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T16:09:26.053Z  INFO 37388 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@19d3f6ad
+2026-02-01T16:09:26.054Z  INFO 37388 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T16:09:26.379Z  INFO 37388 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T16:09:27.251Z  INFO 37388 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:09:27.472Z  INFO 37388 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T16:09:27.937Z  INFO 37388 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T16:09:28.256Z  INFO 37388 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T16:09:28.694Z  INFO 37388 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T16:09:28.694Z  INFO 37388 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T16:09:28.997Z  INFO 37388 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T16:09:29.018Z  INFO 37388 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T16:09:29.070Z DEBUG 37388 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T16:09:29.497Z  INFO 37388 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T16:09:29.509Z  INFO 37388 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.512 seconds (process running for 6.017)
+2026-02-01T16:09:29.757Z  INFO 37388 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T16:09:29.761Z  INFO 37388 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T16:09:29.826Z  INFO 37388 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#7188bd49:0/SimpleConnection@4c6468cc [delegate=amqp://guest@127.0.0.1:5672/, localPort=53788]
+2026-02-01T16:10:44.364Z  INFO 37388 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T16:10:44.369Z  INFO 37388 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T16:10:44.384Z  INFO 37388 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:10:44.386Z  INFO 37388 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T16:10:44.390Z  INFO 37388 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T16:10:53.941Z  INFO 14212 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 14212 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T16:10:53.943Z  INFO 14212 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T16:10:54.809Z  INFO 14212 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T16:10:54.860Z  INFO 14212 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 3 JPA repository interfaces.
+2026-02-01T16:10:55.361Z  INFO 14212 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T16:10:55.372Z  INFO 14212 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T16:10:55.373Z  INFO 14212 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T16:10:55.424Z  INFO 14212 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T16:10:55.424Z  INFO 14212 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1449 ms
+2026-02-01T16:10:55.577Z  INFO 14212 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T16:10:55.707Z  INFO 14212 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f82209e
+2026-02-01T16:10:55.709Z  INFO 14212 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T16:10:56.067Z  INFO 14212 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T16:10:57.012Z  INFO 14212 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:10:57.253Z  INFO 14212 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T16:10:57.670Z  INFO 14212 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T16:10:58.076Z  INFO 14212 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T16:10:58.555Z  INFO 14212 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T16:10:58.555Z  INFO 14212 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T16:10:58.858Z  INFO 14212 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T16:10:58.881Z  INFO 14212 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T16:10:58.940Z DEBUG 14212 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T16:10:59.332Z  INFO 14212 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T16:10:59.343Z  INFO 14212 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.829 seconds (process running for 13.654)
+2026-02-01T16:13:16.220Z  INFO 14212 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T16:13:16.222Z  INFO 14212 --- [auth-service] [RMI TCP Connection(1)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T16:13:16.277Z  INFO 14212 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1cfc616:0/SimpleConnection@4a852cb9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=57008]
+2026-02-01T16:22:21.908Z  INFO 14212 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T16:22:21.911Z  INFO 14212 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T16:22:21.930Z  INFO 14212 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:22:21.931Z  INFO 14212 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T16:22:21.935Z  INFO 14212 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T16:22:27.341Z  INFO 34612 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 34612 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T16:22:27.343Z  INFO 34612 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T16:22:28.198Z  INFO 34612 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T16:22:28.251Z  INFO 34612 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
+2026-02-01T16:22:28.832Z  INFO 34612 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T16:22:28.844Z  INFO 34612 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T16:22:28.844Z  INFO 34612 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T16:22:28.898Z  INFO 34612 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T16:22:28.898Z  INFO 34612 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1524 ms
+2026-02-01T16:22:29.045Z  INFO 34612 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T16:22:29.175Z  INFO 34612 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@776e7dfb
+2026-02-01T16:22:29.176Z  INFO 34612 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T16:22:29.534Z  INFO 34612 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T16:22:30.430Z  INFO 34612 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:22:30.663Z  INFO 34612 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T16:22:31.088Z  INFO 34612 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T16:22:31.429Z  INFO 34612 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T16:22:31.916Z  INFO 34612 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T16:22:31.917Z  INFO 34612 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T16:22:32.263Z  INFO 34612 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T16:22:32.287Z  INFO 34612 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T16:22:32.350Z DEBUG 34612 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T16:22:32.754Z  INFO 34612 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T16:22:32.773Z  INFO 34612 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.886 seconds (process running for 6.785)
+2026-02-01T16:22:33.349Z  INFO 34612 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T16:22:33.350Z  INFO 34612 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T16:22:33.440Z  INFO 34612 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#b692323:0/SimpleConnection@4a357b21 [delegate=amqp://guest@127.0.0.1:5672/, localPort=64968]
+2026-02-01T16:26:26.891Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:26:26.913Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:26:26.918Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:35:13.186Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:35:13.187Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:35:13.187Z DEBUG 34612 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:35:18.178Z  INFO 34612 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T16:35:18.185Z  INFO 34612 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T16:35:18.204Z  INFO 34612 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:35:18.207Z  INFO 34612 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T16:35:18.211Z  INFO 34612 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T16:35:23.115Z  INFO 27104 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 27104 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T16:35:23.116Z  INFO 27104 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T16:35:23.948Z  INFO 27104 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T16:35:23.989Z  INFO 27104 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
+2026-02-01T16:35:24.475Z  INFO 27104 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T16:35:24.490Z  INFO 27104 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T16:35:24.490Z  INFO 27104 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T16:35:24.542Z  INFO 27104 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T16:35:24.543Z  INFO 27104 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1396 ms
+2026-02-01T16:35:24.671Z  INFO 27104 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T16:35:24.778Z  INFO 27104 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@45b27ad3
+2026-02-01T16:35:24.779Z  INFO 27104 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T16:35:25.095Z  INFO 27104 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T16:35:25.947Z  INFO 27104 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T16:35:26.163Z  INFO 27104 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T16:35:26.557Z  INFO 27104 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T16:35:26.847Z  INFO 27104 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T16:35:27.273Z  INFO 27104 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T16:35:27.274Z  INFO 27104 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T16:35:27.563Z  INFO 27104 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T16:35:27.583Z  INFO 27104 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T16:35:27.635Z DEBUG 27104 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T16:35:28.005Z  INFO 27104 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T16:35:28.015Z  INFO 27104 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.29 seconds (process running for 5.81)
+2026-02-01T16:35:28.429Z  INFO 27104 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T16:35:28.430Z  INFO 27104 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T16:35:28.481Z  INFO 27104 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#347042e7:0/SimpleConnection@3a589f42 [delegate=amqp://guest@127.0.0.1:5672/, localPort=61973]
+2026-02-01T16:39:19.748Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:39:19.770Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:39:19.772Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:43:50.698Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T16:43:50.699Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:43:50.699Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T16:43:50.762Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T16:43:50.762Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:43:50.763Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T16:46:00.480Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:46:00.481Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:46:00.481Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:46:00.497Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:46:00.497Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:46:00.498Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:46:35.075Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:46:35.076Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:46:35.077Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:46:35.091Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:46:35.092Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:46:35.093Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:48:03.165Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:48:03.167Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:48:03.167Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:48:26.507Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:48:26.507Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:48:26.508Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:48:26.522Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:48:26.523Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:48:26.523Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:48:47.165Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:48:47.166Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:48:47.166Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:56:25.236Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:56:25.237Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:56:25.237Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T16:56:25.249Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T16:56:25.250Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T16:56:25.250Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:08:53.823Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:08:53.823Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:08:53.823Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:08:53.839Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:08:53.840Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:08:53.840Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:11:03.128Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:11:03.129Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:11:03.129Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:13:18.182Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:13:18.183Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:13:18.184Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:14:17.084Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T17:14:17.084Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:14:17.085Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T17:14:17.106Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T17:14:17.106Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:14:17.107Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T17:18:12.435Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:18:12.436Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:18:12.436Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:18:12.449Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:18:12.450Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:18:12.450Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:19:50.152Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:19:50.153Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:19:50.153Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:21:17.189Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:21:17.190Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:21:17.190Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:22:21.787Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:22:21.788Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:22:21.789Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:22:38.838Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:22:38.839Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:22:38.839Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:24:07.511Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:24:07.512Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:24:07.512Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:24:08.350Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:24:08.350Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:24:08.350Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:24:08.607Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-01T17:24:08.607Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:24:08.607Z DEBUG 27104 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-01T17:49:36.009Z  INFO 27104 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T17:49:36.014Z  INFO 27104 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T17:49:36.035Z  INFO 27104 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T17:49:36.037Z  INFO 27104 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T17:49:36.040Z  INFO 27104 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-01T17:50:11.000Z  INFO 17112 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 17112 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-01T17:50:11.002Z  INFO 17112 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-01T17:50:11.826Z  INFO 17112 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-01T17:50:11.869Z  INFO 17112 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
+2026-02-01T17:50:12.340Z  INFO 17112 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-01T17:50:12.353Z  INFO 17112 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-01T17:50:12.353Z  INFO 17112 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-01T17:50:12.424Z  INFO 17112 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-01T17:50:12.424Z  INFO 17112 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1390 ms
+2026-02-01T17:50:12.559Z  INFO 17112 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-01T17:50:12.662Z  INFO 17112 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6fbc7853
+2026-02-01T17:50:12.664Z  INFO 17112 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-01T17:50:12.979Z  INFO 17112 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-01T17:50:13.832Z  INFO 17112 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T17:50:14.040Z  INFO 17112 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-01T17:50:14.434Z  INFO 17112 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-01T17:50:14.728Z  INFO 17112 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-01T17:50:15.163Z  INFO 17112 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-01T17:50:15.164Z  INFO 17112 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-01T17:50:15.454Z  INFO 17112 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-01T17:50:15.478Z  INFO 17112 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-01T17:50:15.535Z DEBUG 17112 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-01T17:50:15.880Z  INFO 17112 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-01T17:50:15.889Z  INFO 17112 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.27 seconds (process running for 5.777)
+2026-02-01T17:50:16.363Z  INFO 17112 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-01T17:50:16.363Z  INFO 17112 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-01T17:50:16.422Z  INFO 17112 --- [auth-service] [RMI TCP Connection(3)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#79a1730e:0/SimpleConnection@7fc942c [delegate=amqp://guest@127.0.0.1:5672/, localPort=51681]
+2026-02-01T17:52:34.943Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T17:52:34.957Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:52:34.966Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T17:52:35.090Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/v1/projects?username=all
+2026-02-01T17:52:35.090Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-01T17:52:35.090Z DEBUG 17112 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/v1/projects?username=all
+2026-02-01T17:55:33.288Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-01T17:55:33.292Z  INFO 17112 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-01T17:55:33.308Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-01T17:55:33.309Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-01T17:55:33.314Z  INFO 17112 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

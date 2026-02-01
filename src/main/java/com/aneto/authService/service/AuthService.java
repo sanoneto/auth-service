@@ -2,11 +2,13 @@ package com.aneto.authService.service;
 
 
 import com.aneto.authService.dto.request.UserCredentialsRequest;
+import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.models.Users;
 import jakarta.validation.Valid;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,4 +58,6 @@ public interface AuthService {
     Map<String, String> setupMfa(String token);
 
     boolean verificarCodigoMfa(String username, String code);
+
+    List<UsersResponse> findAll();
 }

@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Data
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "TB_Projetos", schema = "AUTH",
         uniqueConstraints = @UniqueConstraint(columnNames = {"username", "project_name"}, name = "UK_project_by_user")
 )
@@ -22,7 +21,8 @@ public class Projects {
     @NotBlank(message = "Username não pode ser vazio")
     private String username;
 
-    @NotBlank(message = "Username não pode ser vazio")
+    @NotBlank(message = "Nome do projeto não pode ser vazio")
+    @Column(name = "project_name")
     private String projectName;
 
     @Column(nullable = false)
@@ -31,6 +31,6 @@ public class Projects {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
     @JsonBackReference
-    @ToString.Exclude  // ⭐ SOLUÇÃO: Exclui do toString() para evitar ciclo
+    @ToString.Exclude
     private Users users;
 }

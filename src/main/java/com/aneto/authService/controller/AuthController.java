@@ -3,6 +3,7 @@ package com.aneto.authService.controller;
 import com.aneto.authService.dto.request.LoginRequest;
 import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
+import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.repository.UsersRepository;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 @Slf4j
 @RestController
@@ -134,7 +136,7 @@ public class AuthController {
         authService.resetPassword(request.token(), request.newPassword());
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
-
+    // =========================================================================
     @PutMapping("/users/{publicId}")
     public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
         authService.atualizarUtilizador(publicId, request);
@@ -147,6 +149,14 @@ public class AuthController {
         return ResponseEntity.ok("Utilizador eliminado!");
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<UsersResponse>> getListUsers() {
+
+        List<UsersResponse> usersResponses = authService.findAll();
+        // 5. Retorno OK (200) com a lista de projetos
+        return ResponseEntity.ok(usersResponses);
+    }
+    // =========================outras ligações ================================================
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
         return ResponseEntity.ok(authService.getLoginResponse(data));
