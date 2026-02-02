@@ -653,3 +653,101 @@ Caused by: org.telegram.telegrambots.longpolling.exceptions.TelegramApiErrorResp
 2026-02-02T03:44:03.478Z  INFO 18156 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-02T03:44:03.479Z  INFO 18156 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-02T03:44:03.483Z  INFO 18156 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-02T03:44:09.640Z  INFO 13816 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 13816 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-02T03:44:09.642Z  INFO 13816 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-02T03:44:10.614Z  INFO 13816 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-02T03:44:10.656Z  INFO 13816 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 3 JPA repository interfaces.
+2026-02-02T03:44:11.101Z  INFO 13816 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-02T03:44:11.109Z  INFO 13816 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-02T03:44:11.111Z  INFO 13816 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-02T03:44:11.160Z  INFO 13816 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-02T03:44:11.161Z  INFO 13816 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1472 ms
+2026-02-02T03:44:11.291Z  INFO 13816 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-02T03:44:11.396Z  INFO 13816 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1cb44a2f
+2026-02-02T03:44:11.399Z  INFO 13816 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-02T03:44:11.714Z  INFO 13816 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-02T03:44:12.588Z  INFO 13816 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-02T03:44:12.795Z  INFO 13816 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-02T03:44:13.184Z  INFO 13816 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-02T03:44:13.490Z  INFO 13816 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-02T03:44:13.925Z  INFO 13816 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-02T03:44:13.925Z  INFO 13816 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-02T03:44:14.200Z  INFO 13816 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-02T03:44:14.219Z  INFO 13816 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-02T03:44:14.272Z DEBUG 13816 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-02T03:44:14.606Z  INFO 13816 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-02T03:44:14.616Z  INFO 13816 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 5.466 seconds (process running for 6.28)
+2026-02-02T03:44:15.069Z  INFO 13816 --- [auth-service] [RMI TCP Connection(2)-192.168.68.90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-02T03:44:15.070Z  INFO 13816 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-02T03:44:15.119Z  INFO 13816 --- [auth-service] [RMI TCP Connection(4)-192.168.68.90] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1aa75e:0/SimpleConnection@50469917 [delegate=amqp://guest@127.0.0.1:5672/, localPort=60730]
+2026-02-02T03:44:33.701Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T03:44:33.717Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:44:33.722Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T03:44:33.938Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
+2026-02-02T03:44:33.938Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
+2026-02-02T03:44:33.939Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-1] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
+2026-02-02T03:44:34.012Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T03:44:36.478Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-02T03:44:36.479Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:44:36.480Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-02T03:44:36.503Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-02T03:44:36.504Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:44:36.505Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-02T03:45:01.330Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T03:45:01.331Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:45:01.332Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T03:45:01.338Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-4] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: neto
+2026-02-02T03:45:01.338Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-4] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESTAGIARIO
+2026-02-02T03:45:01.338Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-4] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESTAGIARIO]
+2026-02-02T03:45:01.399Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T03:45:18.200Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-mfa
+2026-02-02T03:45:18.203Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:45:18.203Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-mfa
+2026-02-02T03:46:29.494Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T03:46:29.494Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:46:29.495Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T03:46:29.502Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-7] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: adminhoras
+2026-02-02T03:46:29.502Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-7] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ADMIN
+2026-02-02T03:46:29.502Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-7] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ADMIN]
+2026-02-02T03:46:29.566Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-7] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T03:46:32.438Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-02T03:46:32.439Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:46:32.439Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-02T03:46:32.458Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/auth/users
+2026-02-02T03:46:32.459Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:46:32.460Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/auth/users
+2026-02-02T03:47:22.143Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T03:47:22.144Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:47:22.146Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T03:47:22.153Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: neto
+2026-02-02T03:47:22.153Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESTAGIARIO
+2026-02-02T03:47:22.153Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-10] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESTAGIARIO]
+2026-02-02T03:47:22.215Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T03:47:36.038Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-mfa
+2026-02-02T03:47:36.038Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T03:47:36.039Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-mfa
+2026-02-02T04:07:41.645Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T04:07:41.645Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T04:07:41.646Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T04:07:41.653Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: neto
+2026-02-02T04:07:41.653Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESTAGIARIO
+2026-02-02T04:07:41.654Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-3] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESTAGIARIO]
+2026-02-02T04:07:41.716Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T04:07:54.566Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-mfa
+2026-02-02T04:07:54.566Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T04:07:54.566Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-mfa
+2026-02-02T04:08:10.740Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-02T04:08:10.740Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T04:08:10.741Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-02T04:08:10.749Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Carregando usuário: bneto
+2026-02-02T04:08:10.749Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Role do banco: ESPECIALISTA
+2026-02-02T04:08:10.749Z  INFO 13816 --- [auth-service] [http-nio-8081-exec-5] c.a.a.s.impl.CustomUserDetailsService    : Authorities configuradas: [ROLE_ESPECIALISTA]
+2026-02-02T04:08:10.825Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-02-02T04:08:28.844Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-mfa
+2026-02-02T04:08:28.844Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-02T04:08:28.844Z DEBUG 13816 --- [auth-service] [http-nio-8081-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-mfa
+2026-02-02T04:13:09.075Z  INFO 13816 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-02T04:13:09.080Z  INFO 13816 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-02T04:13:09.097Z  INFO 13816 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-02T04:13:09.098Z  INFO 13816 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-02T04:13:09.102Z  INFO 13816 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
