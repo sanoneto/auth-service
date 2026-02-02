@@ -2,39 +2,58 @@ package com.aneto.authService.controller;
 
 import com.aneto.authService.dto.request.ProjectRequest;
 import com.aneto.authService.dto.response.ProjectResponse;
-import com.aneto.authService.service.impl.ProjectorsServiceImpl;
+import com.aneto.authService.service.ProjectorsService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController // 1. Marca a classe como um Controller REST
-@RequestMapping("/api/v1/projects") // 2. URL base
+@RestController
+@RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectorsServiceImpl projectorsService;
+    private final ProjectorsService projectService;
 
-
-    @Operation(summary = "Retorna o total de horas de um usuário")
-    @PostMapping()
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('ESTAGIARIO')or hasRole('USER') and #username == authentication.name)")
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or (hasAnyRole('USER', 'ESTAGIARIO') and #projectRequest.username() == authentication.name)")
     public ResponseEntity<ProjectResponse> saveProjeto(@RequestBody @Valid ProjectRequest projectRequest) {
-        ProjectResponse response = projectorsService.saveProjets(projectRequest);
+        ProjectResponse response = projectService.saveProjets(projectRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
+    public ResponseEntity<List<ProjectResponse>> getListProjetos(@RequestParam String username) {
+        List<ProjectResponse> projects = projectService.findAllByUsername(username);
+        return ResponseEntity.ok(projects);
+    }
+
+    @Operation(summary = "Atualiza um projeto existente")
+    @PutMapping("/{username}/{projectName}")
+    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
+    public ResponseEntity<ProjectResponse> updateProject(
+            @PathVariable String username,
+            @PathVariable String projectName,
+            @RequestBody @Valid ProjectRequest projectRequest) {
+
+        ProjectResponse response = projectService.updateProject(username, projectName, projectRequest);
         return ResponseEntity.ok(response);
     }
 
-    // 3. Mapeamento GET com variável de caminho
-    @GetMapping()
-    public ResponseEntity<List<String>> getListProjetos(@RequestParam String username) {
+    @Operation(summary = "Remove um projeto")
+    @DeleteMapping("/{username}/{projectName}")
+    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
+    public ResponseEntity<Void> deleteProject(
+            @PathVariable String username,
+            @PathVariable String projectName) {
 
-        List<String> projectNames = projectorsService.findallbyName(username);
-        // 5. Retorno OK (200) com a lista de projetos
-        return ResponseEntity.ok(projectNames);
+        projectService.deleteProject(username, projectName);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -223,7 +223,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public List<UsersResponse> findAll() {
-        return requestMapper.UsersResponse(usersRepository.findAll());
+        return requestMapper.mapToUserResponseList(usersRepository.findAll());
     }
 
     @Override

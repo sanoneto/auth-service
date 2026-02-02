@@ -7,8 +7,8 @@ import com.aneto.authService.models.Projects;
 import java.util.List;
 
 public interface ProjectorsService {
-    List<Projects> findAll();
-    ProjectResponse saveProjets(ProjectRequest projects);
-    List<String> findallbyName(String username);
-    void deleteById(Long id);
+    ProjectResponse saveProjets(ProjectRequest request);
+    List<ProjectResponse> findAllByUsername(String username);
+    ProjectResponse updateProject(String username, String projectName, ProjectRequest request);
+    void deleteProject(String username, String projectName);
 }

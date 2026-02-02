@@ -14,20 +14,16 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RequestMapper {
 
-    @Mapping(target = "username", source = "username")
-    @Mapping(target = "password", source = "password")
-    @Mapping(target = "role", source = "role")
     Users mapToLogin(UserCredentialsRequest userCredentialsRequest);
 
-    @Mapping(target = "projectName", source = "projectName")
-    @Mapping(target = "requiredHours", source = "requiredHours")
-     ProjectResponse mapTProject(Projects project);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "publicId", source = "publicId")
-    @Mapping(target = "username", source = "username")
-    @Mapping(target = "role", source = "role")
-    @Mapping(target = "email", source = "email")
-    List<UsersResponse> UsersResponse(List<Users> users);
+     ProjectResponse mapToProjectResponse(Projects project);
+
+
+    List<UsersResponse> mapToUserResponseList(List<Users> users);
+
+
+    // Este método auxilia o mapeamento da lista acima
+    UsersResponse mapToUserResponse(Users user);
 
 }
