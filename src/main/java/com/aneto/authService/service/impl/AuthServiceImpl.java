@@ -77,7 +77,15 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = saveToken(user);
-        return new LoginResponse("Login efetuado com sucesso!", token, user.getRole());
+
+        // CORREÇÃO: Adicionado null para googleToken e a lista de módulos
+        return new LoginResponse(
+                "Login efetuado com sucesso!",
+                token,
+                null,
+                user.getRole(),
+                user.getAllowedModules()
+        );
     }
 
     @Override
@@ -128,12 +136,20 @@ public class AuthServiceImpl implements AuthService {
         usersRepository.save(user);
 
         String token = saveToken(user);
-        return new LoginResponse("Conta ativada!", token, user.getRole());
+
+        // CORREÇÃO: Adicionado null para googleToken e a lista de módulos
+        return new LoginResponse(
+                "Conta ativada!",
+                token,
+                null,
+                user.getRole(),
+                user.getAllowedModules()
+        );
     }
 
     @Override
     @Transactional
-    public LoginResponse processGoogleLogin(String email, String name) {
+    public LoginResponse processGoogleLogin(String email, String name, String googleToken) {
         Users user = usersRepository.findByEmail(email)
                 .orElseGet(() -> {
                     Users newUser = new Users();
@@ -146,24 +162,34 @@ public class AuthServiceImpl implements AuthService {
                 });
 
         String systemToken = saveToken(user);
-        return new LoginResponse("Login efetuado com sucesso!", systemToken, user.getRole());
+
+        // CORREÇÃO: Aqui passamos o googleToken real
+        return new LoginResponse(
+                "Login efetuado com sucesso!",
+                systemToken,
+                googleToken,
+                user.getRole(),
+                user.getAllowedModules()
+        );
+    }
+
+    // Sobrecarga mantida para compatibilidade interna se necessário
+    public LoginResponse processGoogleLogin(String email, String name) {
+        return processGoogleLogin(email, name, null);
     }
 
     @Override
     @Transactional
     public void eliminarUtilizador(String publicId) {
-        // 1. Convertemos com segurança
         UUID uuid;
         try {
             uuid = UUID.fromString(publicId);
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("ID Público em formato inválido");
         }
-        // 2. Buscamos o usuário (Isso coloca o objeto no contexto do Hibernate)
         Users usuario = usersRepository.findByPublicId(uuid)
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
 
-        // 3. O CascadeType.ALL + orphanRemoval garante que tokens e projetos morram junto
         usersRepository.delete(usuario);
     }
 
@@ -189,7 +215,7 @@ public class AuthServiceImpl implements AuthService {
             GoogleIdToken idToken = verifier.verify(googleToken);
             if (idToken == null) throw new BadCredentialsException("Token inválido.");
             GoogleIdToken.Payload payload = idToken.getPayload();
-            return processGoogleLogin(payload.getEmail(), (String) payload.get("name"));
+            return processGoogleLogin(payload.getEmail(), (String) payload.get("name"), googleToken);
         } catch (Exception e) {
             throw new BadCredentialsException("Erro ao validar Google Token.");
         }
@@ -205,7 +231,8 @@ public class AuthServiceImpl implements AuthService {
         try {
             Map<String, Object> fbProfile = restTemplate.getForObject(fbUrl, Map.class);
             String email = (String) fbProfile.get("email");
-            return processGoogleLogin(email, email.split("@")[0]);
+            // Usamos o accessToken como o googleToken/socialToken
+            return processGoogleLogin(email, email.split("@")[0], accessToken);
         } catch (Exception e) {
             throw new RuntimeException("Erro Facebook login.");
         }
@@ -224,6 +251,23 @@ public class AuthServiceImpl implements AuthService {
 
     public List<UsersResponse> findAll() {
         return requestMapper.mapToUserResponseList(usersRepository.findAll());
+    }
+
+    @Override
+    @Transactional
+    public void atualizarPermissoesUtilizador(String publicId, List<String> novosModulos) {
+        UUID uuid = UUID.fromString(publicId);
+        Users usuario = usersRepository.findByPublicId(uuid)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+
+        // Não use a atribuição simples do Lombok (this.allowedModules = novosModulos)
+        // Use o método que criamos que faz .clear() e .addAll()
+        usuario.setAllowedModules(novosModulos);
+
+        // Salva e força a escrita no banco imediatamente
+        usersRepository.saveAndFlush(usuario);
+
+        log.info("Módulos persistidos para {}: {}", usuario.getUsername(), novosModulos);
     }
 
     @Override
@@ -269,20 +313,15 @@ public class AuthServiceImpl implements AuthService {
         usersRepository.save(user);
     }
 
-    // =========================================================================
-    // CORREÇÃO: setupMfa e activateMfa
-    // =========================================================================
     @Override
     @Transactional
     public Map<String, String> setupMfa(String token) {
-        // CORREÇÃO: Certifique-se que o seu JwtTokenUtil tem o método extractUsername ou similar
         String username = jwtTokenUtil.extractUsername(token);
 
         Users user = usersRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
 
         if (user.getMfaSecret() == null || user.getMfaSecret().isEmpty()) {
-            // CORREÇÃO: Sintaxe correta para a biblioteca googleauth
             GoogleAuthenticator gAuth = new GoogleAuthenticator();
             final GoogleAuthenticatorKey key = gAuth.createCredentials();
             user.setMfaSecret(key.getKey());
@@ -303,24 +342,21 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean verificarCodigoMfa(String username, String code) {
-        // 1. Procurar o utilizador na base de dados
         Users usuario = usersRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
 
-        // 2. Verificar se o segredo existe
         String secret = usuario.getMfaSecret();
         if (secret == null || secret.isEmpty()) {
             throw new RuntimeException("MFA não está configurado para este utilizador");
         }
 
-        // 3. Validar o código de 6 dígitos usando a biblioteca GoogleAuthenticator
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
 
         try {
-            int codeInt = Integer.parseInt(code); // Converte o código String para Int
+            int codeInt = Integer.parseInt(code);
             return gAuth.authorize(secret, codeInt);
         } catch (NumberFormatException e) {
-            return false; // Se não for um número válido, falha logo
+            return false;
         }
     }
 

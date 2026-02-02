@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
@@ -33,14 +34,12 @@ public class AuthController {
     @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-        // 1. Valida a password
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
         );
 
         Users usuario = authService.findPorUsername(loginRequest.username());
 
-        // 2. SE MFA ATIVO: Não envia token, envia apenas o sinal "mfaRequired"
         if (Boolean.TRUE.equals(usuario.getMfaEnabled())) {
             return ResponseEntity.ok(Map.of(
                     "mfaRequired", true,
@@ -48,19 +47,60 @@ public class AuthController {
             ));
         }
 
-        // 3. Caso contrário, gera token normalmente
         String token = authService.saveToken(usuario);
-        return ResponseEntity.ok(new LoginResponse("Logado", token, usuario.getRole()));
+
+        // Retorna LoginResponse com a lista de módulos (evita undefined no front)
+        return ResponseEntity.ok(new LoginResponse(
+                "Logado",                   // 1. message
+                token,                      // 2. token
+                null,                       // 3. googleToken (vazio no login comum)
+                usuario.getRole(),          // 4. role
+                usuario.getAllowedModules() // 5. allowedModules (A Lista agora bate com o tipo correto!)
+        ));
+    }
+
+    @Operation(summary = "Verifica o código MFA e finaliza o login")
+    @PostMapping("/verify-mfa")
+    public ResponseEntity<LoginResponse> verifyMfa(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String code = request.get("code");
+
+        boolean isCodeValid = authService.verificarCodigoMfa(username, code);
+
+        if (isCodeValid) {
+            Users usuario = authService.findPorUsername(username);
+            String token = authService.saveToken(usuario);
+
+            return ResponseEntity.ok(new LoginResponse(
+                    "Logado",                   // 1. message
+                    token,                      // 2. token
+                    null,                       // 3. googleToken (vazio no login comum)
+                    usuario.getRole(),          // 4. role
+                    usuario.getAllowedModules() // 5. allowedModules (A Lista agora bate com o tipo correto!)
+            ));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
+    @Operation(summary = "Atualiza módulos permitidos do utilizador")
+    @PutMapping("/users/{publicId}/permissions")
+    public ResponseEntity<?> atualizarPermissoes(
+            @PathVariable String publicId,
+            @RequestBody Map<String, List<String>> request) {
+
+        List<String> modulos = request.get("allowedModules");
+        authService.atualizarPermissoesUtilizador(publicId, modulos);
+        return ResponseEntity.ok("Permissões atualizadas!");
     }
 
     // =========================================================================
-    // ENDPOINTS MFA (ADICIONADOS)
+    // ENDPOINTS MFA
     // =========================================================================
 
     @Operation(summary = "Gera o QR Code para configurar o MFA")
     @GetMapping("/mfa-setup")
     public ResponseEntity<Map<String, String>> setupMfa(@RequestHeader("Authorization") String token) {
-        // Remove "Bearer " se presente
         String jwt = token.startsWith("Bearer ") ? token.substring(7) : token;
         return ResponseEntity.ok(authService.setupMfa(jwt));
     }
@@ -78,27 +118,6 @@ public class AuthController {
         return ResponseEntity.ok("MFA ativado com sucesso!");
     }
 
-    @PostMapping("/verify-mfa")
-    public ResponseEntity<LoginResponse> verifyMfa(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
-        String code = request.get("code");
-        log.info( "eu entrei aqui ");
-        // Valida o código através do serviço
-        boolean isCodeValid = authService.verificarCodigoMfa(username, code);
-
-        if (isCodeValid) {
-            Users usuario = authService.findPorUsername(username);
-            String token = authService.saveToken(usuario);
-            return ResponseEntity.ok(new LoginResponse(
-                    "Autenticação MFA concluída",
-                    token,
-                    usuario.getRole()
-            ));
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        }
-    }
-
     @Operation(summary = "Altera o status do MFA (Ligar/Desligar)")
     @PostMapping("/mfa-status")
     public ResponseEntity<?> mudarStatusMfa(
@@ -109,7 +128,7 @@ public class AuthController {
     }
 
     // =========================================================================
-    // RESTANTE DOS ENDPOINTS MANTIDOS
+    // GESTÃO DE UTILIZADORES
     // =========================================================================
 
     @PostMapping("/register")
@@ -136,7 +155,7 @@ public class AuthController {
         authService.resetPassword(request.token(), request.newPassword());
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
-    // =========================================================================
+
     @PutMapping("/users/{publicId}")
     public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
         authService.atualizarUtilizador(publicId, request);
@@ -151,12 +170,13 @@ public class AuthController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UsersResponse>> getListUsers() {
-
-        List<UsersResponse> usersResponses = authService.findAll();
-        // 5. Retorno OK (200) com a lista de projetos
-        return ResponseEntity.ok(usersResponses);
+        return ResponseEntity.ok(authService.findAll());
     }
-    // =========================outras ligações ================================================
+
+    // =========================================================================
+    // INTEGRAÇÕES EXTERNAS
+    // =========================================================================
+
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
         return ResponseEntity.ok(authService.getLoginResponse(data));

@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
 import java.util.UUID;
 
 public record UsersResponse(
@@ -20,7 +21,9 @@ public record UsersResponse(
 
         @Column(nullable = false)
         @NotBlank(message = "Role não pode ser vazia")
-        String role
+        String role,
+
+        List<String>allowedModules // ADICIONADO: Agora o Mapper conseguirá passar os dados para o Frontend
 
 ) {
 }

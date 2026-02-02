@@ -6,7 +6,6 @@ import com.aneto.authService.dto.response.ProjectResponse;
 import com.aneto.authService.models.Projects;
 import com.aneto.authService.models.Users;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -16,14 +15,9 @@ public interface RequestMapper {
 
     Users mapToLogin(UserCredentialsRequest userCredentialsRequest);
 
-
-     ProjectResponse mapToProjectResponse(Projects project);
-
+    ProjectResponse mapToProjectResponse(Projects project);
 
     List<UsersResponse> mapToUserResponseList(List<Users> users);
 
-
-    // Este método auxilia o mapeamento da lista acima
     UsersResponse mapToUserResponse(Users user);
-
 }

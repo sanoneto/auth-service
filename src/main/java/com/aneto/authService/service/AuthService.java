@@ -35,7 +35,7 @@ public interface AuthService {
 
     LoginResponse verificarCodigo(UserCredentialsRequest request);
 
-    LoginResponse processGoogleLogin(String email, String name);
+     LoginResponse processGoogleLogin(String email, String name, String googleToken);
 
     void eliminarUtilizador(String publicId);
 
@@ -60,4 +60,6 @@ public interface AuthService {
     boolean verificarCodigoMfa(String username, String code);
 
     List<UsersResponse> findAll();
+
+    void atualizarPermissoesUtilizador(String publicId, List<String> modulos);
 }
