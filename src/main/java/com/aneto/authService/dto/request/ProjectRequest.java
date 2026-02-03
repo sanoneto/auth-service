@@ -15,7 +15,9 @@ public record ProjectRequest(
         Double requiredHours,
 
         @Column(nullable = false)
-        Double hourlyRate
+        Double hourlyRate,
+
+        String color // Adiciona este campo
 ) {
     /**
      * Construtor Compacto para validação e valores padrão.

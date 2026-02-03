@@ -1,5 +1,6 @@
 package com.aneto.authService.repository;
 
+import aj.org.objectweb.asm.commons.Remapper;
 import com.aneto.authService.models.ProjectId;
 import com.aneto.authService.models.Projects;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectsRepository extends JpaRepository<Projects, ProjectId> {
@@ -24,6 +26,8 @@ public interface ProjectsRepository extends JpaRepository<Projects, ProjectId> {
     boolean existsByUsernameAndProjectName(String username, String projectName);
 
     List<Projects> findByUsernameOrderByCreatedAtDesc(String username);
+
+    Optional<Projects> findByUsernameAndProjectName(String username, String projectName);
 
     /**
      * O JpaRepository já fornece por padrão:

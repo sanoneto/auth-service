@@ -11,4 +11,6 @@ public interface ProjectorsService {
     List<ProjectResponse> findAllByUsername(String username);
     ProjectResponse updateProject(String username, String projectName, ProjectRequest request);
     void deleteProject(String username, String projectName);
+
+    ProjectResponse findByUsernameAndProjectName(String username, String projectName);
 }

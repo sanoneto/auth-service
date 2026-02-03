@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @IdClass(ProjectId.class)
-@EntityListeners(AuditingEntityListener.class) // Habilita a auditoria automática
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TB_Projetos", schema = "AUTH")
 public class Projects {
 
@@ -34,6 +34,9 @@ public class Projects {
     @Column(nullable = false, columnDefinition = "float8 default 1.1")
     private Double hourlyRate = 1.1;
 
+    // Novo campo para armazenar o valor calculado
+    private Double totalValue;
+
     // Campos de Auditoria
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -44,8 +47,21 @@ public class Projects {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
     @JsonBackReference
     @ToString.Exclude
     private Users users;
+
+    /**
+     * Calcula o valor total automaticamente antes de inserir ou atualizar no banco.
+     */
+    @PrePersist
+    @PreUpdate
+    public void calculateTotalValue() {
+        if (this.requiredHours != null && this.hourlyRate != null) {
+            this.totalValue = this.requiredHours * this.hourlyRate;
+        } else {
+            this.totalValue = 0.0;
+        }
+    }
 }

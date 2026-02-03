@@ -2,6 +2,7 @@ package com.aneto.authService.service.impl;
 
 import com.aneto.authService.dto.request.ProjectRequest;
 import com.aneto.authService.dto.response.ProjectResponse;
+import com.aneto.authService.exception.ResourceNotFoundException;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.ProjectId;
 import com.aneto.authService.models.Projects;
@@ -25,25 +26,33 @@ public class ProjectorsServiceImpl implements ProjectorsService {
     private final RequestMapper requestMapper;
 
     @Override
+    @Transactional
     public ProjectResponse saveProjets(ProjectRequest projectRequest) {
+        // 1. Validar se o utilizador existe
         Users users = usersRepository.findByUsername(projectRequest.username())
-                .orElseThrow(() -> new RuntimeException("user não existe."));
+                .orElseThrow(() -> new RuntimeException("Usuário não existe."));
+
+        // 2. Criar e mapear a entidade
         Projects projects = new Projects();
         projects.setUsername(projectRequest.username());
         projects.setProjectName(projectRequest.projectName());
         projects.setRequiredHours(projectRequest.requiredHours());
-        projects.setUsers(users);
-        repository.save(projects);
-        return requestMapper.mapToProjectResponse(projects);
-    }
 
+        // ADICIONADO: Mapear o hourlyRate que vem do DTO
+        projects.setHourlyRate(projectRequest.hourlyRate());
+
+        projects.setUsers(users);
+
+        // 3. Salvar na BD
+        Projects savedProject = repository.save(projects);
+
+        // 4. Retornar resposta formatada
+        return requestMapper.mapToProjectResponse(savedProject);
+    }
 
     @Override
     public List<ProjectResponse> findAllByUsername(String username) {
-        // 1. Busca a lista de entidades
         List<Projects> projects = repository.findByUsernameOrderByCreatedAtDesc(username);
-
-        // 2. Converte para a lista de DTOs (ProjectResponse) usando o Mapper
         return projects.stream()
                 .map(requestMapper::mapToProjectResponse)
                 .collect(Collectors.toList());
@@ -51,31 +60,39 @@ public class ProjectorsServiceImpl implements ProjectorsService {
 
     @Override
     @Transactional
-    public ProjectResponse updateProject(String username, String projectName, ProjectRequest request) {
-        // 1. Criamos a chave composta
-        ProjectId id = new ProjectId(username, projectName);
+    public ProjectResponse updateProject(String username, String oldProjectName, ProjectRequest request) {
+        Projects project = repository.findByUsernameAndProjectName(username, oldProjectName)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado"));
 
-        // 2. Buscamos o projeto existente
-        Projects project = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+        // Se o nome mudou, removemos o registro com o ID antigo
+        if (!oldProjectName.equals(request.projectName())) {
+            repository.delete(project);
+            // Criamos uma nova instância com os dados do request
+            project = requestMapper.mapToProjectEntity(request);
+            project.setUsername(username);
+        } else {
+            requestMapper.updateProjectFromRequest(request, project);
+        }
 
-        // 3. Atualizamos os campos (exceto os que formam a PK se não quiser mudar a identidade)
-        project.setRequiredHours(request.requiredHours());
-        project.setHourlyRate(request.hourlyRate());
-
-        Projects updated = repository.save(project);
-        return requestMapper.mapToProjectResponse(updated);
+        Projects saved = repository.save(project);
+        return requestMapper.mapToProjectResponse(saved);
     }
 
     @Override
     @Transactional
     public void deleteProject(String username, String projectName) {
         ProjectId id = new ProjectId(username, projectName);
-
         if (!repository.existsById(id)) {
             throw new RuntimeException("Projeto não encontrado para exclusão");
         }
-
         repository.deleteById(id);
+    }
+
+    @Override
+    public ProjectResponse findByUsernameAndProjectName(String username, String projectName) {
+        return repository.findByUsernameAndProjectName(username, projectName)
+                // CORREÇÃO: Usar o mapper injetado para converter Projects -> ProjectResponse
+                .map(requestMapper::mapToProjectResponse)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto '" + projectName + "' não encontrado para o utilizador " + username));
     }
 }

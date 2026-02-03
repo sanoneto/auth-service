@@ -34,6 +34,14 @@ public class ProjectController {
         return ResponseEntity.ok(projects);
     }
 
+    @GetMapping("/{username}/{projectName}")
+    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
+    public ResponseEntity<ProjectResponse> getProjectByName(
+            @PathVariable String username,
+            @PathVariable String projectName) {
+        ProjectResponse project = projectService.findByUsernameAndProjectName(username, projectName);
+        return ResponseEntity.ok(project);
+    }
     @Operation(summary = "Atualiza um projeto existente")
     @PutMapping("/{username}/{projectName}")
     @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
