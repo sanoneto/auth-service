@@ -82,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
         return new LoginResponse(
                 "Login efetuado com sucesso!",
                 token,
+                user.getPublicId().toString(),
                 null,
                 user.getRole(), // Agora retorna UserRole (Enum)
                 user.getAllowedModules()
@@ -143,6 +144,7 @@ public class AuthServiceImpl implements AuthService {
         return new LoginResponse(
                 "Conta ativada!",
                 token,
+                user.getPublicId().toString(),
                 null,
                 user.getRole(),
                 user.getAllowedModules()
@@ -168,6 +170,7 @@ public class AuthServiceImpl implements AuthService {
         return new LoginResponse(
                 "Login efetuado com sucesso!",
                 systemToken,
+                user.getPublicId().toString(),
                 googleToken,
                 user.getRole(),
                 user.getAllowedModules()

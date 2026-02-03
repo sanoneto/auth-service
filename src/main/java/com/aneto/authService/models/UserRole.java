@@ -7,6 +7,7 @@ public enum UserRole {
     ADMIN,
     ESTAGIARIO,
     USER,
+    ESPECIALISTA,
     GESTOR;
 
     // Opcional: Método para converter String para Enum de forma segura

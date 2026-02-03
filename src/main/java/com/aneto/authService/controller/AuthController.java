@@ -6,8 +6,8 @@ import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.models.Users;
-import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.service.AuthService;
+import com.corundumstudio.socketio.SocketIOServer;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
-    private final UsersRepository usersRepository;
+    private final SocketIOServer socketIOServer;
 
     @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
@@ -52,14 +52,29 @@ public class AuthController {
 
         String token = authService.saveToken(usuario);
 
+        // EMITIR EVENTO ONLINE VIA SOCKET
+        socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
+
         // O usuario.getRole() agora retorna o Enum UserRole
         return ResponseEntity.ok(new LoginResponse(
                 "Logado",
                 token,
+                usuario.getPublicId().toString(),
                 null,
-                usuario.getRole(),          // Agora envia o Enum corretamente
+                usuario.getRole(),
+                // Agora envia o Enum corretamente
                 usuario.getAllowedModules()
+
         ));
+    }
+    @Operation(summary = "Realiza o logout do utilizador")
+    @PostMapping("/logout/{publicId}")
+    public ResponseEntity<?> logout(@PathVariable String publicId) {
+        // Dispara o evento para o Painel Admin mudar a cor da bolinha para cinzento/offline
+        socketIOServer.getBroadcastOperations().sendEvent("user_disconnected", publicId);
+
+        log.info("Utilizador com PublicID {} realizou logout.", publicId);
+        return ResponseEntity.ok("Logout efetuado com sucesso.");
     }
 
     @Operation(summary = "Verifica o código MFA e finaliza o login")
@@ -74,11 +89,16 @@ public class AuthController {
             Users usuario = authService.findPorUsername(username);
             String token = authService.saveToken(usuario);
 
+            // EMITIR EVENTO ONLINE VIA SOCKET
+            socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
+
             return ResponseEntity.ok(new LoginResponse(
                     "Logado",
                     token,
+                    usuario.getPublicId().toString(),
                     null,
                     usuario.getRole(),
+                    // Agora envia o Enum corretamente
                     usuario.getAllowedModules()
             ));
         } else {
@@ -175,6 +195,7 @@ public class AuthController {
     @DeleteMapping("/users/{publicId}")
     public ResponseEntity<?> eliminarUtilizador(@PathVariable String publicId) {
         authService.eliminarUtilizador(publicId);
+        socketIOServer.getBroadcastOperations().sendEvent("user_disconnected", publicId);
         return ResponseEntity.ok("Utilizador eliminado!");
     }
 
@@ -191,7 +212,13 @@ public class AuthController {
     @Operation(summary = "Login/Registo via Google OAuth2")
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
-        return ResponseEntity.ok(authService.getLoginResponse(data));
+
+        LoginResponse response = authService.getLoginResponse(data);
+        if (response != null && response.publicId() != null) {
+            socketIOServer.getBroadcastOperations().sendEvent("user_connected", response.publicId());
+        }
+        return ResponseEntity.ok(response);
+
     }
 
     @Operation(summary = "Login/Registo via Facebook")

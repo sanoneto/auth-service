@@ -66,7 +66,12 @@ logging:
     name: logs/app.log
 
 url:
-  front-end: ${URL_FRONT_END}
+  front-end: ${FRONT_END}   # Onde os utilizadores acedem
+
+socketio:
+  host: 0.0.0.0                    # O servidor ouve em todas as interfaces
+  port: ${SOCKET_IO_PORT:9095}
+  origin: ${url.front-end}
 
 codes:
   admin: ${CODE_ADMIN}

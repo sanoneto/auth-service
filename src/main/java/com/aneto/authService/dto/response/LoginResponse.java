@@ -7,6 +7,7 @@ import java.util.List;
 public record LoginResponse(
         String message,
         String token,
+        String publicId,
         String googleToken,
         UserRole role,         // Alterado para UserRole
         List<String> allowedModules
