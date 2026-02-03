@@ -1,9 +1,7 @@
 package com.aneto.authService.service.impl;
 
-
-
 import com.aneto.authService.models.Users;
-
+import com.aneto.authService.models.UserRole;
 import com.aneto.authService.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -41,31 +39,34 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .authorities(authorities)
+                .disabled(!user.isEnabled()) // Garante que usuários desabilitados não loguem
                 .build();
     }
+
     /**
-     * Constrói a coleção de GrantedAuthority para o usuário.
-     * Normaliza a role (adiciona prefixo ROLE_ se necessário) e valida sua presença.
+     * Constrói a coleção de GrantedAuthority para o usuário usando o Enum UserRole.
+     * Normaliza a role (adiciona prefixo ROLE_ se necessário).
      *
      * @param user usuário carregado do repositório
      * @return lista imutável com as authorities
-     * @throws UsernameNotFoundException quando role estiver ausente/inválida
+     * @throws UsernameNotFoundException quando role estiver ausente
      */
     private Collection<? extends GrantedAuthority> buildAuthorities(Users user) {
-        String role = user.getRole();
+        UserRole role = user.getRole();
 
-        if (role == null || role.isBlank()) {
+        if (role == null) {
             log.error("Role ausente para usuário: {}", user.getUsername());
-            // Lança UsernameNotFoundException para manter consistência com UserDetailsService
             throw new UsernameNotFoundException("Usuário sem role definida: " + user.getUsername());
         }
 
-        String normalizedRole = role.toUpperCase(Locale.ROOT);
-        if (!normalizedRole.startsWith("ROLE_")) {
-            normalizedRole = "ROLE_" + normalizedRole;
+        // Converte o nome do Enum (ex: ADMIN) para String
+        String roleName = role.name().toUpperCase(Locale.ROOT);
+
+        if (!roleName.startsWith("ROLE_")) {
+            roleName = "ROLE_" + roleName;
         }
 
-        log.debug("Authority final gerada para usuário {}: {}", user.getUsername(), normalizedRole);
-        return List.of(new SimpleGrantedAuthority(normalizedRole));
+        log.debug("Authority final gerada para usuário {}: {}", user.getUsername(), roleName);
+        return List.of(new SimpleGrantedAuthority(roleName));
     }
 }

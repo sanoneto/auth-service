@@ -1,50 +1,53 @@
 package com.aneto.authService.dto.request;
 
+import com.aneto.authService.models.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
-@Schema(description = "Request para create User")
+@Schema(description = "Request para criar Usuário")
 public record UserCredentialsRequest(
 
         @Schema(
-                description = "username necessario",
+                description = "Username necessário",
                 example = "bento",
-                required = true
-
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
-        @NotBlank(message = "O primeiro nome é obrigatório")
-        @Size(min = 2, max = 50, message = "Nome deve ter entre 2 e 50 caracteres")
-        @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nome deve conter apenas letras")
+        @NotBlank(message = "O username é obrigatório")
+        @Size(min = 2, max = 50, message = "O username deve ter entre 2 e 50 caracteres")
+        @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "O username deve conter apenas letras")
         String username,
 
         @Schema(
                 description = "Senha do usuário",
                 example = "sdr1233",
-                required = true
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
-        @NotBlank(message = "Senha é obrigatória")
-        @Size(min = 8, max = 100, message = "Senha deve ter entre 8 e 100 caracteres")
+        @NotBlank(message = "A senha é obrigatória")
+        @Size(min = 8, max = 100, message = "A senha deve ter entre 8 e 100 caracteres")
         String password,
 
         @Schema(
-                description = "o teu role ",
-                example = "ADMIN ou ESTAGIARIO",
-                required = true
+                description = "O seu cargo/role no sistema",
+                example = "ADMIN",
+                implementation = UserRole.class,
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
-        @NotBlank(message = "O primeiro nome é obrigatório")
-        @Size(min = 2, max = 50, message = "Nome deve ter entre 2 e 50 caracteres")
-        @NotEmpty String role,
+        @NotNull(message = "O role é obrigatório (ex: ADMIN, ESTAGIARIO)")
+        UserRole role,
 
         @Schema(
-                description = "o teu email ",
-                example = "ADMIN ou ESTAGIARIO",
-                required = true
+                description = "O seu e-mail institucional ou pessoal",
+                example = "usuario@aneto.com",
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         @NotBlank(message = "O e-mail é obrigatório.")
-        // (Ex: deve conter um '@' e um '.' no domínio)
         @Email(message = "O e-mail deve ter um formato válido.")
-        @NotEmpty String email,
+        String email,
+
+        @Schema(description = "Código de convite opcional", example = "INV-2026")
         String inviteCode,
-        String code)
-{
+
+        @Schema(description = "Código de verificação ou MFA", example = "123456")
+        String code
+) {
 }

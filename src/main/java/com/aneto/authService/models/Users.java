@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -44,10 +45,15 @@ public class Users {
     @NotBlank(message = "Password não pode ser vazia")
     private String password;
 
+    /**
+     * Alterado de String para UserRole Enum.
+     * @Enumerated(EnumType.STRING) garante que o nome (ex: ADMIN) seja salvo no banco.
+     */
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotBlank(message = "Role não pode ser vazia")
-    private String role;
+    @NotNull(message = "Role é obrigatório")
+    private UserRole role;
 
     @Setter
     private String profile_picture_url;
@@ -83,7 +89,6 @@ public class Users {
     @Column(name = "mfa_secret")
     private String mfaSecret;
 
-    // CONFIGURAÇÃO DE PERSISTÊNCIA DOS MÓDULOS
     @Getter
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
@@ -107,7 +112,7 @@ public class Users {
         this.allowedModules = new ArrayList<>();
     }
 
-    public Users(String username, String email, String password, String role, String profilePictureUrl, String verificationCode) {
+    public Users(String username, String email, String password, UserRole role, String profilePictureUrl, String verificationCode) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -123,14 +128,13 @@ public class Users {
     @PreUpdate
     private void normalizeAndGenerateId() {
         if (this.username != null) {
-            this.username = this.username.trim();
+            this.username = this.username.trim().toLowerCase();
         }
         if (this.publicId == null) {
             this.publicId = UUID.randomUUID();
         }
     }
 
-    // Método auxiliar para garantir que a gravação funcione no Service
     public void setAllowedModules(List<String> modules) {
         this.allowedModules.clear();
         if (modules != null) {
@@ -138,12 +142,12 @@ public class Users {
         }
     }
 
-    // --- Getters e Setters Manuais ---
+    // --- Getters e Setters ---
     public Long getId() { return id; }
     public UUID getPublicId() { return publicId; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public String getRole() { return role; }
+    public UserRole getRole() { return role; } // Retorna o Enum
     public List<JwtToken> getJwtToken() { return jwtToken; }
     public String getProfile_picture_url() { return profile_picture_url; }
     public String getUsername() { return username; }
@@ -152,11 +156,12 @@ public class Users {
     public String getTelegramChatId() { return telegramChatId; }
     public String getGoogleToken() { return googleToken; }
     public String getFacebookId() { return facebookId; }
+    public String getVerificationCode() { return verificationCode; }
+    public boolean isEnabled() { return enabled; }
+
     public void setUsername(String username) { this.username = username != null ? username.trim().toLowerCase() : null; }
     public void setPublicId(UUID publicId) { this.publicId = publicId; }
     public void setJwtToken(List<JwtToken> jwtToken) { this.jwtToken = jwtToken; }
-    public String getVerificationCode() { return verificationCode; }
-    public boolean isEnabled() { return enabled; }
     public void setGoogleToken(String googleToken) { this.googleToken = googleToken; }
     public void setTelegramChatId(String telegramChatId) { this.telegramChatId = telegramChatId; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }

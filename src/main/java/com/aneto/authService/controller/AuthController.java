@@ -34,13 +34,16 @@ public class AuthController {
     @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
+        // Realiza a autenticação via Spring Security
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
         );
 
         Users usuario = authService.findPorUsername(loginRequest.username());
 
+        // Verifica se o MFA está ativo para este utilizador
         if (Boolean.TRUE.equals(usuario.getMfaEnabled())) {
+            log.info("MFA requerido para o utilizador: {}", usuario.getUsername());
             return ResponseEntity.ok(Map.of(
                     "mfaRequired", true,
                     "username", usuario.getUsername()
@@ -49,13 +52,13 @@ public class AuthController {
 
         String token = authService.saveToken(usuario);
 
-        // Retorna LoginResponse com a lista de módulos (evita undefined no front)
+        // O usuario.getRole() agora retorna o Enum UserRole
         return ResponseEntity.ok(new LoginResponse(
-                "Logado",                   // 1. message
-                token,                      // 2. token
-                null,                       // 3. googleToken (vazio no login comum)
-                usuario.getRole(),          // 4. role
-                usuario.getAllowedModules() // 5. allowedModules (A Lista agora bate com o tipo correto!)
+                "Logado",
+                token,
+                null,
+                usuario.getRole(),          // Agora envia o Enum corretamente
+                usuario.getAllowedModules()
         ));
     }
 
@@ -72,14 +75,15 @@ public class AuthController {
             String token = authService.saveToken(usuario);
 
             return ResponseEntity.ok(new LoginResponse(
-                    "Logado",                   // 1. message
-                    token,                      // 2. token
-                    null,                       // 3. googleToken (vazio no login comum)
-                    usuario.getRole(),          // 4. role
-                    usuario.getAllowedModules() // 5. allowedModules (A Lista agora bate com o tipo correto!)
+                    "Logado",
+                    token,
+                    null,
+                    usuario.getRole(),
+                    usuario.getAllowedModules()
             ));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            log.warn("Tentativa de login MFA falhou para o utilizador: {}", username);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
@@ -131,22 +135,26 @@ public class AuthController {
     // GESTÃO DE UTILIZADORES
     // =========================================================================
 
+    @Operation(summary = "Regista um novo utilizador no sistema")
     @PostMapping("/register")
     public ResponseEntity<?> registrarUsers(@RequestBody @Valid UserCredentialsRequest request) {
         return ResponseEntity.ok(authService.registrarUsers(request));
     }
 
+    @Operation(summary = "Verifica o código de ativação da conta")
     @PostMapping("/verify")
     public ResponseEntity<?> verifyCode(@RequestBody UserCredentialsRequest request) {
         return ResponseEntity.ok(authService.verificarCodigo(request));
     }
 
+    @Operation(summary = "Solicita a recuperação de password via e-mail")
     @PostMapping("/recuperar-password")
     public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequest request) {
         authService.createPasswordResetTokenForUser(request.email());
         return ResponseEntity.ok("Instruções de recuperação enviadas.");
     }
 
+    @Operation(summary = "Redefine a password usando o token enviado")
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest request) {
         if (request.token() == null || request.newPassword() == null) {
@@ -156,18 +164,21 @@ public class AuthController {
         return ResponseEntity.ok("Password redefinida com sucesso!");
     }
 
+    @Operation(summary = "Edita os dados de um utilizador existente")
     @PutMapping("/users/{publicId}")
     public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
         authService.atualizarUtilizador(publicId, request);
         return ResponseEntity.ok("Utilizador atualizado!");
     }
 
+    @Operation(summary = "Elimina um utilizador permanentemente")
     @DeleteMapping("/users/{publicId}")
     public ResponseEntity<?> eliminarUtilizador(@PathVariable String publicId) {
         authService.eliminarUtilizador(publicId);
         return ResponseEntity.ok("Utilizador eliminado!");
     }
 
+    @Operation(summary = "Lista todos os utilizadores registados")
     @GetMapping("/users")
     public ResponseEntity<List<UsersResponse>> getListUsers() {
         return ResponseEntity.ok(authService.findAll());
@@ -177,28 +188,33 @@ public class AuthController {
     // INTEGRAÇÕES EXTERNAS
     // =========================================================================
 
+    @Operation(summary = "Login/Registo via Google OAuth2")
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
         return ResponseEntity.ok(authService.getLoginResponse(data));
     }
 
+    @Operation(summary = "Login/Registo via Facebook")
     @PostMapping("/facebook")
     public ResponseEntity<LoginResponse> facebookLogin(@RequestBody Map<String, String> data) {
         return ResponseEntity.ok(authService.processarLoginFacebook(data));
     }
 
+    @Operation(summary = "Atualiza o link da foto de perfil")
     @PutMapping("/updateProfile")
     public ResponseEntity<?> updateProfile(@RequestParam String username, @RequestParam String publicUrl) {
         authService.UpdateProfile(username, publicUrl);
         return ResponseEntity.ok("Perfil atualizado!");
     }
 
+    @Operation(summary = "Remove o vínculo da conta com o Telegram")
     @PostMapping("/desvincular-telegram/{username}")
     public ResponseEntity<?> unlinkTelegram(@PathVariable String username) {
         authService.unlinkTelegram(username);
         return ResponseEntity.ok("Telegram desvinculado.");
     }
 
+    @Operation(summary = "Obtém o Chat ID do Telegram do utilizador")
     @GetMapping("/telegram-id/{username}")
     public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
         String chatId = authService.obterTelegramChatId(username);

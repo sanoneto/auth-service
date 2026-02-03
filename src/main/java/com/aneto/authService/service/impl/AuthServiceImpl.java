@@ -6,6 +6,7 @@ import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.JwtToken;
+import com.aneto.authService.models.UserRole;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.JwtTokenRepository;
@@ -78,12 +79,11 @@ public class AuthServiceImpl implements AuthService {
 
         String token = saveToken(user);
 
-        // CORREÇÃO: Adicionado null para googleToken e a lista de módulos
         return new LoginResponse(
                 "Login efetuado com sucesso!",
                 token,
                 null,
-                user.getRole(),
+                user.getRole(), // Agora retorna UserRole (Enum)
                 user.getAllowedModules()
         );
     }
@@ -95,11 +95,14 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("O nome de utilizador já está em uso.");
         }
 
-        String roleSolicitada = request.role().toUpperCase();
-        if (roleSolicitada.equals("ADMIN") && !CODEADMIN.equals(request.inviteCode())) {
+        // Validação de códigos de convite baseada no Enum
+        UserRole roleSolicitada = request.role();
+        if (roleSolicitada == UserRole.ADMIN && !CODEADMIN.equals(request.inviteCode())) {
             throw new SecurityException("Código de autorização inválido para ADMINISTRADOR.");
         }
-        if (roleSolicitada.equals("ESPECIALISTA") && !CODEESPECIALISTA.equals(request.inviteCode())) {
+
+        // Exemplo de como tratar roles que não estão no Enum original se necessário
+        if (roleSolicitada.name().equals("ESPECIALISTA") && !CODEESPECIALISTA.equals(request.inviteCode())) {
             throw new SecurityException("Código de autorização inválido para ESPECIALISTA.");
         }
 
@@ -137,7 +140,6 @@ public class AuthServiceImpl implements AuthService {
 
         String token = saveToken(user);
 
-        // CORREÇÃO: Adicionado null para googleToken e a lista de módulos
         return new LoginResponse(
                 "Conta ativada!",
                 token,
@@ -155,7 +157,7 @@ public class AuthServiceImpl implements AuthService {
                     Users newUser = new Users();
                     newUser.setEmail(email);
                     newUser.setUsername(email.split("@")[0]);
-                    newUser.setRole("USER");
+                    newUser.setRole(UserRole.USER); // Definindo Enum padrão
                     newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                     newUser.setEnabled(true);
                     return usersRepository.save(newUser);
@@ -163,7 +165,6 @@ public class AuthServiceImpl implements AuthService {
 
         String systemToken = saveToken(user);
 
-        // CORREÇÃO: Aqui passamos o googleToken real
         return new LoginResponse(
                 "Login efetuado com sucesso!",
                 systemToken,
@@ -173,7 +174,6 @@ public class AuthServiceImpl implements AuthService {
         );
     }
 
-    // Sobrecarga mantida para compatibilidade interna se necessário
     public LoginResponse processGoogleLogin(String email, String name) {
         return processGoogleLogin(email, name, null);
     }
@@ -198,8 +198,11 @@ public class AuthServiceImpl implements AuthService {
     public void atualizarUtilizador(String publicId, UserCredentialsRequest request) {
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+
         if (request.username() != null) usuario.setUsername(request.username());
         if (request.email() != null) usuario.setEmail(request.email());
+        if (request.role() != null) usuario.setRole(request.role()); // Atualiza o Enum
+
         usersRepository.save(usuario);
     }
 
@@ -231,7 +234,6 @@ public class AuthServiceImpl implements AuthService {
         try {
             Map<String, Object> fbProfile = restTemplate.getForObject(fbUrl, Map.class);
             String email = (String) fbProfile.get("email");
-            // Usamos o accessToken como o googleToken/socialToken
             return processGoogleLogin(email, email.split("@")[0], accessToken);
         } catch (Exception e) {
             throw new RuntimeException("Erro Facebook login.");
@@ -249,6 +251,7 @@ public class AuthServiceImpl implements AuthService {
         return usersRepository.findByUsername(username).isPresent();
     }
 
+    @Override
     public List<UsersResponse> findAll() {
         return requestMapper.mapToUserResponseList(usersRepository.findAll());
     }
@@ -260,11 +263,7 @@ public class AuthServiceImpl implements AuthService {
         Users usuario = usersRepository.findByPublicId(uuid)
                 .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
 
-        // Não use a atribuição simples do Lombok (this.allowedModules = novosModulos)
-        // Use o método que criamos que faz .clear() e .addAll()
         usuario.setAllowedModules(novosModulos);
-
-        // Salva e força a escrita no banco imediatamente
         usersRepository.saveAndFlush(usuario);
 
         log.info("Módulos persistidos para {}: {}", usuario.getUsername(), novosModulos);
@@ -281,8 +280,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public String saveToken(Users users) {
-        String role = users.getRole();
-        List<String> roles = List.of(role != null ? role : "USER");
+        // Converte o Enum Role para String para o JWT
+        String roleName = users.getRole() != null ? users.getRole().name() : "USER";
+        List<String> roles = List.of(roleName);
+
         String token = jwtTokenUtil.generateToken(users.getUsername(), roles);
         jwtTokenService.saveToken(token, users.getUsername(), Instant.now(), Instant.now().plusMillis(jwtTokenUtil.getExpirationMillis()));
         return token;
