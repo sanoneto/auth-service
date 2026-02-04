@@ -95,5 +95,6 @@ google:
 
 telegram:
   bot:
+    username: ${TELEGRAM_BOT_USERNAME:TREG_Alerta} # Adicionado aqui!
     token:
       anetoBot: ${TELEGRAM_BOT_TOKEN}
