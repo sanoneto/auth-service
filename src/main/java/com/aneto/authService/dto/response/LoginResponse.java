@@ -9,6 +9,7 @@ public record LoginResponse(
         String token,
         String publicId,
         String googleToken,
-        UserRole role,         // Alterado para UserRole
-        List<String> allowedModules
+        String role,         // Alterado para UserRole
+        List<String> allowedModules,
+        String email
 ) {}

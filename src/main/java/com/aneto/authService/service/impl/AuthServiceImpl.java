@@ -25,6 +25,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,15 +79,8 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = saveToken(user);
-
-        return new LoginResponse(
-                "Login efetuado com sucesso!",
-                token,
-                user.getPublicId().toString(),
-                null,
-                user.getRole(), // Agora retorna UserRole (Enum)
-                user.getAllowedModules()
-        );
+        String  message = "Login efetuado com sucesso!";
+        return requestMapper.mapToUserResponse(user,token, message) ;
     }
 
     @Override
@@ -140,15 +134,8 @@ public class AuthServiceImpl implements AuthService {
         usersRepository.save(user);
 
         String token = saveToken(user);
-
-        return new LoginResponse(
-                "Conta ativada!",
-                token,
-                user.getPublicId().toString(),
-                null,
-                user.getRole(),
-                user.getAllowedModules()
-        );
+        String  message = "Login efetuado com sucesso!";
+        return requestMapper.mapToUserResponse(user,token, message);
     }
 
     @Override
@@ -165,16 +152,9 @@ public class AuthServiceImpl implements AuthService {
                     return usersRepository.save(newUser);
                 });
 
-        String systemToken = saveToken(user);
-
-        return new LoginResponse(
-                "Login efetuado com sucesso!",
-                systemToken,
-                user.getPublicId().toString(),
-                googleToken,
-                user.getRole(),
-                user.getAllowedModules()
-        );
+        String token = saveToken(user);
+        String  message = "Login efetuado com sucesso!";
+        return requestMapper.mapToUserResponse(user,token, message);
     }
 
     public LoginResponse processGoogleLogin(String email, String name) {

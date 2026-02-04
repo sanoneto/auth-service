@@ -3,6 +3,7 @@ package com.aneto.authService.mapper;
 import com.aneto.authService.dto.request.ProjectRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
+import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.ProjectResponse;
 import com.aneto.authService.models.Projects;
 import com.aneto.authService.models.Users;
@@ -13,20 +14,11 @@ import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-/**
- * Mapper para conversão entre DTOs e Entidades.
- * unmappedTargetPolicy = ReportingPolicy.IGNORE silencia os avisos de propriedades
- * que existem na Entidade mas não no DTO.
- */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RequestMapper {
 
     // --- Mapeamentos de Utilizador ---
 
-    /**
-     * Mapeia credenciais para a entidade Users.
-     * Ignora campos de auditoria e segurança que não vêm do request.
-     */
     @Mapping(target = "allowedModules", ignore = true)
     @Mapping(target = "publicId", ignore = true)
     @Mapping(target = "jwtToken", ignore = true)
@@ -41,35 +33,31 @@ public interface RequestMapper {
     @Mapping(target = "mfaSecret", ignore = true)
     Users mapToLogin(UserCredentialsRequest userCredentialsRequest);
 
-    UsersResponse mapToUserResponse(Users user);
+    /**
+     * Converte a entidade Users e o Token para o LoginResponse (Record).
+     */
+    @Mapping(target = "message", constant = "message")
+    @Mapping(target = "token", source = "token")
+    @Mapping(target = "publicId", expression = "java(user.getPublicId() != null ? user.getPublicId().toString() : null)")
+    @Mapping(target = "googleToken", source = "user.googleToken")
+    @Mapping(target = "role", expression = "java(user.getRole() != null ? user.getRole().toString() : null)")
+    @Mapping(target = "allowedModules", source = "user.allowedModules")
+    @Mapping(target = "email", source = "user.email") // ✅ Adicionado mapeamento do email
+    LoginResponse mapToUserResponse(Users user, String token , String message);
 
     List<UsersResponse> mapToUserResponseList(List<Users> users);
 
     // --- Mapeamentos de Projeto ---
 
-    /**
-     * Converte a Entidade JPA para o DTO de Resposta (usado no GET e após UPDATE)
-     */
     ProjectResponse mapToProjectResponse(Projects project);
-
-    /**
-     * Converte a lista de entidades para lista de DTOs
-     */
     List<ProjectResponse> mapToProjectResponseList(List<Projects> projects);
 
-    /**
-     * Converte o Request de criação para a Entidade.
-     * Ignora campos automáticos como valores totais e timestamps.
-     */
     @Mapping(target = "totalValue", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "users", ignore = true)
     Projects mapToProjectEntity(ProjectRequest projectRequest);
 
-    /**
-     * Atualiza uma instância existente da entidade com os dados do Request.
-     */
     @Mapping(target = "totalValue", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)

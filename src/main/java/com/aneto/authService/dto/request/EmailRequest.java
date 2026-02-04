@@ -12,9 +12,9 @@ public record EmailRequest(
         @Size(max = 100)
         String name,
 
-        @NotBlank
         @Email
-        String email,
+        String from,
+        String to,
         String subject,
         @NotBlank
         @Size(max = 2000)

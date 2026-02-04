@@ -23,7 +23,7 @@ public class SocketHandler {
     // Armazena as sessões ativas. Key: publicId
     private static final Map<String, SocketUserSession> onlineUsers = new ConcurrentHashMap<>();
 
-    // DTO interno para envio de dados (O Jackson precisa de Getters ou ser Record)
+    // DTO interno para envio de dados
     @Getter
     public static class SocketUserSession {
         private final String publicId;
@@ -40,18 +40,24 @@ public class SocketHandler {
     @PostConstruct
     private void startServer() {
         try {
-            log.info("Iniciando servidor Socket.IO...");
+            log.info("Tentando iniciar servidor Socket.IO na porta configurada...");
             setupListeners();
             server.start();
+            log.info("Servidor Socket.IO iniciado com sucesso.");
         } catch (Exception e) {
-            log.error("Falha ao iniciar Socket.IO (Porta já em uso?): {}", e.getMessage());
+            log.error("ERRO CRÍTICO: Falha ao iniciar Socket.IO. Verifique se a porta 9095 já está em uso.");
+            log.error("Detalhes do erro: {}", e.getMessage());
+            // Opcional: System.exit(1); se o socket for vital para a aplicação
         }
     }
 
     @PreDestroy
     private void stopServer() {
-        server.stop();
-        log.info("Servidor Socket.IO parado.");
+        if (server != null) {
+            log.info("Encerrando servidor Socket.IO...");
+            server.stop();
+            log.info("Servidor Socket.IO parado com sucesso.");
+        }
     }
 
     private void setupListeners() {
@@ -66,7 +72,7 @@ public class SocketHandler {
             // Guarda o publicId na sessão do socket para facilitar a desconexão
             client.set("publicId", publicId);
 
-            log.info("Utilizador conectado: {} ({})", publicId, deviceDetail);
+            log.info("Utilizador conectado: {} [Device: {}] [Session: {}]", publicId, deviceDetail, client.getSessionId());
             server.getBroadcastOperations().sendEvent("user_connected", publicId);
         });
 
@@ -80,11 +86,11 @@ public class SocketHandler {
         server.addDisconnectListener(client -> {
             String publicId = client.get("publicId");
             if (publicId != null) {
-                // Remove apenas se a sessionId for a mesma (evita remover login novo em aba duplicada)
                 SocketUserSession session = onlineUsers.get(publicId);
+                // Remove apenas se a sessionId for a mesma para evitar inconsistência em multiplas abas
                 if (session != null && session.getSessionId().equals(client.getSessionId())) {
                     onlineUsers.remove(publicId);
-                    log.info("Utilizador desconectado: {}", publicId);
+                    log.info("Utilizador desconectado: {} [Session: {}]", publicId, client.getSessionId());
                     server.getBroadcastOperations().sendEvent("user_disconnected", publicId);
                 }
             }

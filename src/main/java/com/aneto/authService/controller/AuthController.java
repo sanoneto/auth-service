@@ -5,6 +5,7 @@ import com.aneto.authService.dto.request.PasswordResetRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
+import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.service.AuthService;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -30,6 +31,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
     private final SocketIOServer socketIOServer;
+    private final RequestMapper requestMapper;
 
     @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
@@ -56,16 +58,8 @@ public class AuthController {
         socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
 
         // O usuario.getRole() agora retorna o Enum UserRole
-        return ResponseEntity.ok(new LoginResponse(
-                "Logado",
-                token,
-                usuario.getPublicId().toString(),
-                null,
-                usuario.getRole(),
-                // Agora envia o Enum corretamente
-                usuario.getAllowedModules()
-
-        ));
+        String  message = "Logado";
+        return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
     }
     @Operation(summary = "Realiza o logout do utilizador")
     @PostMapping("/logout/{publicId}")
@@ -92,15 +86,8 @@ public class AuthController {
             // EMITIR EVENTO ONLINE VIA SOCKET
             socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
 
-            return ResponseEntity.ok(new LoginResponse(
-                    "Logado",
-                    token,
-                    usuario.getPublicId().toString(),
-                    null,
-                    usuario.getRole(),
-                    // Agora envia o Enum corretamente
-                    usuario.getAllowedModules()
-            ));
+            String  message = "Logado";
+            return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
         } else {
             log.warn("Tentativa de login MFA falhou para o utilizador: {}", username);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

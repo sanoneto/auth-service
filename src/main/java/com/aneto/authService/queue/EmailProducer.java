@@ -18,6 +18,7 @@ public class EmailProducer {
 
         EmailRequest emailRequest = new EmailRequest(
                 name,
+                null,
                 email,
                 subject,
                 message,
