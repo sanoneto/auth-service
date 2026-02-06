@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -134,6 +136,24 @@ public class AuthController {
     public ResponseEntity<?> mudarStatusMfa(
             @RequestParam String username,
             @RequestParam boolean status) {
+
+        // 1. Obtém o utilizador autenticado diretamente do Spring Security
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String authenticatedUser;
+
+        if (principal instanceof UserDetails) {
+            authenticatedUser = ((UserDetails) principal).getUsername();
+        } else {
+            authenticatedUser = principal.toString();
+        }
+
+        // 2. Validação de segurança: o utilizador logado só pode alterar a si próprio
+        if (!authenticatedUser.equals(username)) {
+            log.warn("Utilizador {} tentou alterar MFA de {}", authenticatedUser, username);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Não tens permissão para alterar o MFA de outra conta.");
+        }
+
         authService.mudarStatusMfa(username, status);
         return ResponseEntity.ok("Status do MFA atualizado.");
     }
@@ -214,16 +234,11 @@ public class AuthController {
         return ResponseEntity.ok(authService.processarLoginFacebook(data));
     }
 
-    @Operation(summary = "Atualiza o link da foto de perfil")
-    @PutMapping("/updateProfile")
-    public ResponseEntity<?> updateProfile(@RequestParam String username, @RequestParam String publicUrl) {
-        authService.UpdateProfile(username, publicUrl);
-        return ResponseEntity.ok("Perfil atualizado!");
-    }
 
     @Operation(summary = "Remove o vínculo da conta com o Telegram")
-    @PostMapping("/desvincular-telegram/{username}")
-    public ResponseEntity<?> unlinkTelegram(@PathVariable String username) {
+    @PostMapping("/desvincular-telegram/{username}") // Garante que este caminho existe
+    public ResponseEntity<?> unlinkTelegram(@PathVariable("username") String username) { // Adicionei o nome explicitamente
+        log.info("Recebida solicitação para desvincular telegram do user: {}", username);
         authService.unlinkTelegram(username);
         return ResponseEntity.ok("Telegram desvinculado.");
     }

@@ -281,6 +281,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public void UpdateProfile(String username, String publicUrl) {
         usersRepository.findByUsername(username).ifPresent(u -> {
             u.setProfile_picture_url(publicUrl);
@@ -369,19 +370,24 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void vincularTelegram(UUID publicId, String chatId) {
+        // 1. Validamos se o utilizador existe (usando .formatted() em vez de STR)
+        Users user = usersRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado para o ID: %s".formatted(publicId)));
+
+        // 2. Limpamos o vínculo de qualquer outra conta que já use este mesmo ChatID
         usersRepository.findByTelegramChatId(chatId).ifPresent(userExistente -> {
             if (!userExistente.getPublicId().equals(publicId)) {
+                log.info("Desvinculando ChatID {} da conta antiga {}", chatId, userExistente.getPublicId());
                 userExistente.setTelegramChatId(null);
-                usersRepository.saveAndFlush(userExistente);
+                // O Hibernate detetará a alteração automaticamente ao fim da transação
             }
         });
 
-        Users user = usersRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
-
+        // 3. Atualizamos o novo vínculo
         user.setTelegramChatId(chatId);
         user.setUpdatedAt(LocalDateTime.now());
-        usersRepository.saveAndFlush(user);
+
+        log.info("✅ Conta {} vinculada com sucesso ao Telegram {}", publicId, chatId);
     }
 
     @Override

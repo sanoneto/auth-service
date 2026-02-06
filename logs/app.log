@@ -892,3 +892,583 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 2026-02-05T14:58:54.405Z  INFO 38660 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-05T14:58:54.407Z  INFO 38660 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-05T14:58:54.411Z  INFO 38660 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-05T15:05:40.931Z  INFO 21684 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 21684 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:05:40.934Z  INFO 21684 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:05:41.998Z  INFO 21684 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:05:42.049Z  INFO 21684 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:05:42.558Z  INFO 21684 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:05:42.569Z  INFO 21684 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:05:42.569Z  INFO 21684 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:05:42.624Z  INFO 21684 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:05:42.625Z  INFO 21684 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1657 ms
+2026-02-05T15:05:43.701Z  WARN 21684 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+2026-02-05T15:05:43.712Z  INFO 21684 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-05T15:05:43.725Z  INFO 21684 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-05T15:05:43.738Z ERROR 21684 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:12) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 10 common frames omitted
+Caused by: java.lang.IllegalStateException: Unable to load resources from classpath:schema.sql
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:141) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.getScripts(AbstractScriptDatabaseInitializer.java:124) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:106) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 's3Client' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration$CrossRegionS3ClientConfiguration.class]: Unsatisfied dependency expressed through method 's3Client' parameter 0: Error creating bean with name 's3ClientBuilder' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@5534e6f1: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@1b69fc07: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@60bc308b: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@76220ef1: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1623) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1581) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:564) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:393) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:386) ~[spring-beans-6.2.12.jar:6.2.12]
+	at io.awspring.cloud.s3.S3ProtocolResolver.getS3Client(S3ProtocolResolver.java:116) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.S3ProtocolResolver.resolve(S3ProtocolResolver.java:64) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at org.springframework.core.io.DefaultResourceLoader.getResource(DefaultResourceLoader.java:150) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResource(GenericApplicationContext.java:249) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResource(PathMatchingResourcePatternResolver.java:360) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:397) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.getResources(AbstractApplicationContext.java:1552) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResources(GenericApplicationContext.java:263) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer$ScriptLocationResolver.resolve(AbstractScriptDatabaseInitializer.java:168) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:138) ~[spring-boot-3.5.7.jar:3.5.7]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 's3ClientBuilder' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@5534e6f1: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@1b69fc07: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@60bc308b: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@76220ef1: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 48 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@5534e6f1: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@1b69fc07: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@60bc308b: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@76220ef1: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 61 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@5534e6f1: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@1b69fc07: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@60bc308b: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@76220ef1: Unable to contact EC2 metadata service.]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.regions.providers.AwsRegionProviderChain.getRegion(AwsRegionProviderChain.java:70) ~[regions-2.21.12.jar:na]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.resolveRegion(AwsClientBuilderConfigurer.java:81) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.resolveRegion(AwsClientBuilderConfigurer.java:74) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.configure(AwsClientBuilderConfigurer.java:58) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.s3.S3AutoConfiguration.s3ClientBuilder(S3AutoConfiguration.java:74) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 64 common frames omitted
+
+2026-02-05T15:19:22.310Z  INFO 11976 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 11976 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:19:22.312Z  INFO 11976 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:19:23.207Z  INFO 11976 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:19:23.260Z  INFO 11976 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:19:23.757Z  INFO 11976 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:19:23.766Z  INFO 11976 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:19:23.767Z  INFO 11976 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:19:23.826Z  INFO 11976 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:19:23.826Z  INFO 11976 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1481 ms
+2026-02-05T15:19:24.201Z  WARN 11976 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+2026-02-05T15:19:24.204Z  INFO 11976 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-05T15:19:24.219Z  INFO 11976 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-05T15:19:24.237Z ERROR 11976 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:12) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 10 common frames omitted
+Caused by: java.lang.IllegalStateException: Unable to load resources from classpath:schema.sql
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:141) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.getScripts(AbstractScriptDatabaseInitializer.java:124) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:106) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 's3Client' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration$CrossRegionS3ClientConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3Client]: Factory method 's3Client' threw exception with message: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1623) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1581) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:564) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:393) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:386) ~[spring-beans-6.2.12.jar:6.2.12]
+	at io.awspring.cloud.s3.S3ProtocolResolver.getS3Client(S3ProtocolResolver.java:116) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.S3ProtocolResolver.resolve(S3ProtocolResolver.java:64) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at org.springframework.core.io.DefaultResourceLoader.getResource(DefaultResourceLoader.java:150) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResource(GenericApplicationContext.java:249) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResource(PathMatchingResourcePatternResolver.java:360) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:397) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.getResources(AbstractApplicationContext.java:1552) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResources(GenericApplicationContext.java:263) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer$ScriptLocationResolver.resolve(AbstractScriptDatabaseInitializer.java:168) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:138) ~[spring-boot-3.5.7.jar:3.5.7]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [software.amazon.awssdk.services.s3.S3Client]: Factory method 's3Client' threw exception with message: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 48 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.core.exception.SdkClientException.create(SdkClientException.java:43) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.endpoint.DefaultServiceEndpointBuilder.getServiceEndpoint(DefaultServiceEndpointBuilder.java:154) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.endpointFromConfig(AwsDefaultClientBuilder.java:276) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.lambda$resolveEndpoint$2(AwsDefaultClientBuilder.java:264) ~[aws-core-2.21.12.jar:na]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.resolveEndpoint(AwsDefaultClientBuilder.java:264) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.finalizeChildConfiguration(AwsDefaultClientBuilder.java:202) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.syncClientConfiguration(SdkDefaultClientBuilder.java:193) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.services.s3.DefaultS3ClientBuilder.buildClient(DefaultS3ClientBuilder.java:39) ~[s3-2.21.12.jar:na]
+	at software.amazon.awssdk.services.s3.DefaultS3ClientBuilder.buildClient(DefaultS3ClientBuilder.java:28) ~[s3-2.21.12.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.build(SdkDefaultClientBuilder.java:157) ~[sdk-core-2.21.12.jar:na]
+	at io.awspring.cloud.s3.crossregion.CrossRegionS3Client.<init>(CrossRegionS3Client.java:60) ~[spring-cloud-aws-s3-cross-region-client-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.crossregion.CrossRegionS3Client.<init>(CrossRegionS3Client.java:56) ~[spring-cloud-aws-s3-cross-region-client-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.s3.S3AutoConfiguration$CrossRegionS3ClientConfiguration.s3Client(S3AutoConfiguration.java:117) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 51 common frames omitted
+
+2026-02-05T15:23:13.722Z  INFO 20060 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 20060 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:23:13.724Z  INFO 20060 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:23:14.749Z  INFO 20060 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:23:14.793Z  INFO 20060 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:23:15.260Z  INFO 20060 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:23:15.271Z  INFO 20060 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:23:15.272Z  INFO 20060 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:23:15.327Z  INFO 20060 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:23:15.328Z  INFO 20060 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1567 ms
+2026-02-05T15:23:15.658Z  WARN 20060 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+2026-02-05T15:23:15.661Z  INFO 20060 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-05T15:23:15.674Z  INFO 20060 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-05T15:23:15.687Z ERROR 20060 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:12) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 10 common frames omitted
+Caused by: java.lang.IllegalStateException: Unable to load resources from classpath:schema.sql
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:141) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.getScripts(AbstractScriptDatabaseInitializer.java:124) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:106) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 's3Client' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration$CrossRegionS3ClientConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3Client]: Factory method 's3Client' threw exception with message: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1623) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1581) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:564) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:393) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:386) ~[spring-beans-6.2.12.jar:6.2.12]
+	at io.awspring.cloud.s3.S3ProtocolResolver.getS3Client(S3ProtocolResolver.java:116) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.S3ProtocolResolver.resolve(S3ProtocolResolver.java:64) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at org.springframework.core.io.DefaultResourceLoader.getResource(DefaultResourceLoader.java:150) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResource(GenericApplicationContext.java:249) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResource(PathMatchingResourcePatternResolver.java:360) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:397) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.getResources(AbstractApplicationContext.java:1552) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResources(GenericApplicationContext.java:263) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer$ScriptLocationResolver.resolve(AbstractScriptDatabaseInitializer.java:168) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:138) ~[spring-boot-3.5.7.jar:3.5.7]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [software.amazon.awssdk.services.s3.S3Client]: Factory method 's3Client' threw exception with message: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 48 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Configured region (%24%7BAWS_REGION%7D) and tags ([]) resulted in an invalid URI: https://s3.%24%7BAWS_REGION%7D.amazonaws.com. This is usually caused by an invalid region configuration. Valid regions: [af-south-1, ap-east-1, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, aws-global, ca-central-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, fips-ca-central-1, fips-us-east-1, fips-us-east-2, fips-us-west-1, fips-us-west-2, il-central-1, me-central-1, me-south-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2, cn-north-1, cn-northwest-1, fips-us-gov-east-1, fips-us-gov-west-1, us-gov-east-1, us-gov-west-1, us-iso-east-1, us-iso-west-1, us-isob-east-1]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.core.exception.SdkClientException.create(SdkClientException.java:43) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.endpoint.DefaultServiceEndpointBuilder.getServiceEndpoint(DefaultServiceEndpointBuilder.java:154) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.endpointFromConfig(AwsDefaultClientBuilder.java:276) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.lambda$resolveEndpoint$2(AwsDefaultClientBuilder.java:264) ~[aws-core-2.21.12.jar:na]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.resolveEndpoint(AwsDefaultClientBuilder.java:264) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.awscore.client.builder.AwsDefaultClientBuilder.finalizeChildConfiguration(AwsDefaultClientBuilder.java:202) ~[aws-core-2.21.12.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.syncClientConfiguration(SdkDefaultClientBuilder.java:193) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.services.s3.DefaultS3ClientBuilder.buildClient(DefaultS3ClientBuilder.java:39) ~[s3-2.21.12.jar:na]
+	at software.amazon.awssdk.services.s3.DefaultS3ClientBuilder.buildClient(DefaultS3ClientBuilder.java:28) ~[s3-2.21.12.jar:na]
+	at software.amazon.awssdk.core.client.builder.SdkDefaultClientBuilder.build(SdkDefaultClientBuilder.java:157) ~[sdk-core-2.21.12.jar:na]
+	at io.awspring.cloud.s3.crossregion.CrossRegionS3Client.<init>(CrossRegionS3Client.java:60) ~[spring-cloud-aws-s3-cross-region-client-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.crossregion.CrossRegionS3Client.<init>(CrossRegionS3Client.java:56) ~[spring-cloud-aws-s3-cross-region-client-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.s3.S3AutoConfiguration$CrossRegionS3ClientConfiguration.s3Client(S3AutoConfiguration.java:117) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 51 common frames omitted
+
+2026-02-05T15:26:15.415Z  INFO 25672 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 25672 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:26:15.416Z  INFO 25672 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:26:16.267Z  INFO 25672 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:26:16.312Z  INFO 25672 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:26:16.794Z  INFO 25672 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:26:16.804Z  INFO 25672 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:26:16.804Z  INFO 25672 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:26:16.857Z  INFO 25672 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:26:16.858Z  INFO 25672 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1409 ms
+2026-02-05T15:26:17.427Z  INFO 25672 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-05T15:26:17.523Z  INFO 25672 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7a053795
+2026-02-05T15:26:17.524Z  INFO 25672 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-05T15:26:17.585Z  INFO 25672 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-05T15:26:17.619Z  INFO 25672 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2026-02-05T15:26:17.646Z  INFO 25672 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-05T15:26:17.862Z  INFO 25672 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-05T15:26:17.930Z  INFO 25672 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-05T15:26:18.679Z  INFO 25672 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-05T15:26:18.770Z  INFO 25672 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T15:26:18.831Z  INFO 25672 --- [auth-service] [main] c.c.socketio.SocketIOServer              : Session store / pubsub factory used: MemoryStoreFactory (local session store only)
+2026-02-05T15:26:18.971Z  INFO 25672 --- [auth-service] [nioEventLoopGroup-2-1] c.c.socketio.SocketIOServer              : SocketIO server started at port: 9095
+2026-02-05T15:26:18.971Z  INFO 25672 --- [auth-service] [main] c.a.a.config.SocketServerRunner          : ✅ Servidor Socket.IO iniciado com sucesso na porta 9095
+2026-02-05T15:26:19.176Z  INFO 25672 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-05T15:26:19.588Z  INFO 25672 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-05T15:26:19.811Z  WARN 25672 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'profileUploadController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\ProfileUploadController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'profileUploadServiceImpl': Injection of autowired dependencies failed
+2026-02-05T15:26:23.961Z  INFO 25672 --- [auth-service] [main] c.c.socketio.SocketIOServer              : SocketIO server stopped
+2026-02-05T15:26:23.961Z  INFO 25672 --- [auth-service] [main] c.a.a.config.SocketServerRunner          : 🛑 Servidor Socket.IO desligado.
+2026-02-05T15:26:23.961Z  INFO 25672 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T15:26:23.963Z  INFO 25672 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-05T15:26:23.968Z  INFO 25672 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-05T15:26:23.971Z  INFO 25672 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-05T15:26:23.982Z  INFO 25672 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-05T15:26:23.996Z ERROR 25672 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'profileUploadController' defined in file [D:\Exemplo projecto\microserviços\auth-service\target\classes\com\aneto\authService\controller\ProfileUploadController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'profileUploadServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:12) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'profileUploadServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1459) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:606) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1770) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 21 common frames omitted
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'cloud.aws.s3.bucket-name' in value "${cloud.aws.s3.bucket-name}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:298) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:131) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:293) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:264) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:186) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:970) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1675) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 33 common frames omitted
+
+2026-02-05T15:31:31.656Z  INFO 30456 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 30456 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:31:31.657Z  INFO 30456 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:31:32.539Z  INFO 30456 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:31:32.596Z  INFO 30456 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:31:33.226Z  INFO 30456 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:31:33.238Z  INFO 30456 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:31:33.238Z  INFO 30456 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:31:33.293Z  INFO 30456 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:31:33.293Z  INFO 30456 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1602 ms
+2026-02-05T15:31:34.256Z  WARN 30456 --- [auth-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+2026-02-05T15:31:34.267Z  INFO 30456 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-05T15:31:34.281Z  INFO 30456 --- [auth-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-05T15:31:34.296Z ERROR 30456 --- [auth-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.aneto.authService.AuthServiceApplication.main(AuthServiceApplication.java:12) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unable to load resources from classpath:schema.sql
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 10 common frames omitted
+Caused by: java.lang.IllegalStateException: Unable to load resources from classpath:schema.sql
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:141) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.getScripts(AbstractScriptDatabaseInitializer.java:124) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applyScripts(AbstractScriptDatabaseInitializer.java:106) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.applySchemaScripts(AbstractScriptDatabaseInitializer.java:98) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.initializeDatabase(AbstractScriptDatabaseInitializer.java:76) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.afterPropertiesSet(AbstractScriptDatabaseInitializer.java:66) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 's3Client' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration$CrossRegionS3ClientConfiguration.class]: Unsatisfied dependency expressed through method 's3Client' parameter 0: Error creating bean with name 's3ClientBuilder' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@4a7db5a: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@131d977f: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@647ff23e: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@2aa07d80: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1623) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1581) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:564) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:393) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:386) ~[spring-beans-6.2.12.jar:6.2.12]
+	at io.awspring.cloud.s3.S3ProtocolResolver.getS3Client(S3ProtocolResolver.java:116) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.s3.S3ProtocolResolver.resolve(S3ProtocolResolver.java:64) ~[spring-cloud-aws-s3-3.1.0.jar:3.1.0]
+	at org.springframework.core.io.DefaultResourceLoader.getResource(DefaultResourceLoader.java:150) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResource(GenericApplicationContext.java:249) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResource(PathMatchingResourcePatternResolver.java:360) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:397) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.getResources(AbstractApplicationContext.java:1552) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.GenericApplicationContext.getResources(GenericApplicationContext.java:263) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer$ScriptLocationResolver.resolve(AbstractScriptDatabaseInitializer.java:168) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.sql.init.AbstractScriptDatabaseInitializer.doGetResources(AbstractScriptDatabaseInitializer.java:138) ~[spring-boot-3.5.7.jar:3.5.7]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 's3ClientBuilder' defined in class path resource [io/awspring/cloud/autoconfigure/s3/S3AutoConfiguration.class]: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@4a7db5a: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@131d977f: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@647ff23e: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@2aa07d80: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 48 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [software.amazon.awssdk.services.s3.S3ClientBuilder]: Factory method 's3ClientBuilder' threw exception with message: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@4a7db5a: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@131d977f: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@647ff23e: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@2aa07d80: Unable to contact EC2 metadata service.]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 61 common frames omitted
+Caused by: software.amazon.awssdk.core.exception.SdkClientException: Unable to load region from any of the providers in the chain software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain@4a7db5a: [software.amazon.awssdk.regions.providers.SystemSettingsRegionProvider@131d977f: Unable to load region from system settings. Region must be specified either via environment variable (AWS_REGION) or  system property (aws.region)., software.amazon.awssdk.regions.providers.AwsProfileRegionProvider@647ff23e: No region provided in profile: default, software.amazon.awssdk.regions.providers.InstanceProfileRegionProvider@2aa07d80: Unable to contact EC2 metadata service.]
+	at software.amazon.awssdk.core.exception.SdkClientException$BuilderImpl.build(SdkClientException.java:111) ~[sdk-core-2.21.12.jar:na]
+	at software.amazon.awssdk.regions.providers.AwsRegionProviderChain.getRegion(AwsRegionProviderChain.java:70) ~[regions-2.21.12.jar:na]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.resolveRegion(AwsClientBuilderConfigurer.java:81) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.resolveRegion(AwsClientBuilderConfigurer.java:74) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.core.AwsClientBuilderConfigurer.configure(AwsClientBuilderConfigurer.java:58) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at io.awspring.cloud.autoconfigure.s3.S3AutoConfiguration.s3ClientBuilder(S3AutoConfiguration.java:74) ~[spring-cloud-aws-autoconfigure-3.1.0.jar:3.1.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 64 common frames omitted
+
+2026-02-05T15:33:47.522Z  INFO 18496 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Starting AuthServiceApplication using Java 21.0.8 with PID 18496 (D:\Exemplo projecto\microserviços\auth-service\target\classes started by User in D:\Exemplo projecto\microserviços\auth-service)
+2026-02-05T15:33:47.524Z  INFO 18496 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : The following 1 profile is active: "local"
+2026-02-05T15:33:48.404Z  INFO 18496 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T15:33:48.446Z  INFO 18496 --- [auth-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
+2026-02-05T15:33:48.931Z  INFO 18496 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-05T15:33:48.942Z  INFO 18496 --- [auth-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T15:33:48.942Z  INFO 18496 --- [auth-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-02-05T15:33:49.005Z  INFO 18496 --- [auth-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T15:33:49.006Z  INFO 18496 --- [auth-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1450 ms
+2026-02-05T15:33:49.622Z  INFO 18496 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-05T15:33:49.727Z  INFO 18496 --- [auth-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7d15c513
+2026-02-05T15:33:49.728Z  INFO 18496 --- [auth-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-05T15:33:49.793Z  INFO 18496 --- [auth-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-05T15:33:49.831Z  INFO 18496 --- [auth-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2026-02-05T15:33:49.860Z  INFO 18496 --- [auth-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-05T15:33:50.077Z  INFO 18496 --- [auth-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-05T15:33:50.145Z  INFO 18496 --- [auth-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-05T15:33:50.908Z  INFO 18496 --- [auth-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-05T15:33:50.999Z  INFO 18496 --- [auth-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T15:33:51.058Z  INFO 18496 --- [auth-service] [main] c.c.socketio.SocketIOServer              : Session store / pubsub factory used: MemoryStoreFactory (local session store only)
+2026-02-05T15:33:51.198Z  INFO 18496 --- [auth-service] [nioEventLoopGroup-2-1] c.c.socketio.SocketIOServer              : SocketIO server started at port: 9095
+2026-02-05T15:33:51.198Z  INFO 18496 --- [auth-service] [main] c.a.a.config.SocketServerRunner          : ✅ Servidor Socket.IO iniciado com sucesso na porta 9095
+2026-02-05T15:33:51.426Z  INFO 18496 --- [auth-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-05T15:33:51.892Z  INFO 18496 --- [auth-service] [main] c.a.authService.security.JwtTokenUtil    : JwtTokenUtil inicializado com sucesso.
+2026-02-05T15:33:52.141Z  INFO 18496 --- [auth-service] [main] c.a.authService.service.SocketService    : Configurando Listeners do Socket.IO...
+2026-02-05T15:33:52.222Z  INFO 18496 --- [auth-service] [main] c.a.authService.socket.SocketHandler     : Tentando iniciar servidor Socket.IO na porta configurada...
+2026-02-05T15:33:52.222Z  INFO 18496 --- [auth-service] [main] c.c.socketio.SocketIOServer              : Session store / pubsub factory used: MemoryStoreFactory (local session store only)
+2026-02-05T15:33:52.269Z ERROR 18496 --- [auth-service] [nioEventLoopGroup-4-1] c.c.socketio.SocketIOServer              : SocketIO server start failed at port: 9095!
+2026-02-05T15:33:52.269Z ERROR 18496 --- [auth-service] [main] c.a.authService.socket.SocketHandler     : ERRO CRÍTICO: Falha ao iniciar Socket.IO. Verifique se a porta 9095 já está em uso.
+2026-02-05T15:33:52.270Z ERROR 18496 --- [auth-service] [main] c.a.authService.socket.SocketHandler     : Detalhes do erro: Address already in use: bind
+2026-02-05T15:33:52.281Z  INFO 18496 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : 🤖 A tentar registar o bot com o token iniciado por: 8235446930...
+2026-02-05T15:33:52.714Z  INFO 18496 --- [auth-service] [main] o.t.telegrambots.longpolling.BotSession  : Result when calling deleteWebhook: true
+2026-02-05T15:33:52.715Z  INFO 18496 --- [auth-service] [main] c.a.a.config.TelegramBotConfig           : ✅ Bot do Telegram registado com sucesso!
+2026-02-05T15:33:53.006Z  INFO 18496 --- [auth-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-02-05T15:33:53.030Z  INFO 18496 --- [auth-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-05T15:33:53.088Z DEBUG 18496 --- [auth-service] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-05T15:33:53.464Z  INFO 18496 --- [auth-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-02-05T15:33:53.477Z  INFO 18496 --- [auth-service] [main] c.a.authService.AuthServiceApplication   : Started AuthServiceApplication in 6.348 seconds (process running for 6.898)
+2026-02-05T15:33:53.823Z  INFO 18496 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-02-05T15:33:53.825Z  INFO 18496 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-05T15:33:53.825Z  INFO 18496 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-05T15:33:53.827Z  INFO 18496 --- [auth-service] [RMI TCP Connection(3)-172.29.128.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-05T15:33:53.875Z  INFO 18496 --- [auth-service] [RMI TCP Connection(1)-172.29.128.1] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#47742aae:0/SimpleConnection@71ddbbf2 [delegate=amqp://guest@127.0.0.1:5672/, localPort=58850]
+2026-02-05T16:22:17.078Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-05T16:22:17.085Z  INFO 18496 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-05T16:22:17.109Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] c.a.authService.socket.SocketHandler     : Encerrando servidor Socket.IO...
+2026-02-05T16:22:21.254Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] c.c.socketio.SocketIOServer              : SocketIO server stopped
+2026-02-05T16:22:21.255Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] c.a.authService.socket.SocketHandler     : Servidor Socket.IO parado com sucesso.
+2026-02-05T16:22:21.256Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] c.c.socketio.SocketIOServer              : SocketIO server stopped
+2026-02-05T16:22:21.256Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] c.a.a.config.SocketServerRunner          : 🛑 Servidor Socket.IO desligado.
+2026-02-05T16:22:21.257Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T16:22:21.261Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-05T16:22:21.264Z  INFO 18496 --- [auth-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
