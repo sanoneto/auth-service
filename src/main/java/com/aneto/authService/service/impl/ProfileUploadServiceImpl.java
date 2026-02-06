@@ -5,10 +5,8 @@ import com.aneto.authService.service.ProfileUploadService;
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Template;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,18 +14,18 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProfileUploadServiceImpl implements ProfileUploadService {
-    private static final Logger log = LoggerFactory.getLogger(ProfileUploadServiceImpl.class);
 
     // O S3Template substitui o AmazonS3 (SDK v1)
     private final S3Template s3Template;
     private final AuthService authService;
 
-    @Value("${aws.s3.bucket-name}")
+    @Value("${cloud.aws.s3.bucket-name}")
     private String bucketName;
 
-    @Value("${aws.s3.folder-name}")
+    @Value("${cloud.aws.s3.folder-name}")
     private String s3Folder;
 
     @Override
@@ -61,7 +59,7 @@ public class ProfileUploadServiceImpl implements ProfileUploadService {
     }
 
     @Override
-    public void deleteOldImage(String s3Key)
-    {
+    public void deleteOldImage(String s3Key) {
         s3Template.deleteObject(bucketName, s3Key);
     }
+}

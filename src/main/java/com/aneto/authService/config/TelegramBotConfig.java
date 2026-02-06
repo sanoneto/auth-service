@@ -14,7 +14,7 @@ public class TelegramBotConfig {
     @Bean
     public TelegramBotsLongPollingApplication telegramBotsApplication(
             TelegramBotService telegramBotService,
-            @Value("${telegram.bot.token.anetoBot}") String botToken) {
+            @Value("${telegram.bot.token}") String botToken) {
 
         TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
         try {
