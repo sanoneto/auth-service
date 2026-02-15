@@ -2,7 +2,9 @@ package com.aneto.authService.repository;
 
 
 import com.aneto.authService.models.Users;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -31,6 +33,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByTelegramChatId(String telegramChatId);
 
     // Essencial para encontrar o user pelo ID do link /start
-
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM Users u WHERE u.telegramChatId = :chatId")
+    Optional<Users> findByTelegramChatIdWithLock(String chatId);
 }
 

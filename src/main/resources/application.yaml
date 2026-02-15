@@ -29,8 +29,8 @@ spring:
   cloud:
     aws:
       credentials:
-        access-key: ${AWS_ACCESS_KEY:noop}
-        secret-key: ${AWS_SECRET_KEY:noop}
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
       region:
         static: ${AWS_REGION:us-east-1}
       s3:

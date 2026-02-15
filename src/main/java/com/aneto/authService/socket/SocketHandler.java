@@ -2,7 +2,6 @@ package com.aneto.authService.socket;
 
 import com.corundumstudio.socketio.SocketIOServer;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,27 +36,14 @@ public class SocketHandler {
         }
     }
 
+    /**
+     * Configuramos apenas os listeners aqui.
+     * O arranque do servidor (server.start()) é gerido pela classe SocketServerRunner.
+     */
     @PostConstruct
-    private void startServer() {
-        try {
-            log.info("Tentando iniciar servidor Socket.IO na porta configurada...");
-            setupListeners();
-            server.start();
-            log.info("Servidor Socket.IO iniciado com sucesso.");
-        } catch (Exception e) {
-            log.error("ERRO CRÍTICO: Falha ao iniciar Socket.IO. Verifique se a porta 9095 já está em uso.");
-            log.error("Detalhes do erro: {}", e.getMessage());
-            // Opcional: System.exit(1); se o socket for vital para a aplicação
-        }
-    }
-
-    @PreDestroy
-    private void stopServer() {
-        if (server != null) {
-            log.info("Encerrando servidor Socket.IO...");
-            server.stop();
-            log.info("Servidor Socket.IO parado com sucesso.");
-        }
+    private void init() {
+        log.info("Configurando Listeners do Socket.IO...");
+        setupListeners();
     }
 
     private void setupListeners() {

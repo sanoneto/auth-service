@@ -1,10 +1,16 @@
+# General
 HELP.md
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+!.**/src/main/**/target/
+!.**/src/test/**/target/
 
-### STS ###
+# Build Systems
+.mvn/wrapper/maven-wrapper.jar
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDEs (STS, IntelliJ, VS Code, NetBeans)
 .apt_generated
 .classpath
 .factorypath
@@ -12,26 +18,21 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
-### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
 .vscode/
 
-### Security and Environment Configs ###
-secretKeys.env
+# Security and Environment Configs
+# This ensures any .env variations are caught
 .env
+.env.*
+secretKeys.env
+*.pem
+*.key

@@ -370,26 +370,27 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void vincularTelegram(UUID publicId, String chatId) {
-        // 1. Validamos se o utilizador existe (usando .formatted() em vez de STR)
+        // 1. Valida utilizador
         Users user = usersRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado para o ID: %s".formatted(publicId)));
+                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado: %s".formatted(publicId)));
 
-        // 2. Limpamos o vínculo de qualquer outra conta que já use este mesmo ChatID
-        usersRepository.findByTelegramChatId(chatId).ifPresent(userExistente -> {
+        // 2. BUSCA COM BLOQUEIO: Se outra thread estiver mexendo neste ChatID, esta thread espera.
+        usersRepository.findByTelegramChatIdWithLock(chatId).ifPresent(userExistente -> {
             if (!userExistente.getPublicId().equals(publicId)) {
                 log.info("Desvinculando ChatID {} da conta antiga {}", chatId, userExistente.getPublicId());
                 userExistente.setTelegramChatId(null);
-                // O Hibernate detetará a alteração automaticamente ao fim da transação
+                // Salva a alteração para liberar o unique constraint
+                usersRepository.saveAndFlush(userExistente);
             }
         });
 
-        // 3. Atualizamos o novo vínculo
+        // 3. Atualiza o novo vínculo
         user.setTelegramChatId(chatId);
         user.setUpdatedAt(LocalDateTime.now());
 
+        // userRepository.save(user); // Opcional, o Hibernate faria no commit devido ao @Transactional
         log.info("✅ Conta {} vinculada com sucesso ao Telegram {}", publicId, chatId);
     }
-
     @Override
     @Transactional
     public void unlinkTelegram(String username) {
