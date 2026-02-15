@@ -4,82 +4,83 @@ server:
 spring:
   application:
     name: auth-service
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
 
   sql:
     init:
-      mode: never # Set to never to avoid the schema.sql error
       schema-locations: classpath:schema.sql
-
+      mode: always
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/auth_db}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: true
 
-  # AWS Config for the LIBRARY (io.awspring.cloud)
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
-      region:
-        static: ${AWS_REGION:us-east-1}
-      s3:
-        enabled: true
-
-# AWS Config for your CUSTOM CODE (if using @Value("${cloud.aws.s3.bucket-name}"))
-cloud:
-  aws:
-    s3:
-      bucket-name: ${AWS_S3_BUCKET_NAME:local-bucket}
-      folder-name: ${AWS_S3_FOLDER_NAME:uploads}
-
-rabbitmq:
-  host: ${SPRING_RABBITMQ_HOST:localhost}
-  port: ${SPRING_RABBITMQ_PORT:5672}
-  username: ${SPRING_RABBITMQ_USERNAME:guest}
-  password: ${SPRING_RABBITMQ_PASSWORD:guest}
+  rabbitmq:
+    host:  ${SPRING_RABBITMQ_HOST}   # Se estiver a correr o RabbitMQ localmente
+    port: ${SPRING_RABBITMQ_PORT}           # Porta padrão do RabbitMQ
+    username:  ${SPRING_RABBITMQ_USERNAME}   # Usuário padrão
+    password: ${SPRING_RABBITMQ_PASSWORD}   # Password padrão
 
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
-  expiration: ${JWT_EXPIRATION:3600000}
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,metrics,prometheus,env,beans
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mail:
+      enabled: false
 
 springdoc:
+  api-docs:
+    path: /api-docs
   swagger-ui:
+    path: /swagger-ui.html
     enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
+    display-request-duration: true
+
+logging:
+  level:
+    root: INFO
+    com.aneto: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.hibernate: WARN
+  file:
+    name: logs/app.log
 
 url:
-  front-end: ${FRONT_END:http://localhost:3000}
+  front-end: ${FRONT_END}   # Onde os utilizadores acedem
 
 socketio:
-  host: 0.0.0.0
+  host: 0.0.0.0                    # O servidor ouve em todas as interfaces
   port: ${SOCKET_IO_PORT:9095}
   origin: ${url.front-end}
 
 codes:
-  admin: ${CODE_ADMIN:admin123}
-  especialista: ${CODE_EXPERT:expert123}
+  admin: ${CODE_ADMIN}
+  especialista: ${CODE_EXPERT}
 
 google:
-  client-id: ${GOOGLE_CLIENT_ID:your-google-id}
-
+  client-id: ${GOOGLE_CLIENT_ID}
 
 telegram:
   bot:
-    username: ${TELEGRAM_CHAT_ID}
-    token: ${TELEGRAM_BOT_TOKEN}
+    token:
+      anetoBot: ${TELEGRAM_BOT_TOKEN}
