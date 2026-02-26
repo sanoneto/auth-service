@@ -45,6 +45,9 @@ public class Users {
     @NotBlank(message = "Password não pode ser vazia")
     private String password;
 
+    @Column(unique = true, nullable = false)
+    private String numeroSocio;
+
     /**
      * Alterado de String para UserRole Enum.
      * @Enumerated(EnumType.STRING) garante que o nome (ex: ADMIN) seja salvo no banco.
@@ -112,10 +115,11 @@ public class Users {
         this.allowedModules = new ArrayList<>();
     }
 
-    public Users(String username, String email, String password, UserRole role, String profilePictureUrl, String verificationCode) {
+    public Users(String username, String email, String password, UserRole role, String profilePictureUrl, String verificationCode, String numeroSocio) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.numeroSocio= numeroSocio;
         this.role = role;
         this.verificationCode = verificationCode;
         this.profile_picture_url = profilePictureUrl;
@@ -158,6 +162,7 @@ public class Users {
     public String getFacebookId() { return facebookId; }
     public String getVerificationCode() { return verificationCode; }
     public boolean isEnabled() { return enabled; }
+    public String getNumeroSocio() { return numeroSocio; }
 
     public void setUsername(String username) { this.username = username != null ? username.trim().toLowerCase() : null; }
     public void setPublicId(UUID publicId) { this.publicId = publicId; }
@@ -165,4 +170,5 @@ public class Users {
     public void setGoogleToken(String googleToken) { this.googleToken = googleToken; }
     public void setTelegramChatId(String telegramChatId) { this.telegramChatId = telegramChatId; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public void setNumeroSocio(String numeroSocio) { this.numeroSocio = numeroSocio; }
 }

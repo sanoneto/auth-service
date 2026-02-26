@@ -6,6 +6,7 @@ import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.JwtToken;
+import com.aneto.authService.models.SocioUtils;
 import com.aneto.authService.models.UserRole;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
@@ -103,20 +104,38 @@ public class AuthServiceImpl implements AuthService {
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        String code = String.format("%06d", new java.security.SecureRandom().nextInt(999999));
-        users.setVerificationCode(code);
+        // 1. Persistência inicial para obter o ID gerado pela DB (ou usar a query MAX)
+        // Se usares a query MAX do repositório:
+        Long proximoId = (usersRepository.findMaxId() == null) ? 1L : usersRepository.findMaxId() + 1;
+
+        // 2. Gerar número de sócio profissional
+        String numeroSocioOficial = SocioUtils.gerarNumero(proximoId);
+        users.setNumeroSocio(numeroSocioOficial);
+
+        String vCode = String.format("%06d", new java.security.SecureRandom().nextInt(999999));
+        users.setVerificationCode(vCode);
         users.setEnabled(false);
 
         usersRepository.save(users);
-        emailProducer.publishEmailRequest(
-                users.getUsername(),
-                users.getEmail(),
-                "Ativação de Conta",
-                "<h3>" + code + "</h3>",
-                null
-        );
+
+        // 4. Notificação
+        enviarEmailBoasVindas(users, numeroSocioOficial, vCode);
 
         return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
+    }
+
+    // Método auxiliar para manter o código principal limpo
+    private void enviarEmailBoasVindas(Users u, String socioNum, String code) {
+        String html = String.format(
+                "<div style='font-family: Arial, sans-serif; color: #333;'> " +
+                        "<h2>Bem-vindo! O seu registo foi concluído.</h2>" +
+                        "<p>O seu <b>Número de Sócio Oficial</b> é: <span style='color: #007bff; font-size: 18px;'>%s</span></p>" +
+                        "<p>Utilize o código abaixo para ativar a sua conta:</p>" +
+                        "<div style='background: #f4f4f4; padding: 15px; text-align: center; font-size: 24px; letter-spacing: 5px; font-weight: bold;'>" +
+                        "%s</div>" +
+                        "</div>", socioNum, code);
+
+        emailProducer.publishEmailRequest(u.getUsername(), u.getEmail(), "Bem-vindo Sócio!", html, null);
     }
 
     @Override
