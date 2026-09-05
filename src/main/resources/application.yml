@@ -35,18 +35,18 @@ spring:
         static: ${AWS_REGION:us-east-1}
       s3:
         enabled: true
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
   # AWS Config for your CUSTOM CODE (if using @Value("${cloud.aws.s3.bucket-name}"))
 cloud:
   aws:
     s3:
       bucket-name: ${AWS_S3_BUCKET_NAME:local-bucket}
       folder-name: ${AWS_S3_FOLDER_NAME:uploads}
-
-  rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:5672}
-    username: ${SPRING_RABBITMQ_USERNAME:guest}
-    password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
 jwt:
   secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
@@ -80,4 +80,4 @@ google:
 telegram:
   bot:
     username: ${TELEGRAM_CHAT_ID}
-    token: ${TELEGRAM_BOT_TOKEN}
+    token: ${TELEGRAM_BOT_TOKEN:8235446930:AAGBIXQ2v-6z4fhVGmiY-gOPh1s6ZokXTg4}

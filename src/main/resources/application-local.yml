@@ -15,15 +15,17 @@ spring:
       schema-locations: classpath:schema.sql
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/auth_db}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
-    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/horasdb}
+    username: ${SPRING_DATASOURCE_USERNAME:horas_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:horas_pass}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 
   # AWS Config for the LIBRARY (io.awspring.cloud)
   cloud:
@@ -45,12 +47,12 @@ cloud:
 
 rabbitmq:
   host: ${SPRING_RABBITMQ_HOST:localhost}
-  port: ${SPRING_RABBITMQ_PORT:5672}
+  port: ${SPRING_RABBITMQ_PORT:15672}
   username: ${SPRING_RABBITMQ_USERNAME:guest}
   password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  secret: ${JWT_SECRET:chave_secreta-principal-aneto-registo-horas-seguranca-2025-api-gateway}
   expiration: ${JWT_EXPIRATION:3600000}
 
 management:
@@ -82,4 +84,4 @@ google:
 telegram:
   bot:
     username: ${TELEGRAM_CHAT_ID}
-    token: ${TELEGRAM_BOT_TOKEN}
+    token: ${TELEGRAM_BOT_TOKEN:8235446930:AAGBIXQ2v-6z4fhVGmiY-gOPh1s6ZokXTg4}

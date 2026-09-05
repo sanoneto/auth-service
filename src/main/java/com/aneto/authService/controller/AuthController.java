@@ -61,6 +61,7 @@ public class AuthController {
 
         // O usuario.getRole() agora retorna o Enum UserRole
         String  message = "Logado";
+       log.info("Utilizador com numeroSocio {} realizou login com o numero .", usuario.getNumeroSocio());
         return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
     }
     @Operation(summary = "Realiza o logout do utilizador")
@@ -89,6 +90,7 @@ public class AuthController {
             socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
 
             String  message = "Logado";
+            log.info("Utilizador com numeroSocio {} realizou login .", usuario.getNumeroSocio());
             return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
         } else {
             log.warn("Tentativa de login MFA falhou para o utilizador: {}", username);

@@ -11,5 +11,6 @@ public record LoginResponse(
         String googleToken,
         String role,         // Alterado para UserRole
         List<String> allowedModules,
-        String email
+        String email,
+        String numeroSocio
 ) {}

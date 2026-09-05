@@ -43,6 +43,7 @@ public interface RequestMapper {
     @Mapping(target = "role", expression = "java(user.getRole() != null ? user.getRole().toString() : null)")
     @Mapping(target = "allowedModules", source = "user.allowedModules")
     @Mapping(target = "email", source = "user.email") // ✅ Adicionado mapeamento do email
+    @Mapping(target = "numeroSocio", source = "user.numeroSocio")
     LoginResponse mapToUserResponse(Users user, String token , String message);
 
     List<UsersResponse> mapToUserResponseList(List<Users> users);
