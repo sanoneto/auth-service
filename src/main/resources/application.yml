@@ -15,9 +15,9 @@ spring:
       schema-locations: classpath:schema.sql
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/auth_db}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
 
   jpa:
@@ -49,7 +49,7 @@ cloud:
       folder-name: ${AWS_S3_FOLDER_NAME:uploads}
 
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION:3600000}
 
 management:
@@ -71,8 +71,8 @@ socketio:
   origin: ${url.front-end}
 
 codes:
-  admin: ${CODE_ADMIN:admin123}
-  especialista: ${CODE_EXPERT:expert123}
+  admin: ${CODE_ADMIN}
+  especialista: ${CODE_EXPERT}
 
 google:
   client-id: ${GOOGLE_CLIENT_ID:your-google-id}
@@ -80,4 +80,4 @@ google:
 telegram:
   bot:
     username: ${TELEGRAM_CHAT_ID}
-    token: ${TELEGRAM_BOT_TOKEN:8235446930:AAGBIXQ2v-6z4fhVGmiY-gOPh1s6ZokXTg4}
+    token: ${TELEGRAM_BOT_TOKEN}
