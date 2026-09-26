@@ -15,10 +15,10 @@ spring:
       schema-locations: classpath:schema.sql
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/horas_db?sslmode=disable}
+    username: ${SPRING_DATASOURCE_USERNAME:horas_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:horas_pass}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -35,9 +35,11 @@ spring:
         static: ${AWS_REGION:us-east-1}
       s3:
         enabled: true
+        endpoint: ${AWS_S3_ENDPOINT:}
+        path-style-access-enabled: true
   rabbitmq:
     host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:5672}
+    port: ${SPRING_RABBITMQ_PORT:15672}
     username: ${SPRING_RABBITMQ_USERNAME:guest}
     password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
