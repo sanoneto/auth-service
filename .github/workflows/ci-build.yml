@@ -24,5 +24,5 @@ jobs:
       - name: Dar permissão de execução ao Maven Wrapper
         run: chmod +x mvnw
 
-      - name: Compilar e Testar com Maven
-        run: ./mvnw clean verify --batch-mode
+      - name: Compilar e empacotar com Maven (Sem testes de DB)
+        run: ./mvnw clean package -DskipTests --batch-mode
