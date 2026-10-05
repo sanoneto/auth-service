@@ -15,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,7 +69,15 @@ public class AuthController {
     }
     @Operation(summary = "Realiza o logout do utilizador")
     @PostMapping("/logout/{publicId}")
-    public ResponseEntity<?> logout(@PathVariable String publicId) {
+    public ResponseEntity<?> logout(@PathVariable String publicId, Authentication authentication) {
+        // O utilizador autenticado só pode terminar a sua própria sessão
+        // (o authentication.getName() é o username, por isso compara-se com o publicId da conta)
+        Users usuario = authService.findPorUsername(authentication.getName());
+        if (!usuario.getPublicId().toString().equalsIgnoreCase(publicId)) {
+            log.warn("Utilizador {} tentou fazer logout do publicId {}", usuario.getUsername(), publicId);
+            throw new AccessDeniedException("Não pode terminar a sessão de outro utilizador.");
+        }
+
         // Dispara o evento para o Painel Admin mudar a cor da bolinha para cinzento/offline
         socketIOServer.getBroadcastOperations().sendEvent("user_disconnected", publicId);
 
@@ -100,6 +111,7 @@ public class AuthController {
 
     @Operation(summary = "Atualiza módulos permitidos do utilizador")
     @PutMapping("/users/{publicId}/permissions")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> atualizarPermissoes(
             @PathVariable String publicId,
             @RequestBody Map<String, List<String>> request) {
@@ -115,21 +127,20 @@ public class AuthController {
 
     @Operation(summary = "Gera o QR Code para configurar o MFA")
     @GetMapping("/mfa-setup")
-    public ResponseEntity<Map<String, String>> setupMfa(@RequestHeader("Authorization") String token) {
-        String jwt = token.startsWith("Bearer ") ? token.substring(7) : token;
-        return ResponseEntity.ok(authService.setupMfa(jwt));
+    public ResponseEntity<Map<String, String>> setupMfa(Authentication authentication) {
+        // O utilizador vem do SecurityContext (JWT ou headers do Gateway, que remove o Authorization)
+        return ResponseEntity.ok(authService.setupMfa(authentication.getName()));
     }
 
     @Operation(summary = "Ativa o MFA após validar o primeiro código")
     @PostMapping("/mfa-activate")
     public ResponseEntity<?> activateMfa(
-            @RequestHeader("Authorization") String token,
+            Authentication authentication,
             @RequestBody Map<String, String> body) {
 
-        String jwt = token.startsWith("Bearer ") ? token.substring(7) : token;
         String code = body.get("code");
 
-        authService.activateMfa(jwt, code);
+        authService.activateMfa(authentication.getName(), code);
         return ResponseEntity.ok("MFA ativado com sucesso!");
     }
 
@@ -195,6 +206,7 @@ public class AuthController {
 
     @Operation(summary = "Edita os dados de um utilizador existente")
     @PutMapping("/users/{publicId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
         authService.atualizarUtilizador(publicId, request);
         return ResponseEntity.ok("Utilizador atualizado!");
@@ -202,6 +214,7 @@ public class AuthController {
 
     @Operation(summary = "Elimina um utilizador permanentemente")
     @DeleteMapping("/users/{publicId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminarUtilizador(@PathVariable String publicId) {
         authService.eliminarUtilizador(publicId);
         socketIOServer.getBroadcastOperations().sendEvent("user_disconnected", publicId);
@@ -210,6 +223,8 @@ public class AuthController {
 
     @Operation(summary = "Lista todos os utilizadores registados")
     @GetMapping("/users")
+    // ESPECIALISTA precisa da lista para escolher/associar alunos aos planos de treino (StepRenderer, AssociarContaModal)
+    @PreAuthorize("hasAnyRole('ADMIN', 'ESPECIALISTA')")
     public ResponseEntity<List<UsersResponse>> getListUsers() {
         return ResponseEntity.ok(authService.findAll());
     }
@@ -239,6 +254,7 @@ public class AuthController {
 
     @Operation(summary = "Remove o vínculo da conta com o Telegram")
     @PostMapping("/desvincular-telegram/{username}") // Garante que este caminho existe
+    @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
     public ResponseEntity<?> unlinkTelegram(@PathVariable("username") String username) { // Adicionei o nome explicitamente
         log.info("Recebida solicitação para desvincular telegram do user: {}", username);
         authService.unlinkTelegram(username);
@@ -247,6 +263,9 @@ public class AuthController {
 
     @Operation(summary = "Obtém o Chat ID do Telegram do utilizador")
     @GetMapping("/telegram-id/{username}")
+    // Anónimo = chamada interna direta do registo-horas-service (não passa pelo Gateway);
+    // pedidos de utilizadores (via Gateway) só podem consultar o próprio chat ID, exceto ADMIN
+    @PreAuthorize("isAnonymous() or hasRole('ADMIN') or #username == authentication.name")
     public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
         String chatId = authService.obterTelegramChatId(username);
         return (chatId == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(chatId);

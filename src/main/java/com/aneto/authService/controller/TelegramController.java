@@ -3,6 +3,7 @@ package com.aneto.authService.controller;
 import com.aneto.authService.service.TelegramBotManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/telegram")
+@PreAuthorize("hasRole('ADMIN')") // Gestão do bot (inclui o token atual) só para administradores
 @RequiredArgsConstructor
 public class TelegramController {
 
@@ -36,12 +38,8 @@ public class TelegramController {
 
     @PostMapping("/test")
     public ResponseEntity<?> testMessage() {
-        try {
-            // CORRIGIDO: Usar botManager em vez de telegramBotService
-            botManager.sendTestMessage();
-            return ResponseEntity.ok("Mensagem de teste enviada!");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Falha no teste: " + e.getMessage());
-        }
+        // Se o bot não estiver iniciado, a ConflictException é tratada pelo GlobalExceptionHandler (409)
+        botManager.sendTestMessage();
+        return ResponseEntity.ok("Mensagem de teste enviada!");
     }
 }

@@ -30,7 +30,7 @@ public class ProjectorsServiceImpl implements ProjectorsService {
     public ProjectResponse saveProjets(ProjectRequest projectRequest) {
         // 1. Validar se o utilizador existe
         Users users = usersRepository.findByUsername(projectRequest.username())
-                .orElseThrow(() -> new RuntimeException("Usuário não existe."));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não existe."));
 
         // 2. Criar e mapear a entidade
         Projects projects = new Projects();
@@ -83,7 +83,7 @@ public class ProjectorsServiceImpl implements ProjectorsService {
     public void deleteProject(String username, String projectName) {
         ProjectId id = new ProjectId(username, projectName);
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Projeto não encontrado para exclusão");
+            throw new ResourceNotFoundException("Projeto não encontrado para exclusão");
         }
         repository.deleteById(id);
     }

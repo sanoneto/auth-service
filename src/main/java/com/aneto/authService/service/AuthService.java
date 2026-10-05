@@ -54,8 +54,8 @@ public interface AuthService {
     void removerChatIdPorBloqueio(String chatId);
 
     void mudarStatusMfa(String username, boolean status);
-    void activateMfa(String token, String code);
-    Map<String, String> setupMfa(String token);
+    void activateMfa(String username, String code);
+    Map<String, String> setupMfa(String username);
 
     boolean verificarCodigoMfa(String username, String code);
 

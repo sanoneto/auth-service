@@ -4,13 +4,17 @@ import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
+import com.aneto.authService.exception.ConflictException;
+import com.aneto.authService.exception.InvalidTokenException;
+import com.aneto.authService.exception.ResourceNotFoundException;
 import com.aneto.authService.mapper.RequestMapper;
-import com.aneto.authService.models.JwtToken;
+import com.aneto.authService.models.PasswordResetToken;
 import com.aneto.authService.models.SocioUtils;
 import com.aneto.authService.models.UserRole;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.JwtTokenRepository;
+import com.aneto.authService.repository.PasswordResetTokenRepository;
 import com.aneto.authService.repository.ProjectsRepository;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.security.JwtTokenUtil;
@@ -27,12 +31,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -50,6 +60,12 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenRepository tokenRepository;
     private final ProjectsRepository projectsRepository;
     private final RestTemplate restTemplate;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    @Value("${password-reset.expiration-minutes:30}")
+    private long resetTokenExpirationMinutes;
 
     @Value("${url.front-end}")
     String FRONTEND_BASE_URL;
@@ -71,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new BadCredentialsException("Utilizador ou password incorretos."));
 
         if (!user.isEnabled()) {
-            throw new RuntimeException("Esta conta ainda não foi ativada. Verifique o seu e-mail.");
+            throw new DisabledException("Esta conta ainda não foi ativada. Verifique o seu e-mail.");
         }
 
         if (!passwordEncoder.matches(request.password(), user.getPassword())) {
@@ -87,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public RegistrationResponse registrarUsers(UserCredentialsRequest request) {
         if (existeUsers(request.username())) {
-            throw new RuntimeException("O nome de utilizador já está em uso.");
+            throw new ConflictException("O nome de utilizador já está em uso.");
         }
 
         // Validação de códigos de convite baseada no Enum
@@ -104,24 +120,31 @@ public class AuthServiceImpl implements AuthService {
         Users users = requestMapper.mapToLogin(request);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
 
-        // 1. Persistência inicial para obter o ID gerado pela DB (ou usar a query MAX)
-        // Se usares a query MAX do repositório:
-        Long proximoId = (usersRepository.findMaxId() == null) ? 1L : usersRepository.findMaxId() + 1;
-
-        // 2. Gerar número de sócio profissional
-        String numeroSocioOficial = SocioUtils.gerarNumero(proximoId);
-        users.setNumeroSocio(numeroSocioOficial);
-
         String vCode = String.format("%06d", new java.security.SecureRandom().nextInt(999999));
         users.setVerificationCode(vCode);
         users.setEnabled(false);
 
-        usersRepository.save(users);
+        // Persiste e gera o número de sócio a partir do ID atribuído pela DB
+        users = guardarComNumeroSocio(users);
 
-        // 4. Notificação
-        enviarEmailBoasVindas(users, numeroSocioOficial, vCode);
+        // Notificação
+        enviarEmailBoasVindas(users, users.getNumeroSocio(), vCode);
 
         return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
+    }
+
+    /**
+     * Guarda um novo utilizador e atribui-lhe o número de sócio com base no ID gerado pela DB.
+     * O ID (IDENTITY) é único e atómico, evitando colisões em registos concorrentes.
+     * Deve ser chamado dentro de uma transação.
+     */
+    private Users guardarComNumeroSocio(Users users) {
+        // Valor temporário único apenas para satisfazer a restrição NOT NULL/UNIQUE no primeiro INSERT
+        users.setNumeroSocio("PENDENTE-" + UUID.randomUUID());
+        Users saved = usersRepository.saveAndFlush(users);
+
+        saved.setNumeroSocio(SocioUtils.gerarNumero(saved.getId()));
+        return usersRepository.save(saved);
     }
 
     // Método auxiliar para manter o código principal limpo
@@ -141,7 +164,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse verificarCodigo(UserCredentialsRequest request) {
         Users user = usersRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
 
         if (user.getVerificationCode() == null || !user.getVerificationCode().equals(request.code())) {
             throw new SecurityException("Código de verificação inválido.");
@@ -167,7 +190,7 @@ public class AuthServiceImpl implements AuthService {
                     newUser.setRole(UserRole.USER); // Definindo Enum padrão
                     newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                     newUser.setEnabled(true);
-                    return usersRepository.save(newUser);
+                    return guardarComNumeroSocio(newUser);
                 });
 
         String token = saveToken(user);
@@ -186,10 +209,10 @@ public class AuthServiceImpl implements AuthService {
         try {
             uuid = UUID.fromString(publicId);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("ID Público em formato inválido");
+            throw new IllegalArgumentException("ID Público em formato inválido");
         }
         Users usuario = usersRepository.findByPublicId(uuid)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
         usersRepository.delete(usuario);
     }
@@ -198,7 +221,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public void atualizarUtilizador(String publicId, UserCredentialsRequest request) {
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
         if (request.username() != null) usuario.setUsername(request.username());
         if (request.email() != null) usuario.setEmail(request.email());
@@ -237,7 +260,7 @@ public class AuthServiceImpl implements AuthService {
             String email = (String) fbProfile.get("email");
             return processGoogleLogin(email, email.split("@")[0], accessToken);
         } catch (Exception e) {
-            throw new RuntimeException("Erro Facebook login.");
+            throw new BadCredentialsException("Erro ao validar login do Facebook.");
         }
     }
 
@@ -262,7 +285,7 @@ public class AuthServiceImpl implements AuthService {
     public void atualizarPermissoesUtilizador(String publicId, List<String> novosModulos) {
         UUID uuid = UUID.fromString(publicId);
         Users usuario = usersRepository.findByPublicId(uuid)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
         usuario.setAllowedModules(novosModulos);
         usersRepository.saveAndFlush(usuario);
@@ -271,10 +294,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public void createPasswordResetTokenForUser(String email) {
         Users user = usersRepository.findByEmailIgnoreCase(email).orElse(null);
         if (user == null) return;
-        String token = saveToken(user);
+
+        // Um único link ativo por utilizador: pedidos novos invalidam os anteriores
+        passwordResetTokenRepository.deleteByUsersId(user.getId());
+
+        // Token opaco e aleatório (não é um JWT, não serve para autenticar)
+        byte[] randomBytes = new byte[32];
+        SECURE_RANDOM.nextBytes(randomBytes);
+        String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
+
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setTokenHash(sha256(token));
+        resetToken.setExpiresAt(Instant.now().plus(Duration.ofMinutes(resetTokenExpirationMinutes)));
+        resetToken.setUsers(user);
+        passwordResetTokenRepository.save(resetToken);
+
         emailProducer.publishEmailRequest(user.getUsername(), user.getEmail(), "Reset Password", "Link: ", FRONTEND_BASE_URL + "/reset-password?token=" + token);
     }
 
@@ -291,12 +329,31 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public void resetPassword(String token, String newPassword) {
-        JwtToken jwtToken = jwtTokenService.findByToken(token).orElseThrow();
-        Users user = jwtToken.getUsers();
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByTokenHash(sha256(token))
+                .orElseThrow(() -> new InvalidTokenException("Link de recuperação inválido ou já utilizado."));
+
+        if (resetToken.getExpiresAt().isBefore(Instant.now())) {
+            throw new InvalidTokenException("Link de recuperação expirado. Peça um novo.");
+        }
+
+        Users user = resetToken.getUsers();
         user.setPassword(passwordEncoder.encode(newPassword));
         usersRepository.save(user);
-        tokenRepository.delete(jwtToken);
+
+        // Uso único; e termina a sessão ativa, já que a password mudou
+        passwordResetTokenRepository.delete(resetToken);
+        tokenRepository.deleteByUsersId(user.getId());
+    }
+
+    private static String sha256(String value) {
+        try {
+            byte[] hash = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 não disponível", e);
+        }
     }
 
     @Override
@@ -310,18 +367,17 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void mudarStatusMfa(String username, boolean status) {
-        Users user = usersRepository.findByUsername(username).orElseThrow();
+        Users user = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
         user.setMfaEnabled(status);
         usersRepository.save(user);
     }
 
     @Override
     @Transactional
-    public Map<String, String> setupMfa(String token) {
-        String username = jwtTokenUtil.extractUsername(token);
-
+    public Map<String, String> setupMfa(String username) {
         Users user = usersRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
 
         if (user.getMfaSecret() == null || user.getMfaSecret().isEmpty()) {
             GoogleAuthenticator gAuth = new GoogleAuthenticator();
@@ -345,11 +401,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean verificarCodigoMfa(String username, String code) {
         Users usuario = usersRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
         String secret = usuario.getMfaSecret();
         if (secret == null || secret.isEmpty()) {
-            throw new RuntimeException("MFA não está configurado para este utilizador");
+            throw new ConflictException("MFA não está configurado para este utilizador");
         }
 
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
@@ -364,9 +420,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void activateMfa(String token, String code) {
-        String username = jwtTokenUtil.extractUsername(token);
-        Users user = usersRepository.findByUsername(username).orElseThrow();
+    public void activateMfa(String username, String code) {
+        Users user = usersRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
 
         if (verifyTotpCode(user.getMfaSecret(), code)) {
             user.setMfaEnabled(true);
@@ -396,7 +452,7 @@ public class AuthServiceImpl implements AuthService {
         });
 
         Users user = usersRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
 
         user.setTelegramChatId(chatId);
         user.setUpdatedAt(LocalDateTime.now());
@@ -407,7 +463,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public void unlinkTelegram(String username) {
         Users user = usersRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado."));
         user.setTelegramChatId(null);
         usersRepository.save(user);
     }

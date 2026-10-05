@@ -32,7 +32,6 @@ build/
 # Security and Environment Configs
 # This ensures any .env variations are caught
 .env
-.env.*
 secretKeys.env
 *.pem
 *.key

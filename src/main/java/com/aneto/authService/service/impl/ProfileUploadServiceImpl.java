@@ -29,7 +29,7 @@ public class ProfileUploadServiceImpl implements ProfileUploadService {
     private String s3Folder;
 
     @Override
-    public String uploadImageAndSaveUrl(MultipartFile file, String userName) {
+    public String uploadImageAndSaveUrl(MultipartFile file, String userName) throws IOException {
         String fileExtension = getFileExtension(file.getOriginalFilename());
         String key = s3Folder + userName + "/profile/" + userName + "." + fileExtension;
 
@@ -46,10 +46,8 @@ public class ProfileUploadServiceImpl implements ProfileUploadService {
             authService.UpdateProfile(userName, publicUrl);
 
             return publicUrl;
-
-        } catch (IOException e) {
-            throw new RuntimeException("Falha ao ler o arquivo de imagem.", e);
         }
+        // IOException propaga para o ProfileController, que responde 500
     }
 
     private String getFileExtension(String filename) {
