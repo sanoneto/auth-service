@@ -1,0 +1,28 @@
+name: CI - Spring Boot Build & Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21 (JDK)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Dar permissão de execução ao Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Compilar e Testar com Maven
+        run: ./mvnw clean verify --batch-mode
