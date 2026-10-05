@@ -37,6 +37,11 @@ spring:
         enabled: true
         endpoint: ${AWS_S3_ENDPOINT:http://localhost:4566}
         path-style-access-enabled: true
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
 # AWS Config for your CUSTOM CODE (if using @Value("${cloud.aws.s3.bucket-name}"))
 cloud:
@@ -44,12 +49,6 @@ cloud:
     s3:
       bucket-name: ${AWS_S3_BUCKET_NAME:local-bucket}
       folder-name: ${AWS_S3_FOLDER_NAME:uploads}
-
-rabbitmq:
-  host: ${SPRING_RABBITMQ_HOST:localhost}
-  port: ${SPRING_RABBITMQ_PORT:15672}
-  username: ${SPRING_RABBITMQ_USERNAME:guest}
-  password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
 jwt:
   secret: ${JWT_SECRET:chave_secreta-principal-aneto-registo-horas-seguranca-2025-api-gateway}
@@ -59,14 +58,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus,env,beans
+        include: health
 
 springdoc:
   swagger-ui:
     enabled: true
 
 url:
-  front-end: ${FRONT_END:http://localhost:3000}
+  front-end: ${FRONT_END:http://localhost:5173}
 
 socketio:
   host: 0.0.0.0
