@@ -20,27 +20,29 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 1. Se o push for em develop, cria PR para main
+      # 1. Se o push for no branch develop, cria PR para main
       - name: Criar PR (develop -> main)
         if: github.ref == 'refs/heads/develop'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           gh pr create \
             --base main \
             --head develop \
             --title "🚀 Release: Merge develop into main" \
-            --body "Pull Request automático gerado pelo GitHub Actions após push no branch \`develop\`." || echo "PR já existe ou sem alterações pendentes."
+            --body "Pull Request automático gerado pelo GitHub Actions após push no branch \`develop\`." || echo "PR já existe ou sem alterações."
 
       # 2. Se o push for em qualquer outro branch, cria PR para develop
       - name: Criar PR (feature/fix -> develop)
         if: github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           gh pr create \
             --base develop \
             --head "$BRANCH_NAME" \
             --title "feat/fix: $BRANCH_NAME -> develop" \
-            --body "Pull Request automático gerado para integrar o branch \`$BRANCH_NAME\` no \`develop\`." || echo "PR já existe ou sem alterações pendentes."
+            --body "Pull Request automático gerado para integrar o branch \`$BRANCH_NAME\` no \`develop\`." || echo "PR já existe ou sem alterações."
