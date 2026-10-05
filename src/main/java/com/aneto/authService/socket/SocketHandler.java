@@ -1,6 +1,8 @@
 package com.aneto.authService.socket;
 
+import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.listener.DataListener;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -48,19 +50,10 @@ public class SocketHandler {
 
     private void setupListeners() {
         // --- REGISTO DE UTILIZADOR ---
-        server.addEventListener("register_user", String.class, (client, publicId, ackRequest) -> {
-            String userAgent = client.getHandshakeData().getHttpHeaders().get("User-Agent");
-            String deviceDetail = parseUserAgent(userAgent);
-
-            SocketUserSession session = new SocketUserSession(publicId, deviceDetail, client.getSessionId());
-            onlineUsers.put(publicId, session);
-
-            // Guarda o publicId na sessão do socket para facilitar a desconexão
-            client.set("publicId", publicId);
-
-            log.info("Utilizador conectado: {} [Device: {}] [Session: {}]", publicId, deviceDetail, client.getSessionId());
-            server.getBroadcastOperations().sendEvent("user_connected", publicId);
-        });
+        // "register" é o evento emitido pelo frontend (services/socket.js); "register_user" mantém-se por compatibilidade
+        DataListener<String> registerListener = (client, publicId, ackRequest) -> registerUser(client, publicId);
+        server.addEventListener("register", String.class, registerListener);
+        server.addEventListener("register_user", String.class, registerListener);
 
         // --- PEDIDO DE LISTA ONLINE ---
         server.addEventListener("request_online_users", String.class, (client, data, ackRequest) -> {
@@ -81,6 +74,25 @@ public class SocketHandler {
                 }
             }
         });
+    }
+
+    private void registerUser(SocketIOClient client, String publicId) {
+        String userAgent = client.getHandshakeData().getHttpHeaders().get("User-Agent");
+        String deviceDetail = parseUserAgent(userAgent);
+
+        SocketUserSession session = new SocketUserSession(publicId, deviceDetail, client.getSessionId());
+        onlineUsers.put(publicId, session);
+
+        // Guarda o publicId na sessão do socket para facilitar a desconexão
+        client.set("publicId", publicId);
+
+        log.info("Utilizador conectado: {} [Device: {}] [Session: {}]", publicId, deviceDetail, client.getSessionId());
+        server.getBroadcastOperations().sendEvent("user_connected", publicId);
+    }
+
+    // Método útil para enviar eventos a todos os clientes a partir de outros pontos do sistema
+    public void sendToAll(String event, Object data) {
+        server.getBroadcastOperations().sendEvent(event, data);
     }
 
     private String parseUserAgent(String ua) {

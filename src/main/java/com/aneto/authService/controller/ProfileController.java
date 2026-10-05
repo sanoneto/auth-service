@@ -24,15 +24,15 @@ public class ProfileController {
     // Header injetado pelo Gateway
     private static final String X_USER_ID = "X-User-Id";
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('ESPECIALISTA') or (hasRole('ESTAGIARIO') or hasRole('USER')  and #username == authentication.name)")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ESPECIALISTA') or (hasAnyRole('ESTAGIARIO', 'USER') and #paramUsername == authentication.name)")
     @PostMapping()
     public ResponseEntity<UploadResponse> uploadProfilePic(
             @RequestParam("profilePicture") MultipartFile file,
-            @RequestHeader(name = "X-User-Id", required = false) String headerUsername, // Header do Gateway
             @RequestParam("userName") String paramUsername
     ) {
-        // Escolhe o username do header se existir, caso contrário usa o parâmetro
-        String effectiveUsername = (headerUsername != null) ? headerUsername : paramUsername;
+        // O @PreAuthorize garante que só ADMIN/ESPECIALISTA alteram a foto de outro utilizador;
+        // por isso usa-se o utilizador alvo do pedido (o header X-User-Id é sempre o autor do pedido)
+        String effectiveUsername = paramUsername;
         // 1. Validações (mantidas do código original)
         if (file.isEmpty() || file.getSize() == 0) {
             return new ResponseEntity<>(

@@ -37,9 +37,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     @Query("SELECT u FROM Users u WHERE u.telegramChatId = :chatId")
     Optional<Users> findByTelegramChatIdWithLock(String chatId);
 
-    @Query("SELECT MAX(u.id) FROM Users u")
-    Long findMaxId();
-
     // Procura por número de sócio caso precise de login futuro por este campo
     Optional<Users> findByNumeroSocio(String numeroSocio);
 }

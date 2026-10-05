@@ -1,8 +1,6 @@
 package com.aneto.authService.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsumer;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,14 +11,17 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.List;
 import java.util.UUID;
 
-@Component
+/**
+ * Consumidor de mensagens do bot. Não é um bean Spring: é instanciado apenas pelo
+ * TelegramBotManager, para evitar sessões de long polling duplicadas.
+ */
 @Slf4j
 public class TelegramBotService implements LongPollingUpdateConsumer {
 
     private final TelegramClient telegramClient;
     private final AuthService authService;
 
-    public TelegramBotService(AuthService authService, @Value("${telegram.bot.token}") String botToken) {
+    public TelegramBotService(AuthService authService, String botToken) {
         this.authService = authService;
         this.telegramClient = new OkHttpTelegramClient(botToken);
     }

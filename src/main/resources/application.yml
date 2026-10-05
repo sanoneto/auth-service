@@ -39,7 +39,7 @@ spring:
         path-style-access-enabled: true
   rabbitmq:
     host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:15672}
+    port: ${SPRING_RABBITMQ_PORT:5672}
     username: ${SPRING_RABBITMQ_USERNAME:guest}
     password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
@@ -58,14 +58,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus,env,beans
+        include: health
 
 springdoc:
   swagger-ui:
     enabled: true
 
 url:
-  front-end: ${FRONT_END:http://localhost:3000}
+  front-end: ${URL_FRONT_END}
 
 socketio:
   host: 0.0.0.0
