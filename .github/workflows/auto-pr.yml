@@ -1,4 +1,4 @@
-name: Auto Create Pull Request
+name: Auto Create & Merge Pull Request
 
 on:
   push:
@@ -10,39 +10,48 @@ on:
       - 'develop'
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
-  create-pr:
+  create-and-automerge-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 1. Se o push for no branch develop, cria PR para main
-      - name: Criar PR (develop -> main)
+      # 1. Se o push for em develop -> cria PR e ativa Auto-Merge para main
+      - name: Criar PR e Auto-Merge (develop -> main)
         if: github.ref == 'refs/heads/develop'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
+          # Criar o PR se ainda não existir
           gh pr create \
             --base main \
             --head develop \
             --title "🚀 Release: Merge develop into main" \
-            --body "Pull Request automático gerado pelo GitHub Actions após push no branch \`develop\`." || echo "PR já existe ou sem alterações."
+            --body "Pull Request e Auto-Merge gerados automaticamente após push em \`develop\`." || echo "PR já existe."
 
-      # 2. Se o push for em qualquer outro branch, cria PR para develop
-      - name: Criar PR (feature/fix -> develop)
+          # Ativar o Auto-Merge (fundir assim que os checks de CI passarem)
+          gh pr merge develop --auto --squash --delete-branch=false || echo "Auto-merge já está ativo ou não aplicável."
+
+      # 2. Se o push for em qualquer outro branch -> cria PR e ativa Auto-Merge para develop
+      - name: Criar PR e Auto-Merge (feature/fix -> develop)
         if: github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
+
+          # Criar o PR se ainda não existir
           gh pr create \
             --base develop \
             --head "$BRANCH_NAME" \
             --title "feat/fix: $BRANCH_NAME -> develop" \
-            --body "Pull Request automático gerado para integrar o branch \`$BRANCH_NAME\` no \`develop\`." || echo "PR já existe ou sem alterações."
+            --body "Pull Request e Auto-Merge gerados automaticamente para \`$BRANCH_NAME\`." || echo "PR já existe."
+
+          # Ativar o Auto-Merge (fundir e eliminar o branch temporário após o CI passar)
+          gh pr merge "$BRANCH_NAME" --auto --squash --delete-branch || echo "Auto-merge já está ativo ou não aplicável."
