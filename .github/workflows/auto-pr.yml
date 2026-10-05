@@ -1,0 +1,46 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'develop'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 1. Se o push for em develop, cria PR para main
+      - name: Criar PR (develop -> main)
+        if: github.ref == 'refs/heads/develop'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head develop \
+            --title "🚀 Release: Merge develop into main" \
+            --body "Pull Request automático gerado pelo GitHub Actions após push no branch \`develop\`." || echo "PR já existe ou sem alterações pendentes."
+
+      # 2. Se o push for em qualquer outro branch, cria PR para develop
+      - name: Criar PR (feature/fix -> develop)
+        if: github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          gh pr create \
+            --base develop \
+            --head "$BRANCH_NAME" \
+            --title "feat/fix: $BRANCH_NAME -> develop" \
+            --body "Pull Request automático gerado para integrar o branch \`$BRANCH_NAME\` no \`develop\`." || echo "PR já existe ou sem alterações pendentes."
