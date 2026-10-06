@@ -61,8 +61,10 @@ management:
         include: health
 
 springdoc:
+  api-docs:
+    enabled: ${SPRINGDOC_ENABLED:false}
   swagger-ui:
-    enabled: true
+    enabled: ${SPRINGDOC_ENABLED:false}
 
 url:
   front-end: ${URL_FRONT_END}

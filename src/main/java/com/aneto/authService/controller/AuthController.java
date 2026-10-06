@@ -262,10 +262,8 @@ public class AuthController {
     }
 
     @Operation(summary = "Obtém o Chat ID do Telegram do utilizador")
+    @PreAuthorize("#username == authentication.name or hasAnyRole('ADMIN','INTERNAL')")
     @GetMapping("/telegram-id/{username}")
-    // Anónimo = chamada interna direta do registo-horas-service (não passa pelo Gateway);
-    // pedidos de utilizadores (via Gateway) só podem consultar o próprio chat ID, exceto ADMIN
-    @PreAuthorize("isAnonymous() or hasRole('ADMIN') or #username == authentication.name")
     public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
         String chatId = authService.obterTelegramChatId(username);
         return (chatId == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(chatId);

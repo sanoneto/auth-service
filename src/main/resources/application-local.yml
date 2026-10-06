@@ -61,9 +61,10 @@ management:
         include: health
 
 springdoc:
+  api-docs:
+    enabled: ${SPRINGDOC_ENABLED:true}
   swagger-ui:
-    enabled: true
-
+    enabled: ${SPRINGDOC_ENABLED:true}
 url:
   front-end: ${FRONT_END:http://localhost:5173}
 
@@ -83,3 +84,6 @@ telegram:
   bot:
     enabled: false
     token: ${TELEGRAM_BOT_TOKEN:}
+
+internal:
+  api-key: ${INTERNAL_API_KEY}
