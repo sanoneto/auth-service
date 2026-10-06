@@ -83,3 +83,6 @@ telegram:
   bot:
     username: ${TELEGRAM_CHAT_ID}
     token: ${TELEGRAM_BOT_TOKEN}
+
+internal:
+  api-key: ${INTERNAL_API_KEY}

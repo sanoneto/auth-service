@@ -2,6 +2,8 @@ package com.aneto.authService.security;
 
 import com.aneto.authService.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,9 @@ public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private final GatewayAuthFilter gatewayAuthFilter;
+
+    @Value("${internal.api-key:}")
+    private String internalKey;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -68,7 +73,9 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil),
                         UsernamePasswordAuthenticationFilter.class)
                 // Fallback: pedidos vindos do Gateway chegam sem Authorization, com X-User-Id / X-User-Roles
-                .addFilterAfter(gatewayAuthFilter, JwtAuthenticationFilter.class);
+                .addFilterAfter(gatewayAuthFilter, JwtAuthenticationFilter.class)
+                .addFilterBefore(new InternalKeyFilter(internalKey), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
