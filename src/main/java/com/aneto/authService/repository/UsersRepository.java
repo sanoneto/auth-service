@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.lang.ScopedValue;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,6 +25,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     // 🔑 Importante para o Delete e Edit
     Optional<Users> findByPublicId(UUID publicId);
+
     // 2. Para quando quiseres enviar uma notificação para todos os vinculados
     List<Users> findByTelegramChatIdIsNotNull();
 
