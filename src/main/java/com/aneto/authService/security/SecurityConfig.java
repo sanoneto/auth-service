@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,8 +35,6 @@ public class SecurityConfig {
     private final JwtTokenUtil jwtTokenUtil;
     private final GatewayAuthFilter gatewayAuthFilter;
 
-    // Chave partilhada entre serviços internos (nunca no código; vem da variável INTERNAL_API_KEY).
-    // Sem "final": o @RequiredArgsConstructor só gera construtor para campos final.
     @Value("${internal.api-key:}")
     private String internalKey;
 
@@ -64,31 +61,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Desativa o CSRF
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+
+                // 🔑 CORREÇÃO CRÍTICA: Desativa o CORS no auth-service para não conflituar/duplicar com o Gateway
+                .cors(AbstractHttpConfigurer::disable)
+
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                // Rotas públicas (as mesmas do gateway)
                                 "/api/auth/login", "/api/auth/register", "/api/auth/verify",
                                 "/api/auth/verify-mfa", "/api/auth/google", "/api/auth/facebook",
                                 "/api/auth/recuperar-password", "/api/auth/reset-password",
-                                // Healthcheck do Coolify
                                 "/actuator/health/**",
-                                // Swagger: só fica acessível se springdoc estiver ligado
-                                // (SPRINGDOC_ENABLED=true em local; desligado por omissão em produção)
                                 "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
                         ).permitAll()
-                        // Inclui /api/auth/telegram-id/**: exige JWT, gateway ou X-Internal-Key válida
                         .anyRequest().authenticated()
                 )
-                // Cada filtro é registado uma única vez
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new InternalKeyFilter(internalKey), JwtAuthenticationFilter.class)
-                // Fallback: pedidos do Gateway sem Authorization, com X-User-Id / X-User-Roles
                 .addFilterAfter(gatewayAuthFilter, JwtAuthenticationFilter.class);
 
         return http.build();

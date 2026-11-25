@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
         // Exceções do Spring MVC (método não suportado, rota inexistente, media type inválido, ...)
         // trazem o código HTTP correto (405, 404, 415, ...) em vez de 500
         if (e instanceof org.springframework.web.ErrorResponse springError) {
-            log.warn("Erro HTTP {}: {}", springError.getStatusCode().value(), e.getMessage());
+            log.warn("Erro HTTP GenericException {}: {}", springError.getStatusCode().value(), e.getMessage());
             return build(springError.getStatusCode(), e.getMessage());
         }
         // Não expor detalhes internos ao cliente; o stack trace fica no log
@@ -75,8 +75,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleBadCredentials(BadCredentialsException e) {
-        log.warn("Falha de autenticação: {}", e.getMessage());
-        return build(HttpStatus.UNAUTHORIZED, "Falha de autenticação: " + e.getMessage());
+        log.warn("Falha de BadCredentials: {}", e.getMessage());
+        return build(HttpStatus.UNAUTHORIZED, "Falha de BadCredentials: " + e.getMessage());
     }
 
     @ExceptionHandler(DisabledException.class)
