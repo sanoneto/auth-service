@@ -31,7 +31,6 @@ public class TelegramBotManager implements AutoCloseable {
     @Value("${telegram.bot.token:}")
     private String configuredToken;
 
-    // Injetamos o AuthService para passá-lo ao bot quando ele iniciar
     public TelegramBotManager(AuthService authService) {
         this.authService = authService;
     }
@@ -40,9 +39,6 @@ public class TelegramBotManager implements AutoCloseable {
         return this.active;
     }
 
-    /**
-     * Arranque automático com o token da configuração (substitui o antigo TelegramBotConfig).
-     */
     @EventListener(ApplicationReadyEvent.class)
     public void startOnApplicationReady() {
         if (!enabledOnStartup) {
@@ -62,12 +58,11 @@ public class TelegramBotManager implements AutoCloseable {
 
     public synchronized void startBot(String token) throws Exception {
         String cleanToken = token == null ? "" : token.replaceAll("[\\p{Cntrl}\\s]", "").trim();
-        if (cleanToken.length() <= 10) {
-            throw new Exception("O token do Telegram parece ser demasiado curto ou inválido!");
+        if (cleanToken.length() <= 10 || !cleanToken.contains(":")) {
+            throw new Exception("O token do Telegram tem formato inválido (esperado: <bot_id>:<secret>).");
         }
 
         try {
-            // 1. Limpeza: Se já houver um bot a correr, paramos primeiro
             if (botApp != null) {
                 stopBot();
             }
@@ -76,18 +71,25 @@ public class TelegramBotManager implements AutoCloseable {
             this.currentToken = cleanToken;
             this.botApp = new TelegramBotsLongPollingApplication();
 
-            // 2. REGISTO REAL: Aqui ligamos o Manager ao seu TelegramBotService
-            // Passamos o token e o authService para o consumidor de mensagens
             TelegramBotService botService = new TelegramBotService(authService, cleanToken);
-
             botApp.registerBot(cleanToken, botService);
 
             this.active = true;
             log.info("✅ Bot Telegram registado e a ouvir atualizações!");
         } catch (Exception e) {
             this.active = false;
-            log.error("❌ Falha ao iniciar bot: {}", e.getMessage());
-            throw new Exception("Erro ao validar token com o Telegram: " + e.getMessage());
+            if (this.botApp != null) {
+                try {
+                    this.botApp.close();
+                } catch (Exception ignored) {
+                }
+                this.botApp = null;
+            }
+            String detail = (e.getMessage() != null && !e.getMessage().isBlank())
+                    ? e.getMessage()
+                    : (e.getCause() != null ? e.getCause().toString() : e.getClass().getName());
+            log.error("❌ Falha ao iniciar bot ({}):", detail, e);
+            throw new Exception("Erro ao validar token com o Telegram: " + detail);
         }
     }
 
@@ -107,7 +109,6 @@ public class TelegramBotManager implements AutoCloseable {
     public void sendTestMessage() {
         if (!active) throw new ConflictException("Bot não está iniciado");
         log.info("A disparar teste de conectividade...");
-        // Como o botService é interno ao registro, o teste ideal é verificar o status no dashboard
     }
 
     @Override
