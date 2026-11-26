@@ -82,8 +82,8 @@ google:
 
 telegram:
   bot:
-    enabled: false
-    token: ${TELEGRAM_BOT_TOKEN:}
+    enabled: ${TELEGRAM_BOT_ENABLED:false}
+    token: ${TELEGRAM_BOT_TOKEN}
 
 internal:
   api-key: ${INTERNAL_API_KEY}
