@@ -28,6 +28,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +67,9 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final PasswordVaultRepository passwordVaultRepository;
     private final UserProfileImageRepository userProfileImageRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
@@ -210,11 +215,13 @@ public class AuthServiceImpl implements AuthService {
         Long userId = usuario.getId();
         String uname = usuario.getUsername();
 
-        // Apaga projetos pela FK do utilizador (e também por username para registos legados)
-        projectsRepository.deleteByUsersId(userId);
+        // 1. Apaga quaisquer linhas em qualquer tabela de auth/security com FK numérica para tb_users(id)
+        eliminarReferenciasForeignKeyParaUser(userId);
+
+        // 2. Apaga projetos associados por username (mapeamento atual)
         projectsRepository.deleteByUsernameIgnoreCase(uname);
 
-        // Remove restantes registos dependentes do utilizador
+        // 3. Remove restantes registos dependentes do utilizador
         passwordResetTokenRepository.deleteByUsersId(userId);
         tokenRepository.deleteByUsersId(userId);
         passwordVaultRepository.deleteByOwnerUsernameIgnoreCase(uname);
@@ -222,6 +229,45 @@ public class AuthServiceImpl implements AuthService {
 
         usersRepository.delete(usuario);
         log.info("Utilizador {} (ID={}) e respetivas dependências eliminados.", uname, userId);
+    }
+
+    /**
+     * Descobre dinamicamente no catálogo do PostgreSQL todas as colunas de FK que apontam
+     * para auth.tb_users(id) (como user_id/users_id legados em auth.tb_projetos) e remove
+     * as linhas correspondentes antes de apagar o utilizador.
+     */
+    @SuppressWarnings("unchecked")
+    private void eliminarReferenciasForeignKeyParaUser(Long userId) {
+        List<Object[]> fks = entityManager.createNativeQuery("""
+                SELECT n.nspname, c.relname, a.attname
+                FROM pg_constraint con
+                JOIN pg_class c ON c.oid = con.conrelid
+                JOIN pg_namespace n ON n.oid = c.relnamespace
+                JOIN pg_attribute a ON a.attrelid = c.oid AND a.attnum = ANY(con.conkey)
+                JOIN pg_attribute af ON af.attrelid = con.confrelid AND af.attnum = ANY(con.confkey)
+                WHERE con.contype = 'f'
+                  AND con.confrelid = 'auth.tb_users'::regclass
+                  AND af.attname = 'id'
+                """).getResultList();
+
+        for (Object[] row : fks) {
+            String schema = String.valueOf(row[0]);
+            String table = String.valueOf(row[1]);
+            String column = String.valueOf(row[2]);
+
+            // Evita apagar a tabela de permissões aqui pois o JPA gere-a na remoção da entidade Users
+            if ("auth".equals(schema) && "user_allowed_modules".equals(table)) {
+                continue;
+            }
+
+            String sql = String.format("DELETE FROM %s.%s WHERE %s = :userId", schema, table, column);
+            int deleted = entityManager.createNativeQuery(sql)
+                    .setParameter("userId", userId)
+                    .executeUpdate();
+            if (deleted > 0) {
+                log.info("Removidos {} registos legados de {}.{} ({}={})", deleted, schema, table, column, userId);
+            }
+        }
     }
 
     @Override
