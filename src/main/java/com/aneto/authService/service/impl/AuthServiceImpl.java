@@ -4,18 +4,21 @@ import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.dto.response.RegistrationResponse;
+import com.aneto.authService.enums.UserRole;
 import com.aneto.authService.exception.ConflictException;
 import com.aneto.authService.exception.InvalidTokenException;
 import com.aneto.authService.exception.ResourceNotFoundException;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.PasswordResetToken;
+import com.aneto.authService.models.Projects;
 import com.aneto.authService.models.SocioUtils;
-import com.aneto.authService.enums.UserRole;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.JwtTokenRepository;
 import com.aneto.authService.repository.PasswordResetTokenRepository;
+import com.aneto.authService.repository.PasswordVaultRepository;
 import com.aneto.authService.repository.ProjectsRepository;
+import com.aneto.authService.repository.UserProfileImageRepository;
 import com.aneto.authService.repository.UsersRepository;
 import com.aneto.authService.security.JwtTokenUtil;
 import com.aneto.authService.service.AuthService;
@@ -61,6 +64,8 @@ public class AuthServiceImpl implements AuthService {
     private final ProjectsRepository projectsRepository;
     private final RestTemplate restTemplate;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
+    private final PasswordVaultRepository passwordVaultRepository;
+    private final UserProfileImageRepository userProfileImageRepository;
 
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
@@ -106,13 +111,11 @@ public class AuthServiceImpl implements AuthService {
             throw new ConflictException("O nome de utilizador já está em uso.");
         }
 
-        // Validação de códigos de convite baseada no Enum
         UserRole roleSolicitada = request.role();
         if (roleSolicitada == UserRole.ADMIN && !CODEADMIN.equals(request.inviteCode())) {
             throw new SecurityException("Código de autorização inválido para ADMINISTRADOR.");
         }
 
-        // Exemplo de como tratar roles que não estão no Enum original se necessário
         if (roleSolicitada.name().equals("ESPECIALISTA") && !CODEESPECIALISTA.equals(request.inviteCode())) {
             throw new SecurityException("Código de autorização inválido para ESPECIALISTA.");
         }
@@ -124,22 +127,14 @@ public class AuthServiceImpl implements AuthService {
         users.setVerificationCode(vCode);
         users.setEnabled(false);
 
-        // Persiste e gera o número de sócio a partir do ID atribuído pela DB
         users = guardarComNumeroSocio(users);
 
-        // Notificação
         enviarEmailBoasVindas(users, users.getNumeroSocio(), vCode);
 
         return new RegistrationResponse("Registo realizado. Verifique o seu e-mail.", users.getUsername());
     }
 
-    /**
-     * Guarda um novo utilizador e atribui-lhe o número de sócio com base no ID gerado pela DB.
-     * O ID (IDENTITY) é único e atómico, evitando colisões em registos concorrentes.
-     * Deve ser chamado dentro de uma transação.
-     */
     private Users guardarComNumeroSocio(Users users) {
-        // Valor temporário único apenas para satisfazer a restrição NOT NULL/UNIQUE no primeiro INSERT
         users.setNumeroSocio("PENDENTE-" + UUID.randomUUID());
         Users saved = usersRepository.saveAndFlush(users);
 
@@ -147,7 +142,6 @@ public class AuthServiceImpl implements AuthService {
         return usersRepository.save(saved);
     }
 
-    // Método auxiliar para manter o código principal limpo
     private void enviarEmailBoasVindas(Users u, String socioNum, String code) {
         String html = String.format(
                 "<div style='font-family: Arial, sans-serif; color: #333;'> " +
@@ -187,7 +181,7 @@ public class AuthServiceImpl implements AuthService {
                     Users newUser = new Users();
                     newUser.setEmail(email);
                     newUser.setUsername(email.split("@")[0]);
-                    newUser.setRole(UserRole.USER); // Definindo Enum padrão
+                    newUser.setRole(UserRole.USER);
                     newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                     newUser.setEnabled(true);
                     return guardarComNumeroSocio(newUser);
@@ -214,7 +208,23 @@ public class AuthServiceImpl implements AuthService {
         Users usuario = usersRepository.findByPublicId(uuid)
                 .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
+        String uname = usuario.getUsername();
+
+        // Remove projetos associados antes de apagar o utilizador (evita violação da FK fkssghj14q66w8ubi8d7mf6r151)
+        List<Projects> userProjects = projectsRepository.findByUsername(uname);
+        if (!userProjects.isEmpty()) {
+            projectsRepository.deleteAll(userProjects);
+            projectsRepository.flush();
+        }
+
+        // Remove restantes registos dependentes do utilizador
+        passwordResetTokenRepository.deleteByUsersId(usuario.getId());
+        tokenRepository.deleteByUsersId(usuario.getId());
+        passwordVaultRepository.deleteByOwnerUsernameIgnoreCase(uname);
+        userProfileImageRepository.deleteByUsernameIgnoreCase(uname);
+
         usersRepository.delete(usuario);
+        log.info("Utilizador {} (ID={}) e respetivas dependências eliminados.", uname, usuario.getId());
     }
 
     @Override
@@ -225,7 +235,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (request.username() != null) usuario.setUsername(request.username());
         if (request.email() != null) usuario.setEmail(request.email());
-        if (request.role() != null) usuario.setRole(request.role()); // Atualiza o Enum
+        if (request.role() != null) usuario.setRole(request.role());
 
         usersRepository.save(usuario);
     }
@@ -299,10 +309,8 @@ public class AuthServiceImpl implements AuthService {
         Users user = usersRepository.findByEmailIgnoreCase(email).orElse(null);
         if (user == null) return;
 
-        // Um único link ativo por utilizador: pedidos novos invalidam os anteriores
         passwordResetTokenRepository.deleteByUsersId(user.getId());
 
-        // Token opaco e aleatório (não é um JWT, não serve para autenticar)
         byte[] randomBytes = new byte[32];
         SECURE_RANDOM.nextBytes(randomBytes);
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
@@ -319,7 +327,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public String saveToken(Users users) {
-        // Converte o Enum Role para String para o JWT
         String roleName = users.getRole() != null ? users.getRole().name() : "USER";
         List<String> roles = List.of(roleName);
 
@@ -342,7 +349,6 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(newPassword));
         usersRepository.save(user);
 
-        // Uso único; e termina a sessão ativa, já que a password mudou
         passwordResetTokenRepository.delete(resetToken);
         tokenRepository.deleteByUsersId(user.getId());
     }
