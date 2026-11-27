@@ -69,8 +69,8 @@ public class ProfileController {
         }
 
         try {
-            String baseApiUrl = resolvePublicBaseUrl(request);
-            String publicUrl = profileUploadService.saveImageToDatabase(file, paramUsername, imageType, baseApiUrl);
+            // Guarda caminho relativo (/api/v1/profile/image/{username}/{type}) para funcionar em qualquer ambiente/domínio
+            String publicUrl = profileUploadService.saveImageToDatabase(file, paramUsername, imageType, "");
             log.info("Imagem [{}] guardada na DB para {} -> {}", imageType, paramUsername, publicUrl);
             return ResponseEntity.ok(new UploadResponse(publicUrl, "Imagem atualizada com sucesso!"));
         } catch (IOException e) {
@@ -109,13 +109,13 @@ public class ProfileController {
 
         return ResponseEntity.ok()
                 .contentType(mediaType)
-                .cacheControl(CacheControl.maxAge(30, TimeUnit.DAYS).cachePublic())
+                .cacheControl(CacheControl.noCache())
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + username + "-" + imageType.toPathSegment() + "\"")
                 .body(img.getData());
     }
 
     @GetMapping("/appearance/{username}")
-    public ResponseEntity <Map<String, String>>getAppearance(@PathVariable String username) {
+    public ResponseEntity<?> getAppearance(@PathVariable String username) {
         return ResponseEntity.ok(profileUploadService.getAppearanceUrls(username));
     }
 
@@ -128,20 +128,5 @@ public class ProfileController {
         ProfileImageType imageType = ProfileImageType.fromString(type);
         profileUploadService.removeImage(username, imageType);
         return ResponseEntity.noContent().build();
-    }
-
-    private String resolvePublicBaseUrl(HttpServletRequest request) {
-        String forwardedProto = request.getHeader("X-Forwarded-Proto");
-        String forwardedHost = request.getHeader("X-Forwarded-Host");
-        if (forwardedHost != null && !forwardedHost.isBlank()) {
-            String proto = (forwardedProto != null && !forwardedProto.isBlank()) ? forwardedProto : "https";
-            return proto + "://" + forwardedHost.split(",")[0].trim();
-        }
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int port = request.getServerPort();
-        boolean isDefaultPort = ("http".equalsIgnoreCase(scheme) && port == 80)
-                || ("https".equalsIgnoreCase(scheme) && port == 443);
-        return isDefaultPort ? (scheme + "://" + serverName) : (scheme + "://" + serverName + ":" + port);
     }
 }
