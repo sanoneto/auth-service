@@ -10,7 +10,6 @@ import com.aneto.authService.exception.InvalidTokenException;
 import com.aneto.authService.exception.ResourceNotFoundException;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.PasswordResetToken;
-import com.aneto.authService.models.Projects;
 import com.aneto.authService.models.SocioUtils;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
@@ -208,23 +207,21 @@ public class AuthServiceImpl implements AuthService {
         Users usuario = usersRepository.findByPublicId(uuid)
                 .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
+        Long userId = usuario.getId();
         String uname = usuario.getUsername();
 
-        // Remove projetos associados antes de apagar o utilizador (evita violação da FK fkssghj14q66w8ubi8d7mf6r151)
-        List<Projects> userProjects = projectsRepository.findByUsername(uname);
-        if (!userProjects.isEmpty()) {
-            projectsRepository.deleteAll(userProjects);
-            projectsRepository.flush();
-        }
+        // Apaga projetos pela FK do utilizador (e também por username para registos legados)
+        projectsRepository.deleteByUsersId(userId);
+        projectsRepository.deleteByUsernameIgnoreCase(uname);
 
         // Remove restantes registos dependentes do utilizador
-        passwordResetTokenRepository.deleteByUsersId(usuario.getId());
-        tokenRepository.deleteByUsersId(usuario.getId());
+        passwordResetTokenRepository.deleteByUsersId(userId);
+        tokenRepository.deleteByUsersId(userId);
         passwordVaultRepository.deleteByOwnerUsernameIgnoreCase(uname);
         userProfileImageRepository.deleteByUsernameIgnoreCase(uname);
 
         usersRepository.delete(usuario);
-        log.info("Utilizador {} (ID={}) e respetivas dependências eliminados.", uname, usuario.getId());
+        log.info("Utilizador {} (ID={}) e respetivas dependências eliminados.", uname, userId);
     }
 
     @Override
