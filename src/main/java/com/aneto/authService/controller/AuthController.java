@@ -2,8 +2,8 @@ package com.aneto.authService.controller;
 
 import com.aneto.authService.dto.request.LoginRequest;
 import com.aneto.authService.dto.request.PasswordResetRequest;
+import com.aneto.authService.dto.request.UpdateUserRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
-import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.Users;
@@ -17,9 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +41,12 @@ public class AuthController {
     @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-        // Realiza a autenticação via Spring Security
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
         );
 
         Users usuario = authService.findPorUsername(loginRequest.username());
 
-        // Verifica se o MFA está ativo para este utilizador
         if (Boolean.TRUE.equals(usuario.getMfaEnabled())) {
             log.info("MFA requerido para o utilizador: {}", usuario.getUsername());
             return ResponseEntity.ok(Map.of(
@@ -59,26 +57,22 @@ public class AuthController {
 
         String token = authService.saveToken(usuario);
 
-        // EMITIR EVENTO ONLINE VIA SOCKET
         socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
 
-        // O usuario.getRole() agora retorna o Enum UserRole
-        String  message = "Logado";
-       log.info("Utilizador com numeroSocio {} realizou login com o numero .", usuario.getNumeroSocio());
-        return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
+        String message = "Logado";
+        log.info("Utilizador com numeroSocio {} realizou login com o numero .", usuario.getNumeroSocio());
+        return ResponseEntity.ok(requestMapper.mapToUserResponse(usuario, token, message));
     }
+
     @Operation(summary = "Realiza o logout do utilizador")
     @PostMapping("/logout/{publicId}")
     public ResponseEntity<?> logout(@PathVariable String publicId, Authentication authentication) {
-        // O utilizador autenticado só pode terminar a sua própria sessão
-        // (o authentication.getName() é o username, por isso compara-se com o publicId da conta)
         Users usuario = authService.findPorUsername(authentication.getName());
         if (!usuario.getPublicId().toString().equalsIgnoreCase(publicId)) {
             log.warn("Utilizador {} tentou fazer logout do publicId {}", usuario.getUsername(), publicId);
             throw new AccessDeniedException("Não pode terminar a sessão de outro utilizador.");
         }
 
-        // Dispara o evento para o Painel Admin mudar a cor da bolinha para cinzento/offline
         socketIOServer.getBroadcastOperations().sendEvent("user_disconnected", publicId);
 
         log.info("Utilizador com PublicID {} realizou logout.", publicId);
@@ -87,7 +81,7 @@ public class AuthController {
 
     @Operation(summary = "Verifica o código MFA e finaliza o login")
     @PostMapping("/verify-mfa")
-    public ResponseEntity<LoginResponse> verifyMfa(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> verifyMfa(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String code = request.get("code");
 
@@ -97,12 +91,11 @@ public class AuthController {
             Users usuario = authService.findPorUsername(username);
             String token = authService.saveToken(usuario);
 
-            // EMITIR EVENTO ONLINE VIA SOCKET
             socketIOServer.getBroadcastOperations().sendEvent("user_connected", usuario.getPublicId());
 
-            String  message = "Logado";
+            String message = "Logado";
             log.info("Utilizador com numeroSocio {} realizou login .", usuario.getNumeroSocio());
-            return ResponseEntity.ok( requestMapper.mapToUserResponse(usuario,token,message) );
+            return ResponseEntity.ok(requestMapper.mapToUserResponse(usuario, token, message));
         } else {
             log.warn("Tentativa de login MFA falhou para o utilizador: {}", username);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -127,8 +120,7 @@ public class AuthController {
 
     @Operation(summary = "Gera o QR Code para configurar o MFA")
     @GetMapping("/mfa-setup")
-    public ResponseEntity<Map<String, String>> setupMfa(Authentication authentication) {
-        // O utilizador vem do SecurityContext (JWT ou headers do Gateway, que remove o Authorization)
+    public ResponseEntity<?> setupMfa(Authentication authentication) {
         return ResponseEntity.ok(authService.setupMfa(authentication.getName()));
     }
 
@@ -150,7 +142,6 @@ public class AuthController {
             @RequestParam String username,
             @RequestParam boolean status) {
 
-        // 1. Obtém o utilizador autenticado diretamente do Spring Security
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String authenticatedUser;
 
@@ -160,7 +151,6 @@ public class AuthController {
             authenticatedUser = principal.toString();
         }
 
-        // 2. Validação de segurança: o utilizador logado só pode alterar a si próprio
         if (!authenticatedUser.equals(username)) {
             log.warn("Utilizador {} tentou alterar MFA de {}", authenticatedUser, username);
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -207,7 +197,9 @@ public class AuthController {
     @Operation(summary = "Edita os dados de um utilizador existente")
     @PutMapping("/users/{publicId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> editarUtilizador(@PathVariable String publicId, @RequestBody @Valid UserCredentialsRequest request) {
+    public ResponseEntity<?> editarUtilizador(
+            @PathVariable String publicId,
+            @RequestBody @Valid UpdateUserRequest request) {
         authService.atualizarUtilizador(publicId, request);
         return ResponseEntity.ok("Utilizador atualizado!");
     }
@@ -223,9 +215,8 @@ public class AuthController {
 
     @Operation(summary = "Lista todos os utilizadores registados")
     @GetMapping("/users")
-    // ESPECIALISTA precisa da lista para escolher/associar alunos aos planos de treino (StepRenderer, AssociarContaModal)
     @PreAuthorize("hasAnyRole('ADMIN', 'ESPECIALISTA')")
-    public ResponseEntity<List<UsersResponse>> getListUsers() {
+    public ResponseEntity<?> getListUsers() {
         return ResponseEntity.ok(authService.findAll());
     }
 
@@ -235,27 +226,24 @@ public class AuthController {
 
     @Operation(summary = "Login/Registo via Google OAuth2")
     @PostMapping("/google")
-    public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> data) {
-
+    public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> data) {
         LoginResponse response = authService.getLoginResponse(data);
         if (response != null && response.publicId() != null) {
             socketIOServer.getBroadcastOperations().sendEvent("user_connected", response.publicId());
         }
         return ResponseEntity.ok(response);
-
     }
 
     @Operation(summary = "Login/Registo via Facebook")
     @PostMapping("/facebook")
-    public ResponseEntity<LoginResponse> facebookLogin(@RequestBody Map<String, String> data) {
+    public ResponseEntity<?> facebookLogin(@RequestBody Map<String, String> data) {
         return ResponseEntity.ok(authService.processarLoginFacebook(data));
     }
 
-
     @Operation(summary = "Remove o vínculo da conta com o Telegram")
-    @PostMapping("/desvincular-telegram/{username}") // Garante que este caminho existe
+    @PostMapping("/desvincular-telegram/{username}")
     @PreAuthorize("hasRole('ADMIN') or #username == authentication.name")
-    public ResponseEntity<?> unlinkTelegram(@PathVariable("username") String username) { // Adicionei o nome explicitamente
+    public ResponseEntity<?> unlinkTelegram(@PathVariable("username") String username) {
         log.info("Recebida solicitação para desvincular telegram do user: {}", username);
         authService.unlinkTelegram(username);
         return ResponseEntity.ok("Telegram desvinculado.");
@@ -264,7 +252,7 @@ public class AuthController {
     @Operation(summary = "Obtém o Chat ID do Telegram do utilizador")
     @PreAuthorize("#username == authentication.name or hasAnyRole('ADMIN','INTERNAL')")
     @GetMapping("/telegram-id/{username}")
-    public ResponseEntity<String> getTelegramChatId(@PathVariable String username) {
+    public ResponseEntity<?> getTelegramChatId(@PathVariable String username) {
         String chatId = authService.obterTelegramChatId(username);
         return (chatId == null) ? ResponseEntity.noContent().build() : ResponseEntity.ok(chatId);
     }
