@@ -1,5 +1,6 @@
 package com.aneto.authService.service.impl;
 
+import com.aneto.authService.dto.request.UpdateUserRequest;
 import com.aneto.authService.dto.request.UserCredentialsRequest;
 import com.aneto.authService.dto.request.UsersResponse;
 import com.aneto.authService.dto.response.LoginResponse;
@@ -215,13 +216,9 @@ public class AuthServiceImpl implements AuthService {
         Long userId = usuario.getId();
         String uname = usuario.getUsername();
 
-        // 1. Apaga quaisquer linhas em qualquer tabela de auth/security com FK numérica para tb_users(id)
         eliminarReferenciasForeignKeyParaUser(userId);
-
-        // 2. Apaga projetos associados por username (mapeamento atual)
         projectsRepository.deleteByUsernameIgnoreCase(uname);
 
-        // 3. Remove restantes registos dependentes do utilizador
         passwordResetTokenRepository.deleteByUsersId(userId);
         tokenRepository.deleteByUsersId(userId);
         passwordVaultRepository.deleteByOwnerUsernameIgnoreCase(uname);
@@ -231,11 +228,6 @@ public class AuthServiceImpl implements AuthService {
         log.info("Utilizador {} (ID={}) e respetivas dependências eliminados.", uname, userId);
     }
 
-    /**
-     * Descobre dinamicamente no catálogo do PostgreSQL todas as colunas de FK que apontam
-     * para auth.tb_users(id) (como user_id/users_id legados em auth.tb_projetos) e remove
-     * as linhas correspondentes antes de apagar o utilizador.
-     */
     @SuppressWarnings("unchecked")
     private void eliminarReferenciasForeignKeyParaUser(Long userId) {
         List<Object[]> fks = entityManager.createNativeQuery("""
@@ -255,7 +247,6 @@ public class AuthServiceImpl implements AuthService {
             String table = String.valueOf(row[1]);
             String column = String.valueOf(row[2]);
 
-            // Evita apagar a tabela de permissões aqui pois o JPA gere-a na remoção da entidade Users
             if ("auth".equals(schema) && "user_allowed_modules".equals(table)) {
                 continue;
             }
@@ -272,15 +263,25 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void atualizarUtilizador(String publicId, UserCredentialsRequest request) {
+    public void atualizarUtilizador(String publicId, UpdateUserRequest request) {
         Users usuario = usersRepository.findByPublicId(UUID.fromString(publicId))
                 .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
-        if (request.username() != null) usuario.setUsername(request.username());
-        if (request.email() != null) usuario.setEmail(request.email());
-        if (request.role() != null) usuario.setRole(request.role());
+        if (request.username() != null && !request.username().isBlank()) {
+            usuario.setUsername(request.username().trim());
+        }
+        if (request.email() != null && !request.email().isBlank()) {
+            usuario.setEmail(request.email().trim());
+        }
+        if (request.role() != null) {
+            usuario.setRole(request.role());
+        }
+        if (request.password() != null && !request.password().isBlank()) {
+            usuario.setPassword(passwordEncoder.encode(request.password()));
+        }
 
         usersRepository.save(usuario);
+        log.info("Utilizador {} (publicId={}) atualizado.", usuario.getUsername(), publicId);
     }
 
     @Override
