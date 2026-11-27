@@ -10,7 +10,7 @@ import com.aneto.authService.exception.ResourceNotFoundException;
 import com.aneto.authService.mapper.RequestMapper;
 import com.aneto.authService.models.PasswordResetToken;
 import com.aneto.authService.models.SocioUtils;
-import com.aneto.authService.models.UserRole;
+import com.aneto.authService.enums.UserRole;
 import com.aneto.authService.models.Users;
 import com.aneto.authService.queue.EmailProducer;
 import com.aneto.authService.repository.JwtTokenRepository;

@@ -1,6 +1,6 @@
 package com.aneto.authService.dto.request;
 
-import com.aneto.authService.models.UserRole;
+import com.aneto.authService.enums.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
