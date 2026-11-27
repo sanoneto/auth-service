@@ -1,4 +1,4 @@
-package com.aneto.authService.models;
+package com.aneto.authService.enums;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

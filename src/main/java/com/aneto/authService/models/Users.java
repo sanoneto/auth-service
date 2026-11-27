@@ -1,5 +1,6 @@
 package com.aneto.authService.models;
 
+import com.aneto.authService.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -48,10 +49,6 @@ public class Users {
     @Column(unique = true, nullable = false)
     private String numeroSocio;
 
-    /**
-     * Alterado de String para UserRole Enum.
-     * @Enumerated(EnumType.STRING) garante que o nome (ex: ADMIN) seja salvo no banco.
-     */
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -60,6 +57,16 @@ public class Users {
 
     @Setter
     private String profile_picture_url;
+
+    @Setter
+    @Getter
+    @Column(name = "cover_picture_url")
+    private String coverPictureUrl;
+
+    @Setter
+    @Getter
+    @Column(name = "background_picture_url")
+    private String backgroundPictureUrl;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
@@ -119,7 +126,7 @@ public class Users {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.numeroSocio= numeroSocio;
+        this.numeroSocio = numeroSocio;
         this.role = role;
         this.verificationCode = verificationCode;
         this.profile_picture_url = profilePictureUrl;
@@ -151,7 +158,7 @@ public class Users {
     public UUID getPublicId() { return publicId; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public UserRole getRole() { return role; } // Retorna o Enum
+    public UserRole getRole() { return role; }
     public List<JwtToken> getJwtToken() { return jwtToken; }
     public String getProfile_picture_url() { return profile_picture_url; }
     public String getUsername() { return username; }

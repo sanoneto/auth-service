@@ -1,7 +1,5 @@
 package com.aneto.authService.dto.response;
 
-import com.aneto.authService.models.UserRole;
-
 import java.util.List;
 
 public record LoginResponse(

@@ -1,7 +1,7 @@
 package com.aneto.authService.service.impl;
 
 import com.aneto.authService.models.Users;
-import com.aneto.authService.models.UserRole;
+import com.aneto.authService.enums.UserRole;
 import com.aneto.authService.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
