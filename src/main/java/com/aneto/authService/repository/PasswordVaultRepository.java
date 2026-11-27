@@ -12,4 +12,6 @@ public interface PasswordVaultRepository extends JpaRepository<PasswordVaultEntr
     List<PasswordVaultEntry> findAllByOwnerUsernameIgnoreCaseOrderByFavoriteDescUpdatedAtDesc(String ownerUsername);
 
     Optional<PasswordVaultEntry> findByPublicIdAndOwnerUsernameIgnoreCase(UUID publicId, String ownerUsername);
+
+    void deleteByOwnerUsernameIgnoreCase(String ownerUsername);
 }
